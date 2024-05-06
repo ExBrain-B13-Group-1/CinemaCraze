@@ -1,3 +1,57 @@
 *{
     margin: 0;
+    color: white;
+}
+body{
+    width: 100%;
+    background-color: black;
+}
+.header{
+    vertical-align: middle;
+    font-family: monospace;
+    font-size: 2.5vh;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid white;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.header img{
+    margin-left: 50px;
+    height: 70px;
+}
+.right-header{
+    display: flex;
+    justify-content: center;
+}
+.booking,.movie-search,.about-us,.contact{
+    margin-right: 70px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+ion-icon{
+    margin: auto;
+}
+.menu-icon{
+    display: none;
+}
+@media screen and (max-width:1300px) {
+    .text{
+        transition: all 2s;
+        display: none;
+    }
+    .icons{
+        font-size: 4vh;
+    }
+}
+@media screen and (max-width:900px) {
+    .icons{
+        display: none;
+    }
+    .menu-icon{
+        display: block;
+        margin-right: 50px;
+        font-size: 5vh;
+    }
 }
