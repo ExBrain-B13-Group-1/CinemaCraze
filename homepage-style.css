@@ -1,6 +1,9 @@
 *{
     margin: 0;
     color: white;
+    font-family: monospace;
+    --clr-neon: hsl(0, 97%, 51%);
+    --clr-neon-green: hsl(122, 94%, 51%);
 }
 body{
     width: 100%;
@@ -8,13 +11,15 @@ body{
 }
 .header{
     vertical-align: middle;
-    font-family: monospace;
+    background-color: black;
     font-size: 2.5vh;
     display: flex;
     justify-content: space-between;
-    border: 1px solid white;
     padding-top: 1vh;
     padding-bottom: 1vh;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 .header img{
     margin-left: 50px;
@@ -36,6 +41,9 @@ ion-icon{
 .menu-icon{
     display: none;
 }
+.smoke-icon,.exit-icon{
+    display: none;
+}
 @media screen and (max-width:1300px) {
     .text{
         transition: all 2s;
@@ -54,4 +62,57 @@ ion-icon{
         margin-right: 50px;
         font-size: 5vh;
     }
+}
+.signs{
+    margin-top: 1.5vh;
+    display: flex;
+    justify-content: space-between;
+}
+.no-smoking-sign{
+    margin-left: 50px;
+}
+.exit-sign{
+    margin-right: 50px;
+    color: rgb(10, 187, 10) !important;
+    box-shadow: inset 0 0 0.5em 0 var(--clr-neon-green), 0 0 0.5em 0 var(--clr-neon-green) !important;
+}
+.sign{
+    font-size: 2.3em;
+    color: red;
+    text-decoration: none;
+    border: currentColor 0.125em solid;
+    padding: 0.15em 0.5em;
+    border-radius: 0.25em;
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+    box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+}
+.now-showing{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #232533;
+    overflow-x: hidden;
+    height: 100vh;
+}
+input{
+    display: none;
+}
+.now-showing{
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+}
+#s1:checked~.posters #poster3,
+#s2:checked~.posters #poster4,
+#s3:checked~.posters #poster5,
+#s4:checked~.posters #poster1,
+#s5:checked~.posters #poster2{
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 45%);
+    transform: translate3d(-70%, 0, -220px);
+    --current-color1:#eceaed;
+    --current-color2:#404457;
 }
