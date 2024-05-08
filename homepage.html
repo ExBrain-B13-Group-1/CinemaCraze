@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CinemaCraze</title>
-    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="homepage-style.css" />
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
     <div class="header">
-        <p class="site-name"><img src="./assets/logo2.svg" alt=""></p>
+        <p class="site-name"><img src="./assets/logo2.svg" alt="" /></p>
         <div class="right-header">
             <p class="booking">
                 <ion-icon name="book-sharp" class="icons"></ion-icon>
@@ -33,6 +33,115 @@
             <ion-icon name="menu-sharp" class="menu-icon"></ion-icon>
         </div>
     </div>
+    <div class="now-showing">
+        <input type="radio" name="slider" id="s1" checked />
+        <input type="radio" name="slider" id="s2" />
+        <input type="radio" name="slider" id="s3" />
+        <input type="radio" name="slider" id="s4" />
+        <input type="radio" name="slider" id="s5" />
+        <div class="posters">
+            <label for="s1" id="poster1" class="label">
+                <div class="poster">
+                    <div class="image">
+                        <img src="./assets/Inception.jpg" alt="" />
+                    </div>
+                    <div class="info">
+                        <span class="name">Inception</span>
+                        <div class="show-time">
+                            <label for="showtimes">Show Times:</label>
+                            <select name="showtimes" id="showTimes">
+                                <option value="9:00-12:30">9:00-12:30</option>
+                                <option value="1:30-5:00">1:30-5:00</option>
+                                <option value="6:00-9:30">6:00-9:30</option>
+                            </select>
+                        </div>
+                        <a href="/booking" class="btn-booking">Booking</a>
+                        <div class="actions"></div>
+                    </div>
+                </div>
+            </label>
+            <label for="s2" id="poster2" class="label">
+                <div class="poster">
+                    <div class="image">
+                        <img src="./assets/Inception.jpg" alt="" />
+                    </div>
+                    <div class="info">
+                        <span class="name">Inception</span>
+                        <div class="show-time">
+                            <label for="showtimes">Show Times:</label>
+                            <select name="showtimes" id="showTimes">
+                                <option value="9:00-12:30">9:00-12:30</option>
+                                <option value="1:30-5:00">1:30-5:00</option>
+                                <option value="6:00-9:30">6:00-9:30</option>
+                            </select>
+                        </div>
+                        <a href="/booking" class="btn-booking">Booking</a>
+                        <div class="actions"></div>
+                    </div>
+                </div>
+            </label>
+            <label for="s3" id="poster3" class="label">
+                <div class="poster">
+                    <div class="image">
+                        <img src="./assets/Wallpaper JP.jpg" alt="" />
+                    </div>
+                    <div class="info">
+                        <span class="name">Inception</span>
+                        <div class="show-time">
+                            <label for="showtimes">Show Times:</label>
+                            <select name="showtimes" id="showTimes">
+                                <option value="9:00-12:30">9:00-12:30</option>
+                                <option value="1:30-5:00">1:30-5:00</option>
+                                <option value="6:00-9:30">6:00-9:30</option>
+                            </select>
+                        </div>
+                        <a href="/booking" class="btn-booking">Booking</a>
+                        <div class="actions"></div>
+                    </div>
+                </div>
+            </label>
+            <label for="s4" id="poster4" class="label">
+                <div class="poster">
+                    <div class="image">
+                        <img src="./assets/Inception.jpg" alt="" />
+                    </div>
+                    <div class="info">
+                        <span class="name">Inception</span>
+                        <div class="show-time">
+                            <label for="showtimes">Show Times:</label>
+                            <select name="showtimes" id="showTimes">
+                                <option value="9:00-12:30">9:00-12:30</option>
+                                <option value="1:30-5:00">1:30-5:00</option>
+                                <option value="6:00-9:30">6:00-9:30</option>
+                            </select>
+                        </div>
+                        <a href="/booking" class="btn-booking">Booking</a>
+                        <div class="actions"></div>
+                    </div>
+                </div>
+            </label>
+            <label for="s5" id="poster5" class="label">
+                <div class="poster">
+                    <div class="image">
+                        <img src="./assets/Inception.jpg" alt="" />
+                    </div>
+                    <div class="info">
+                        <span class="name">Inception</span>
+                        <div class="show-time">
+                            <label for="showtimes">Show Times:</label>
+                            <select name="showtimes" id="showTimes">
+                                <option value="9:00-12:30">9:00-12:30</option>
+                                <option value="1:30-5:00">1:30-5:00</option>
+                                <option value="6:00-9:30">6:00-9:30</option>
+                            </select>
+                        </div>
+                        <a href="/booking" class="btn-booking">Booking</a>
+                        <div class="actions"></div>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
     <div class="signs">
         <div class="no-smoking">
             <span class="no-smoking-sign sign">No Smoking</span>
@@ -43,124 +152,10 @@
             <ion-icon name="exit" class="exit-icon"></ion-icon>
         </div>
     </div>
-    <div class="now-showing"> 
-        <input type="radio" name="slider" id="s1" checked>
-        <input type="radio" name="slider" id="s2">
-        <input type="radio" name="slider" id="s3">
-        <input type="radio" name="slider" id="s4">
-        <input type="radio" name="slider" id="s5">
-        <div class="posters">
-            <label for="s1" id="poster1">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <a href="/details" class="btn-details">details</a>
-                        <div class="actions">
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </label>
-            <label for="s2" id="poster2">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <a href="/details" class="btn-details">details</a>
-                        <div class="actions">
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </label>
-            <label for="s3" id="poster3">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <a href="/details" class="btn-details">details</a>
-                        <div class="actions">
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </label>
-            <label for="s4" id="poster4">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <a href="/details" class="btn-details">details</a>
-                        <div class="actions">
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </label>
-            <label for="s5" id="poster5">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="dots">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <a href="/details" class="btn-details">details</a>
-                        <div class="actions">
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                            <ion-icon name="search-sharp" class="icons"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </label>
-        </div>
+    <div class="footer">
+        <div class="left-footer"></div>
+        <div class="mid-footer"></div>
+        <div class="right-footer"></div>
     </div>
 </body>
 
