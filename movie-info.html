@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="movie-info.css">
+    <link rel="stylesheet" href="movie-info.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
+
 <body>
     <div class="header">
         <p class="site-name"><img src="./assets/logo2.svg" alt="" /></p>
@@ -32,7 +36,7 @@
     <div class="main-container">
         <div class="left-container">
             <div class="movie-poster">
-                <img src="./assets/Inception.jpg" alt="">
+                <img src="./assets/Inception.jpg" alt="" />
             </div>
             <div class="booking-info">
                 <div class="show-time">
@@ -47,15 +51,34 @@
             </div>
         </div>
         <div class="movie-info">
-            <div class="movie-name">The Inception</div>
-            <div class="movie-release-date">2024</div>
-            <div class="movie-genre">Fantasy / Action</div>
-            <div class="rating">8</div>
-            <div class="plot-summary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio tenetur veritatis libero ab rem pariatur. Earum ea itaque a cumque sint, est neque voluptates voluptas quisquam porro modi iste eaque.</div>
-            <div class="genre">Fantasy / Action</div>
-            <div class="director">Christopher Nolan</div>
-            <div class="cast">Leonardo Decaprio</div>
+            <div class="inner-movie-info">
+                <div class="movie-name">The Inception</div>
+                <div class="movie-release-date">2024</div>
+                <div class="movie-genre">Fantasy / Action</div>
+                <div class="rating">
+                    <ion-icon name="star" class="full-star"></ion-icon><ion-icon name="star-half"
+                        class="half-star"></ion-icon> 8
+                </div>
+                <div class="plot-summary">
+                    <h1 class="synopsis">Synopsis</h1>
+                    The Spengler family returns to where it all started – the iconic New
+                    York City firehouse – to team up with the original Ghostbusters,
+                    who've developed a top-secret research lab to take busting ghosts to
+                    the next level. But when the discovery of an ancient artifact
+                    unleashes an evil force, Ghostbusters new and old must join forces
+                    to protect their home and save the world from a second Ice Age.
+                </div>
+                <div class="director">
+                    Director
+                    <div class="director-info">
+                        <img src="./assets/nolan.jpg" alt="">
+                        <p class="director-text">Christopher Nolan</p>
+                    </div>
+                </div>
+                <div class="cast">Leonardo Decaprio</div>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
