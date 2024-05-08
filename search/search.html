@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search</title>
+    <!-- search icon -->
+    <link rel="shortcut icon" href="./../icons/search-icon.webp" type="image/x-icon"/>
+    <!-- custom css -->
+    <link rel="stylesheet" href="./search.css" />
+  </head>
+
+  <body>
+
+    <!-- Start Header -->
+    <header>
+        <!-- start navbar -->
+        <nav class="navbar"> 
+          <!-- logo -->
+          <img src="./../logo/logo.svg" class="cmc-logo" alt="cinemacraze-logo">
+          <!-- nav-menu -->
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link">Booking</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- end navbar -->
+    </header>
+    <!-- End Header -->
+
+    <!-- Start Search Section -->
+    <section class="search-container">
+      <form action="" method="" id="form">
+        <input type="text" name="search" id="search" class="form-control" autocomplete="off" placeholder="Search the movie..."/>
+        <input type="submit" value="Search" id="search-btn" class="search-btn"/>
+        <!-- <br/>
+        <select name="genre" id="genre">
+          <option>All</option>
+          <option value="action">Action</option>
+        </select>   
+        <select name="genre" id="genre">
+          <option>All</option>
+          <option value="action">Action</option>
+        </select>
+        <select name="genre" 
+    changePage(3);id="genre">
+          <option>All</option>
+          <option value="action">Action</option>
+        </select> -->
+
+      </form>
+    </section>
+    <!-- End Search Section -->
+
+    <!-- Start Movie Card Display Section -->
+    <section class="container">
+      <!-- list -->
+      <div class="pagination-container">
+          <h2 class="mb-3 mt-3">CinemaCraze - <span id="page-number"></span></h2>
+          <ul class="list-group mb-3">
+            <li id="first-page" class="list-group-item fir-page "><a href="#" class="list-item"><< First</a></li>
+            <li id="previous-page" class="list-group-item pre-page"><a href="#" class="list-item"><< Prev</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">1</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">2</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">...</a></li>
+            <li class="list-group-item current-page"><a href="#" class="list-item">3</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">4</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">5</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">6</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">7</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">8</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">9</a></li>
+            <li class="list-group-item "><a href="#" class="list-item">10</a></li>
+            <li id="next-page" class="list-group-item nex-page"><a href="#" class="list-item">Next >></a></li>
+          </ul>
+      </div>
+
+      <div class="movie-container">
+        <!-- movie cards -->
+      </div>
+      
+    </section>
+    <!-- End Movie Card Display Section -->
+    
+    <!-- Start Footer Section -->
+    <footer>
+
+    </footer>
+    <!-- End Footer Section -->
+
+
+
+    <!-- iomicons js2 -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- sweetalet2 js1 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery js1 -->
+    <script src="./../jquery3.6.0.js"></script>
+    <!-- custom js1 -->
+    <script src="./script.js"></script>
+  </body>
+</html>
