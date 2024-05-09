@@ -26,23 +26,31 @@ body{
 }
 
 /* Start Header */
-header{
-    /* height: 100px; */
-    background-color: var(--secondary-color);
+.header{
     
 }
 
 .cmc-logo{
-    width: 200px;
-    margin: 10px 0;
+    width: 150px;
+    margin: 20px 0;
     margin-left: 3rem;
 }
 
 .navbar{
     width: 100%;
+    height: 100px;
     display: flex;
     justify-content: space-between;
+    background-color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
     align-items: center;
+    position: fixed;
+    z-index: 1000;
+    transition: all .3s ease;
+}
+
+.navbar.sticky{
+    height: 70px;
 }
 
 .nav-menu{
@@ -96,6 +104,7 @@ header{
 .search-container{
     /* background-color: var(--primary-color); */
     /* background-color: #7389AE; */
+    padding-top: 6.3rem;
     display: flex;
     justify-content: end;
     align-items: center;
@@ -177,10 +186,52 @@ header{
     margin-bottom: 10px;
 }
 
-.pagination-container .list-group{
+.pagination-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-btn,.previous-btn,.next-btn{
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    transition: all .2s ease;
+    position: relative;
+    bottom: 6px;
+    margin-right: 10px;
+}
+
+.first-btn:hover,.previous-btn:hover,.next-btn:hover{
+    background-color: var(--tertiary-color);
+}
+
+.next-btn{
+    margin-left: 10px;
+}
+
+.first-btn:hover,
+.previous-btn:hover{
+    transform: translateX(-5px);
+}
+
+.next-btn:hover{
+    transform: translateX(5px);
+}
+
+.pagination-box .btn-text{
+    text-decoration: none;
+    font-size: var(--font-size-tiny-small);
+    color: #fff;
+}
+
+.list-group{
     display: flex;
     gap: 10px;
-} 
+}
 
 .list-group-item{
     list-style-type: none;
@@ -191,24 +242,8 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all .2s ease;
     cursor: pointer;
-}
-
-.list-group-item.fir-page,
-.list-group-item.pre-page,
-.list-group-item.nex-page{
-    width: 70px;
-    border-radius: 10px;
-}
-
-.list-group-item.pre-page:hover,
-.list-group-item.fir-page:hover{
-    transform: translateX(-5px);
-}
-
-.list-group-item.nex-page:hover{
-    transform: translateX(5px);
+    transition: transform .3s ease;
 }
 
 .list-group-item:hover{
@@ -216,16 +251,25 @@ header{
     background-color: var(--tertiary-color);
 }
 
-.list-group-item.current-page{
+.list-item.current-page{
     background-color: var(--tertiary-color);
 }
 
 .list-group-item .list-item{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
     text-decoration: none;
     color: var(--font-color-white);
 }
 
+
+
 .movie-container{
+    min-height:50vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -242,6 +286,27 @@ header{
     overflow: hidden;
 }   
 
+.details-btn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--font-color-white);
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    border-radius: 10px 0px 10px 60px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transition: background-color .15s ease-in;
+    z-index: 100;
+}
+
+.details-btn:hover{
+    background-color: var(--hover-color);
+}
+
 .poster-img{
     width: 100%;
 }
@@ -249,6 +314,7 @@ header{
 .movie-card .info{
     font-size: var(--font-size-regular);
     color: var(--font-color-white);
+    background-color: var(--tertiary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -277,7 +343,12 @@ header{
     transform: translateY(100%);
     transition: transform .5s ease;
     font-size: var(--font-size-tiny-small);
-    overflow-y: auto;
+    text-align: left;
+    /* overflow-y: auto; */
+}
+
+.seemore{
+    color: var(--hover-color);
 }
 
 .movie-card:hover .overview{

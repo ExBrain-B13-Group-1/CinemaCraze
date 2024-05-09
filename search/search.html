@@ -35,21 +35,6 @@
       <form action="" method="" id="form">
         <input type="text" name="search" id="search" class="form-control" autocomplete="off" placeholder="Search the movie..."/>
         <input type="submit" value="Search" id="search-btn" class="search-btn"/>
-        <!-- <br/>
-        <select name="genre" id="genre">
-          <option>All</option>
-          <option value="action">Action</option>
-        </select>   
-        <select name="genre" id="genre">
-          <option>All</option>
-          <option value="action">Action</option>
-        </select>
-        <select name="genre" 
-    changePage(3);id="genre">
-          <option>All</option>
-          <option value="action">Action</option>
-        </select> -->
-
       </form>
     </section>
     <!-- End Search Section -->
@@ -59,27 +44,34 @@
       <!-- list -->
       <div class="pagination-container">
           <h2 class="mb-3 mt-3">CinemaCraze - <span id="page-number"></span></h2>
-          <ul class="list-group mb-3">
-            <li id="first-page" class="list-group-item fir-page "><a href="#" class="list-item"><< First</a></li>
-            <li id="previous-page" class="list-group-item pre-page"><a href="#" class="list-item"><< Prev</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">1</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">2</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">...</a></li>
-            <li class="list-group-item current-page"><a href="#" class="list-item">3</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">4</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">5</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">6</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">7</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">8</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">9</a></li>
-            <li class="list-group-item "><a href="#" class="list-item">10</a></li>
-            <li id="next-page" class="list-group-item nex-page"><a href="#" class="list-item">Next >></a></li>
-          </ul>
-      </div>
+
+          <div class="pagination-box">
+            <button type="button" class="first-btn fir-page" id="first-btn"><a href="#" class="btn-text"><< First</a></button>
+            <button type="button" class="previous-btn privious-page" id="previous-btn"><a href="#" class="btn-text"><< Prev</a></button>
+          
+            <ul class="list-group mb-3" id="list-group">
+              <!-- <li class="list-group-item "><a href="#" class="list-item">1</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">2</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">...</a></li>
+              <li class="list-group-item "><a href="#" class="list-item current-page">3</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">4</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">5</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">6</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">7</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">8</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">9</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">10</a></li> -->
+            </ul>
+
+            <button type="button" class="next-btn next-page" id="next-btn"><a href="#" class="btn-text">Next >></a></button>
+          </div>
+        </div>
+
+     
 
       <div class="movie-container">
         <!-- movie cards -->
-      </div>
+      </div>  
       
     </section>
     <!-- End Movie Card Display Section -->

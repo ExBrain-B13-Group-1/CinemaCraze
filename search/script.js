@@ -6,10 +6,11 @@ $(document).ready(function () {
     const SEARCH_URL = `${BASE_URL}/search/movie?api_key=${API_KEY}`;
     console.log(SEARCH_URL);    
 
-    
+    let randomNum = Math.floor((Math.random() * 10) + 1);
     let totalPageCount;
     let page = 1;
     let POPULAR_URL = `${BASE_URL}/movie/popular?page=${page}`;
+    let nowShowingURL = `${BASE_URL}/movie/popular?page=${randomNum}`;
 
     let tvlistobj = {
         genres: [
@@ -160,22 +161,67 @@ $(document).ready(function () {
         ],
     };
 
-    $('#first-page').click(firstPage);
-    $('#previous-page').click(prevPage);
-    $('#next-page').click(nextPage);
+    $('#first-btn').click(firstPage);
+    $('#previous-btn').click(prevPage);
+    $('#next-btn').click(nextPage);
 
-    function changeURL(){
-        let URL = ""
-
-        return URL;
+    if(page == 1){
+        $('#first-btn').hide();
+        $('#previous-btn').hide();
     }
+
+    $(window).scroll(function(){
+        if(window.scrollY > 0){
+            $('.navbar').css("background-color","var(--primary-color")
+            $('.navbar').addClass("sticky");
+        }else{
+            $('.navbar').css("background-color","var(--secondary-color");
+            $('.navbar').removeClass("sticky");
+        }
+    });
 
     //   console.log(tvlistobj);
     //   console.log(movielistobj);
-    
-    
 
-    window.onload = getmoviedatas(POPULAR_URL);
+    $(function(){
+        getmoviedatas(POPULAR_URL)
+    })
+
+    function showAlert(title,message,icon){
+        Swal.fire({
+            height: 300,
+            title: title,
+            text: message,
+            icon: icon
+        });
+    }
+
+    window.onload = generateNowShowingRandom(nowShowingURL);
+
+    async function generateNowShowingRandom(url){
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmM2M2YmU5Y2U1YmZjM2VjNTE0MzNiNmYyYjI0MWE1MSIsInN1YiI6IjY2MzcwNGRjNjY1NjVhMDEyNjE1YTIxYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Qf9HXmBf-TGu3qcpp9PfejKUx57XMdHDDcRJEOnLilo'
+            }
+        };
+        
+        await fetch(url, options)
+            .then(response => response.json())
+            .then(response => {
+                console.warn(response.results);
+                giveDataToLocalStorage(response.results);
+                return;
+            })
+            .catch(err => {
+                if(err.message == "Failed to fetch"){
+                    $('.movie-container').empty();
+                    showAlert("No internet connection...","Please connect internet and try again!","error");
+                }
+            });
+    }
+
 
     async function getmoviedatas(url) {
         const options = {
@@ -194,7 +240,30 @@ $(document).ready(function () {
                 totalPageCount = response.total_pages;
                 console.log(totalPageCount);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                if(err.message == "Failed to fetch"){
+                    $('.movie-container').empty();
+                    showAlert("No internet connection...","Please connect internet and try again!","error");
+                }
+            });
+    }
+
+    function giveDataToLocalStorage(datas){
+        console.error(datas);
+        let dataObj = {};
+        let randomKey = [];
+        for(let x = 0; x < 10; x++){
+            let randomNumber = Math.floor(Math.random() * 20);
+            randomKey.push(randomNumber);
+        }
+        console.log(randomKey);
+        for (let idx of randomKey) {
+            // console.warn(idx);
+            console.log(datas[idx].id);
+            dataObj[datas[idx].id] = datas[idx];
+        }
+        console.log(dataObj);
+        localStorage.setItem("MovieDatas",JSON.stringify(dataObj)); 
     }
 
     function showMovieCards(datas) {
@@ -206,11 +275,13 @@ $(document).ready(function () {
             let title = movie.title;
             let rating = parseFloat(movie.vote_average).toFixed(1);
             let overview = movie.overview;
+            let truncatedOverview = overview.length > 50 ? overview.substring(0, 50) + `...<span class="seemore">See more</span>` : overview;
             // console.log(rating);
             // console.log(movie);
             
             $(".movie-container").append(`
                 <div class="movie-card" ichangePaged="movie-card">
+                    <button type="button" id="details-btn" class="details-btn">Details</button>
                     <img src="${src}" width="200px" class="poster-img" alt="${title}">
                     <div class="info">
                     <h3>${title}</h3>
@@ -218,50 +289,57 @@ $(document).ready(function () {
                     </div>
                     <div class="overview">
                     <h3>Overview</h3>
-                        ${overview}
+                        ${truncatedOverview}
                     </div>
                 </div>
             `);
         });
     }
 
-    
+
     function firstPage(datas) {
         page = 1;
-        let getinputval = $('#search').val();
+        let getinputval = $('#search').val().trim();
         if(getinputval){
             urlChange(true,getinputval);
         }else{
-            urlChange(false,getinputval);
+            urlChange(false,page);
         }
         $('#page-number').text(`Page ${page}`);
+        $('#first-btn').hide();
+        $('#previous-btn').hide();
+        // updatePageNumbers();
     }
 
-    function nextPage(datas){
+    function nextPage(){
             if(page < totalPageCount)  {
                 page++;
-                let getinputval = $('#search').val();
+                let getinputval = $('#search').val().trim();
                 if(getinputval){
                     urlChange(true,getinputval);
                 }else{
-                    urlChange(false,getinputval);
+                    urlChange(false,page);
                 }
             $('#page-number').text(`Page ${page}`);
+            if(page > 3) $('#first-btn').show();
+            if(page > 1) $('#previous-btn').show();
+            if(page == totalPageCount) $('#next-btn').hide();
         }
     }
-
-    
 
     function prevPage() {
         if (page > 1) {
             page--;
-            let getinputval = $('#search').val();
+            let getinputval = $('#search').val().trim();
             if(getinputval){
                 urlChange(true,getinputval);
             }else{
-                urlChange(false,getinputval);
+                urlChange(false,page);
             }
             $('#page-number').text(`Page ${page}`);
+            if(page == 1) $('#previous-btn').hide();
+            if(page == 1) $('#first-btn').hide();
+            if(page < totalPageCount) $('#next-btn').show();
         }
     }
 
@@ -276,10 +354,10 @@ $(document).ready(function () {
     }   
 
     $('form').submit(function(e){
-        page = 1;
         let getinputval = $('#search').val();
         console.log(getinputval);
         if(getinputval){
+            page = 1;
             getmoviedatas(`${SEARCH_URL}&query=${getinputval}&page=${page}`);
         }else{
             getmoviedatas(POPULAR_URL);
@@ -287,7 +365,5 @@ $(document).ready(function () {
         e.preventDefault(); 
     })
 
-
-    
 
 });
