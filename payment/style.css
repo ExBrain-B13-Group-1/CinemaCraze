@@ -778,6 +778,17 @@ body {
     border: 1px solid var(--secondary-color);
 }
 
-/* .payment_success_container .ticket_download i{
-    padding-left: 1%;
-} */
+.main_secreen .alert_container{
+    position: absolute;
+    top:3%;
+    left: 35%;
+    width: 30%;
+    background-color: rgb(255, 36, 72);
+    font-family: "Inter", sans-serif;
+    text-transform: capitalize;
+    font-size: .8rem;
+    text-align: center;
+    color: white;
+    border-radius: .5vmax;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.295);
+}
