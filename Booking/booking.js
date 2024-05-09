@@ -238,7 +238,6 @@ $(document).ready(function () {
   });
 
   // Seat got clicked
-  // Event delegation for handling seat clicks
   $(document).on("click", ".seat", function () {
     handleSeatClick(this);
     // After selecting a seat, allow access to Tab 3
