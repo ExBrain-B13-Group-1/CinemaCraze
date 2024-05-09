@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="homepage-style.css" />
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="jquery-3.7.1.js"></script>
+    <script src="homepage.js" defer></script>
 </head>
 
 <body>
@@ -41,173 +43,12 @@
         <input type="radio" name="slider" id="s3" />
         <input type="radio" name="slider" id="s4" />
         <input type="radio" name="slider" id="s5" />
-        <div class="posters">
-            <label for="s1" id="poster1" class="label">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="" />
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <div class="show-time">
-                            <label for="showtimes">Show Times:</label>
-                            <select name="showtimes" id="showTimes">
-                                <option value="9:00-12:30">9:00-12:30</option>
-                                <option value="1:30-5:00">1:30-5:00</option>
-                                <option value="6:00-9:30">6:00-9:30</option>
-                            </select>
-                        </div>
-                        <a href="/booking" class="btn-booking">Booking</a>
-                    </div>
-                </div>
-            </label>
-            <label for="s2" id="poster2" class="label">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="" />
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <div class="show-time">
-                            <label for="showtimes">Show Times:</label>
-                            <select name="showtimes" id="showTimes">
-                                <option value="9:00-12:30">9:00-12:30</option>
-                                <option value="1:30-5:00">1:30-5:00</option>
-                                <option value="6:00-9:30">6:00-9:30</option>
-                            </select>
-                        </div>
-                        <a href="/booking" class="btn-booking">Booking</a>
-                    </div>
-                </div>
-            </label>
-            <label for="s3" id="poster3" class="label">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Wallpaper JP.jpg" alt="" />
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <div class="show-time">
-                            <label for="showtimes">Show Times:</label>
-                            <select name="showtimes" id="showTimes">
-                                <option value="9:00-12:30">9:00-12:30</option>
-                                <option value="1:30-5:00">1:30-5:00</option>
-                                <option value="6:00-9:30">6:00-9:30</option>
-                            </select>
-                        </div>
-                        <a href="/booking" class="btn-booking">Booking</a>
-                    </div>
-                </div>
-            </label>
-            <label for="s4" id="poster4" class="label">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="" />
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <div class="show-time">
-                            <label for="showtimes">Show Times:</label>
-                            <select name="showtimes" id="showTimes">
-                                <option value="9:00-12:30">9:00-12:30</option>
-                                <option value="1:30-5:00">1:30-5:00</option>
-                                <option value="6:00-9:30">6:00-9:30</option>
-                            </select>
-                        </div>
-                        <a href="/booking" class="btn-booking">Booking</a>
-                    </div>
-                </div>
-            </label>
-            <label for="s5" id="poster5" class="label">
-                <div class="poster">
-                    <div class="image">
-                        <img src="./assets/Inception.jpg" alt="" />
-                    </div>
-                    <div class="info">
-                        <span class="name">Inception</span>
-                        <div class="show-time">
-                            <label for="showtimes">Show Times:</label>
-                            <select name="showtimes" id="showTimes">
-                                <option value="9:00-12:30">9:00-12:30</option>
-                                <option value="1:30-5:00">1:30-5:00</option>
-                                <option value="6:00-9:30">6:00-9:30</option>
-                            </select>
-                        </div>
-                        <a href="/booking" class="btn-booking">Booking</a>
-                    </div>
-                </div>
-            </label>
+        <div id="posters">
         </div>
     </div>
     <div class="trending-now">
         <p class="trending-header">Trending Now</p>
         <swiper-container class="mySwiper" navigation="true">
-            <swiper-slide>
-                <div class="trending-movies">
-                    <div class="movie-container">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="all-info">
-                            <div class="movie-info">
-                                <p class="movie-name">The Inception</p>
-                                <div class="movie-genre">Fantasy / Action</div>
-                                <div class="rating">
-                                    <ion-icon name="star" class="full-star"></ion-icon>
-                                    <ion-icon name="star-half" class="half-star"></ion-icon>
-                                    <span class="rating-number">8</span>
-                                </div>
-                            </div>
-                            <a href="/booking" class="btn-booking">Booking</a>
-                        </div>
-                    </div>
-                    <div class="movie-container">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="all-info">
-                                <div class="movie-info">
-                                    <p class="movie-name">The Inception</p>
-                                    <div class="movie-genre">Fantasy / Action</div>
-                                    <div class="rating">
-                                        <ion-icon name="star" class="full-star"></ion-icon>
-                                        <ion-icon name="star-half" class="half-star"></ion-icon>
-                                        <span class="rating-number">8</span>
-                                    </div>
-                                <a href="/booking" class="btn-booking">Booking</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="movie-container">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="all-info">
-                            <div class="movie-info">
-                                <p class="movie-name">The Inception</p>
-                                <div class="movie-genre">Fantasy / Action</div>
-                                <div class="rating">
-                                    <ion-icon name="star" class="full-star"></ion-icon>
-                                    <ion-icon name="star-half" class="half-star"></ion-icon>
-                                    <span class="rating-number">8</span>
-                                </div>
-                            </div>
-                            <a href="/booking" class="btn-booking">Booking</a>
-                        </div>
-                    </div>
-                    <div class="movie-container">
-                        <img src="./assets/Inception.jpg" alt="">
-                        <div class="all-info">
-                            <div class="movie-info">
-                                <p class="movie-name">The Inception</p>
-                                <div class="movie-genre">Fantasy / Action</div>
-                                <div class="rating">
-                                    <ion-icon name="star" class="full-star"></ion-icon>
-                                    <ion-icon name="star-half" class="half-star"></ion-icon>
-                                    <span class="rating-number">8</span>
-                                </div>
-                            </div>
-                            <a href="/booking" class="btn-booking">Booking</a>
-                        </div>
-                    </div>
-                </div>
-            </swiper-slide>
-            <swiper-slide>Slide 2</swiper-slide>
-            <swiper-slide>Slide 3</swiper-slide>
         </swiper-container>
     </div>
     <div class="footer">

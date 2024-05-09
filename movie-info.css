@@ -67,9 +67,8 @@ ion-icon{
     display: flex;
     border-radius: 5px;
     background-color: #323444;
-    max-width: 440px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -94,8 +93,10 @@ ion-icon{
 }
 .btn-booking{
     background-color: green;
+    font-size: 1.7em;
+    text-align: center;
     font-weight: bold;
-    width: fit-content;
+    width: 92%;
     padding: 5px;
     text-decoration: none;
     border-radius: 5px;
