@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search</title>
+    <!-- search icon -->
+    <link rel="shortcut icon" href="./../icons/search-icon.webp" type="image/x-icon"/>
+    <!-- custom css -->
+    <link rel="stylesheet" href="./search.css" />
+  </head>
+
+  <body>
+
+    <!-- Start Header -->
+    <header>
+        <!-- start navbar -->
+        <nav class="navbar"> 
+          <!-- logo -->
+          <img src="./../logo/logo.svg" class="cmc-logo" alt="cinemacraze-logo">
+          <!-- nav-menu -->
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link">Booking</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+        <!-- end navbar -->
+    </header>
+    <!-- End Header -->
+
+    <!-- Start Search Section -->
+    <section class="search-container">
+      <form action="" method="" id="form">
+        <input type="text" name="search" id="search" class="form-control" autocomplete="off" placeholder="Search the movie..."/>
+        <input type="submit" value="Search" id="search-btn" class="search-btn"/>
+      </form>
+    </section>
+    <!-- End Search Section -->
+
+    <!-- Start Movie Card Display Section -->
+    <section class="container">
+      <!-- list -->
+      <div class="pagination-container">
+          <h2 class="mb-3 mt-3">CinemaCraze - <span id="page-number"></span></h2>
+
+          <div class="pagination-box">
+            <button type="button" class="first-btn fir-page" id="first-btn"><a href="#" class="btn-text"><< First</a></button>
+            <button type="button" class="previous-btn privious-page" id="previous-btn"><a href="#" class="btn-text"><< Prev</a></button>
+          
+            <ul class="list-group mb-3" id="list-group">
+              <li class="list-group-item "><a href="#" class="list-item">1</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">2</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">3</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">4</a></li>
+              <li class="list-group-item "><a href="#" class="list-item current-page">5</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">6</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">7</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">8</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">9</a></li>
+              <li class="list-group-item "><a href="#" class="list-item">10</a></li>
+            </ul>
+
+            <button type="button" class="next-btn next-page" id="next-btn"><a href="#" class="btn-text">Next >></a></button>
+          </div>
+        </div>
+
+      <div class="movie-container">
+        <!-- movie cards -->
+      </div> 
+
+    </section>
+
+      <div class="display" id="display">
+        <!-- movies card details -->
+      </div>
+    <!-- End Movie Card Display Section -->
+    
+    <!-- Start Footer Section -->
+    <footer>
+
+    </footer>
+    <!-- End Footer Section -->
+
+
+
+    <!-- iomicons js2 -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- sweetalet2 js1 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery js1 -->
+    <script src="./../jquery3.6.0.js"></script>
+    <!-- custom js1 -->
+    <script src="./script.js"></script>
+  </body>
+</html>
