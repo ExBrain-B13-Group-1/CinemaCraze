@@ -97,6 +97,6 @@ function populateTrendingNow(data) {
 function handleMovieClick(event) {
     const movieId = event.currentTarget.dataset.id;
     sessionStorage.setItem('selectedMovieId', movieId);
-    window.location.href = 'movie-info.html'; // Change 'otherpage.html' to the actual page you want to navigate to
+    window.location.href = './movie-info/movie-info.html'; // Change 'otherpage.html' to the actual page you want to navigate to
 }
 
