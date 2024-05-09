@@ -46,11 +46,11 @@ ion-icon{
 }
 
 .main-container{
+    padding-top: 50px;
     display: flex;
     margin: auto;
     align-items: center;
     width: 70%;
-    height: 85vh;
 }
 .left-container{
     display: flex;
@@ -84,6 +84,7 @@ ion-icon{
     width: 95%;
 }
 .movie-info{
+    font-size: 1em;
     width: 50%;
     position: relative;
 }
