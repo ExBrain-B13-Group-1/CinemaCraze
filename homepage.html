@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="homepage-style.css" />
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js" defer></script>
 </head>
 
 <body>
@@ -34,6 +35,7 @@
         </div>
     </div>
     <div class="now-showing">
+        <p class="now-showing-header">Now Showing</p>
         <input type="radio" name="slider" id="s1" checked />
         <input type="radio" name="slider" id="s2" />
         <input type="radio" name="slider" id="s3" />
@@ -56,7 +58,6 @@
                             </select>
                         </div>
                         <a href="/booking" class="btn-booking">Booking</a>
-                        <div class="actions"></div>
                     </div>
                 </div>
             </label>
@@ -76,7 +77,6 @@
                             </select>
                         </div>
                         <a href="/booking" class="btn-booking">Booking</a>
-                        <div class="actions"></div>
                     </div>
                 </div>
             </label>
@@ -96,7 +96,6 @@
                             </select>
                         </div>
                         <a href="/booking" class="btn-booking">Booking</a>
-                        <div class="actions"></div>
                     </div>
                 </div>
             </label>
@@ -116,7 +115,6 @@
                             </select>
                         </div>
                         <a href="/booking" class="btn-booking">Booking</a>
-                        <div class="actions"></div>
                     </div>
                 </div>
             </label>
@@ -136,21 +134,81 @@
                             </select>
                         </div>
                         <a href="/booking" class="btn-booking">Booking</a>
-                        <div class="actions"></div>
                     </div>
                 </div>
             </label>
         </div>
     </div>
-    <div class="signs">
-        <div class="no-smoking">
-            <span class="no-smoking-sign sign">No Smoking</span>
-            <ion-icon name="logo-no-smoking" class="smoke-icon"></ion-icon>
-        </div>
-        <div class="exit">
-            <span class="exit-sign sign">Exit</span>
-            <ion-icon name="exit" class="exit-icon"></ion-icon>
-        </div>
+    <div class="trending-now">
+        <p class="trending-header">Trending Now</p>
+        <swiper-container class="mySwiper" navigation="true">
+            <swiper-slide>
+                <div class="trending-movies">
+                    <div class="movie-container">
+                        <img src="./assets/Inception.jpg" alt="">
+                        <div class="all-info">
+                            <div class="movie-info">
+                                <p class="movie-name">The Inception</p>
+                                <div class="movie-genre">Fantasy / Action</div>
+                                <div class="rating">
+                                    <ion-icon name="star" class="full-star"></ion-icon>
+                                    <ion-icon name="star-half" class="half-star"></ion-icon>
+                                    <span class="rating-number">8</span>
+                                </div>
+                            </div>
+                            <a href="/booking" class="btn-booking">Booking</a>
+                        </div>
+                    </div>
+                    <div class="movie-container">
+                        <img src="./assets/Inception.jpg" alt="">
+                        <div class="all-info">
+                                <div class="movie-info">
+                                    <p class="movie-name">The Inception</p>
+                                    <div class="movie-genre">Fantasy / Action</div>
+                                    <div class="rating">
+                                        <ion-icon name="star" class="full-star"></ion-icon>
+                                        <ion-icon name="star-half" class="half-star"></ion-icon>
+                                        <span class="rating-number">8</span>
+                                    </div>
+                                <a href="/booking" class="btn-booking">Booking</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movie-container">
+                        <img src="./assets/Inception.jpg" alt="">
+                        <div class="all-info">
+                            <div class="movie-info">
+                                <p class="movie-name">The Inception</p>
+                                <div class="movie-genre">Fantasy / Action</div>
+                                <div class="rating">
+                                    <ion-icon name="star" class="full-star"></ion-icon>
+                                    <ion-icon name="star-half" class="half-star"></ion-icon>
+                                    <span class="rating-number">8</span>
+                                </div>
+                            </div>
+                            <a href="/booking" class="btn-booking">Booking</a>
+                        </div>
+                    </div>
+                    <div class="movie-container">
+                        <img src="./assets/Inception.jpg" alt="">
+                        <div class="all-info">
+                            <div class="movie-info">
+                                <p class="movie-name">The Inception</p>
+                                <div class="movie-genre">Fantasy / Action</div>
+                                <div class="rating">
+                                    <ion-icon name="star" class="full-star"></ion-icon>
+                                    <ion-icon name="star-half" class="half-star"></ion-icon>
+                                    <span class="rating-number">8</span>
+                                </div>
+                            </div>
+                            <a href="/booking" class="btn-booking">Booking</a>
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide>Slide 2</swiper-slide>
+            <swiper-slide>Slide 3</swiper-slide>
+        </swiper-container>
     </div>
     <div class="footer">
         <div class="left-footer"></div>

@@ -208,7 +208,7 @@ ion-icon{
         font-size: 4vh;
     }
 }
-@media screen and (max-width:900px) {
+@media screen and (max-width:720px) {
     .icons{
         display: none;
     }
