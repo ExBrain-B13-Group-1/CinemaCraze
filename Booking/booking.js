@@ -2,6 +2,40 @@ let selectedSeats = [];
 let selectedFoodItems = [];
 let selectedDate;
 let selectedTime;
+let movieName;
+let posterImage;
+let isPaid = false;
+
+const passedId = sessionStorage.getItem("selectedMovieId");
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODVmNGIzYTlhNWZlODcxZmQxMjg5NGFlMmEzMTVlNSIsInN1YiI6IjY2M2IzOGNiYTFiNzg1YjQwMjhlY2Y2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wblEHHeXdWuVJNysQ7_gMsOxKlSRL3lridI6MAJhtzU",
+  },
+};
+async function fetchMovieData(passedId) {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${passedId}?language=en-US`,
+      options
+    );
+    const data = await response.json();
+    movieName = data.original_title;
+    document.getElementById("movieName").innerHTML = `Movie Name: ${movieName}`;
+
+    posterImage = data.poster_path;
+
+    document.querySelector(".poster-container").style.display = "flex";
+   
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Fetch movie data
+fetchMovieData(passedId);
 
 // Function to create booking json
 function createBookingJSON() {
@@ -11,8 +45,8 @@ function createBookingJSON() {
 
   let bookingData = {
     cinema: "Cinema Craze",
-    movie: "Avengers: Endgame",
-    poster: "PosterImage",
+    movie: movieName,
+    poster: posterImage,
     showDate: selectedDate,
     showTime: showTime,
     selectedTime: selectedTime,
@@ -20,7 +54,9 @@ function createBookingJSON() {
     foodItems: selectedFoodItems,
     totalSeats: totalSeats,
     countdownTimer: countdownTime,
+    isPaid: isPaid,
   };
+  localStorage.setItem("booking", JSON.stringify(bookingData));
   return bookingData;
 }
 
@@ -166,7 +202,7 @@ $(document).ready(function () {
   // Event listener for back button
   $("#book-back").click(function () {
     // Navigate back to homepage.html
-    window.location.href = "../homepage.html";
+    window.location.href = "../movie-info/movie-info.html";
   });
 
   // Show/hide delete icon on hover by using mouse event
@@ -303,9 +339,7 @@ $(document).ready(function () {
 
   // Event listener for Booking History button
   $("#book-history-btn").click(function () {
-    // Store bookings array in local storage
     localStorage.setItem("bookings", JSON.stringify(bookings));
-    // Show the booking history modal
     showBookingHistoryModal();
   });
 
@@ -327,17 +361,28 @@ $(document).ready(function () {
                   <p>Booked Seats Code: <span>${booking.seats
                     .map((seat) => seat.seatCode)
                     .join(", ")}</span></p>
+                  <p>Booking Status: <span>${
+                    booking.isPaid ? "Successful" : "Failed"
+                  }</span></p>
               </div>
           `;
         $("#booking-list").append(bookingItemHTML);
       });
       $(".alert-book-history").show();
+      $("#overlay").show();
     }
   }
 
   // Event listener for the OK button in no-booking section
   $("#ok-btn").click(function () {
     $(".alert-book-history").hide();
+    $("#overlay").hide();
+  });
+
+  // Add click event handler to the payment link
+  $('#payment-link').click(function() {
+    // Disable the payment link after it's clicked
+    $(this).css({'pointer-events': 'none', 'opacity' : '0.5'});
   });
 
   // Event listener for Book Continue button
@@ -354,11 +399,11 @@ $(document).ready(function () {
       selectedTime = getNearestTime(new Date(), times);
     }
     showFinishBooking(
-      "Avengers: Endgame",
+      movieName,
       selectedDate,
       selectedTime,
       selectedSeats.length,
-      totalPrice
+      isPaid
     );
     $(".seats-selected").slideUp();
     showTab("confirm");
@@ -439,7 +484,8 @@ $(document).ready(function () {
     movieName,
     selectedDate,
     selectedTime,
-    totalSeats
+    totalSeats,
+    isPaid
   ) {
     $(".finish-book").show();
   }
@@ -447,12 +493,14 @@ $(document).ready(function () {
   // Function to show the alert box
   function showAlert() {
     $(".alert-box").show();
+    $("#overlay").show();
   }
 
   // Function to hide the alert box
   function hideAlert() {
     $(".alert-box").hide();
     $(".alert-seats").hide();
+    $("#overlay").hide();
   }
 
   // Define an array to hold all bookings
@@ -492,6 +540,7 @@ $(document).ready(function () {
     let isBooked = false;
     bookings.forEach((booking) => {
       if (
+        booking.movie === movieName &&
         booking.showDate === selectedDate &&
         booking.selectedTime === selectedTime
       ) {
@@ -500,8 +549,17 @@ $(document).ready(function () {
           $("#" + seat.seatCode).addClass("active booked");
         });
         isBooked = true;
+
+        const lastBooking = bookings[bookings.length - 1];
+        if (!lastBooking.isPaid) {
+          lastBooking.seats.forEach(function (seat) {
+            // Get the seat element by ID
+            $(`#${seat.seatCode}`).removeClass("active booked");
+          });
+        }
       }
     });
+
     return isBooked;
   }
 
@@ -652,6 +710,13 @@ $(document).ready(function () {
         .addClass("booked")
         .off("click");
     });
+    const lastBooking = bookings[bookings.length - 1];
+    if (!lastBooking.isPaid) {
+      lastBooking.seats.forEach(function (seat) {
+        // Get the seat element by ID
+        $(`#${seat.seatCode}`).removeClass("active booked");
+      });
+    }
   }
 
   $("#back-to-dateTime").click(function () {
@@ -670,14 +735,12 @@ $(document).ready(function () {
 
   // CountDown Section
   let countdownInterval;
-
   // Function to start countdown timer
   function startCountdownTimer() {
     // Set the initial countdown time to 30 minutes
     let countdownTime = 30;
     // Update the countdown
     updateCountdownDisplay(countdownTime);
-
     // Start the countdown interval
     countdownInterval = setInterval(function () {
       countdownTime--;
@@ -685,10 +748,22 @@ $(document).ready(function () {
 
       if (countdownTime <= 0) {
         clearInterval(countdownInterval);
-        // Do something when the countdown reaches zero
         updateTabs(1);
+        $("#payment-link").css({'pointer-events': '', 'opacity': ''});
         document.querySelector(".finish-book").style.display = "none";
-
+        const booking = JSON.parse(localStorage.getItem("booking"));
+        isPaid = booking.isPaid;
+        console.log("expired " + isPaid);
+        // booking.isPaid = false; // main
+        // isPaid = booking.isPaid;
+        // console.log("expired " + isPaid);
+        if (isPaid) {
+          let lastIndex = bookings.length - 1;
+          bookings[lastIndex].isPaid = true;
+        } else {
+          markSelectedSeatsAsBooked();
+        }
+        localStorage.setItem("booking", JSON.stringify(booking));
         document.querySelector(".tab-content").style.display = "block";
         console.log("Countdown timer expired!");
       }
@@ -807,7 +882,6 @@ function updateTimesHTML(selectedDate) {
   document.querySelector(".select-time-container").innerHTML = timesHTML;
 
   let disabledCount = handleDisabledTimes();
-  console.log(disabledCount);
   if (disabledCount === 4) {
     timesHTML = "";
     timesHTML += `<div class="no-show-time">No More Show Time For Today</div>`;

@@ -4,7 +4,7 @@
       "name": "Popcorn",
       "description": "Classic buttered popcorn, perfect for movie nights",
       "price": 5000,
-      "image": "./food_img/popcorn.jpg",
+      "image": "./food_img/popcorn.png",
       "quantity": 0
     },
     {
@@ -12,7 +12,7 @@
       "name": "Cola",
       "description": "Refreshing cola drink served chilled",
       "price": 2000,
-      "image": "./food_img/cocaCola.jpg",
+      "image": "./food_img/cocaCola.png",
       "quantity": 0
     },
     {
@@ -20,7 +20,7 @@
       "name": "Hot Dog",
       "description": "Classic hot dog with ketchup, mustard",
       "price": 3000,
-      "image": "./food_img/hotDog.jpg",
+      "image": "./food_img/hotDog.png",
       "quantity": 0
     },
     {
@@ -28,7 +28,7 @@
       "name": "French Fries",
       "description": "Golden crispy French fries with seasoning",
       "price": 3500,
-      "image": "./food_img/frenchFries.jpg",
+      "image": "./food_img/frenchFries.png",
       "quantity": 0
     },
     {
@@ -36,7 +36,7 @@
       "name": "Chocolate Bar",
       "description": "Rich and creamy chocolate bar",
       "price": 2000,
-      "image": "./food_img/chocolate.jpg",
+      "image": "./food_img/chocolate.png",
       "quantity": 0
     },
     {
@@ -44,7 +44,7 @@
       "name": "Water",
       "description": "Bottled water, refreshingly pure",
       "price": 1000,
-      "image": "./food_img/water.jpg",
+      "image": "./food_img/water.png",
       "quantity": 0
     }
   ]
