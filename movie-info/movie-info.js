@@ -11,27 +11,21 @@ const options = {
 fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
     .then(response => response.json())
     .then(data => {
-        populateInfo(data); // Call populateInfo inside this then block
+        populateInfo(data);
     })
     .catch(err => console.error(err));
     
 
 function populateInfo(data) {
-    // Select the main container
     const mainContainer = document.querySelector('.main-container');
-
-    // Extract necessary data from the fetched data
-    const { title, poster_path, overview, genres, vote_average } = data; // Change rating to vote_average
-
-    // Generate genre strings
+    const { title, poster_path, overview, genres, vote_average } = data;
     const genreString = genres.map(genre => genre.name).join(' / ');
 
-    // HTML snippet to append
     const movieInfoHTML = `
     <div class="left-container">
         <div class="poster-container">
             <div class="movie-poster">
-                <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${title}" /> <!-- Change src to use TMDB image URL -->
+                <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${title}" />
             </div>
             <div class="booking-info">
                 <a href="/booking" class="btn-booking">Book Movie</a>
@@ -45,7 +39,7 @@ function populateInfo(data) {
             <div class="movie-genre">${genreString}</div>
             <div class="rating">
                 <ion-icon name="star" class="full-star"></ion-icon><ion-icon name="star-half"
-                    class="half-star"></ion-icon> ${vote_average} <!-- Change rating to vote_average -->
+                    class="half-star"></ion-icon> ${vote_average}
             </div>
             <h1 class="synopsis">Synopsis</h1>
             <div class="plot-summary">
@@ -69,6 +63,5 @@ function populateInfo(data) {
     </div>
     `;
 
-    // Append the HTML to the main container
     mainContainer.innerHTML = movieInfoHTML;
 }

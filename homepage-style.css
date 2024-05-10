@@ -112,16 +112,14 @@ input {
 }
 
 .now-showing {
-    max-height: 1000px;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     align-items: center;
     background-color: black;
     overflow-x: hidden;
-    height: 600px;
     transform-style: preserve-3d;
-    margin-bottom: 50px;
+    padding-bottom: 15vh;
 }
 
 .now-showing-header,
@@ -153,8 +151,12 @@ input {
 
 #posters .poster {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     background-color: #323444;
     border-radius: 10px;
+    height: 650px;
 }
 
 #posters .image img {
@@ -162,7 +164,6 @@ input {
     box-shadow: 15px 15px 40px rgba(0, 0, 0, 50%);
     margin-top: 23px;
     width: 330px;
-    height: 386px;
     object-fit: cover;
     transition: all .7s;
 }
@@ -178,12 +179,13 @@ input {
 }
 
 .info {
-    font-size: 1.3em;
+    font-size: 1.2em;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    margin-top: 3px;
+    margin-top: 5px;
     margin-left: 35px;
-    line-height: 1.5em
+    line-height: 1.5em;
 }
 .rating{
     display: flex;
@@ -331,7 +333,13 @@ swiper-container {
 }
 .movie-container:hover :not(img){
     opacity: 1;
-} 
+}
+.movie-container:hover .movie-genre {
+    opacity: 0.5;
+}
+.movie-genre{
+    opacity: 0.5;
+}
 .movie-container:hover {
     cursor: grab;
 }
@@ -350,7 +358,7 @@ swiper-container {
     display: flex;
     gap: 50px;
     position:absolute;
-    top: 65%;
+    top: 55%;
     left: 45%;
     transform: translate(-50%, -50%);
     transition: 1s ease;
@@ -367,11 +375,10 @@ swiper-container {
     display: none;
 }
 .movie-name{
+    font-weight: bold;
     font-size: 1.5em;
 }
-.movie-genre{
-    opacity: 0.5;
-}
+
 @media screen and (max-width: 1650px) {
     .all-info {
         font-size: 0.8em;
