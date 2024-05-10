@@ -37,6 +37,8 @@ const tax = 10;
 const addTaxPrice = parseInt((totalPrice * tax) / 100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
 const userInfo = {};
+const seatsNumber = seats.map(item => item.seatCode).join(' / ');
+const foods = foodItems.map(item => `${item.name} x${item.quantity}`).join(" / ");
 
 // Getters and Setter for User Information
 (() => {
@@ -58,6 +60,8 @@ const userInfo = {};
   userInfo.totalSeatPrice = totalSeatPrice;
   userInfo.totalFoodPrice = totalFoodPrice;
   userInfo.totalPrice = totalPriceWithTax;
+  userInfo.seatsNumber = seatsNumber;
+  userInfo.foods = foods;
 })();
 
 $("#paymentCloseBtn").click(() => {
@@ -216,8 +220,7 @@ $("#inputBtn").click(() => {
 $('#paynowBtn').click(() => {
   if (
     userInfo.name &&
-    userInfo.payment &&
-    userInfo[$("#number").attr("name")]
+    userInfo.payment
   ){
     $('#checkoutContainer').fadeOut(200,() => {
       getUserFromLocalStorage()
@@ -239,7 +242,7 @@ $('#paynowBtn').click(() => {
 })
 
 const getUserFromLocalStorage = () => {
-  const {name,moviename,bank_acc_number,cinema,payment,showDate,showTime,totalPrice,totalSeats} = JSON.parse(localStorage.getItem('userData'))
+  const {name,moviename,bank_acc_number,cinema,payment,showDate,showTime,totalPrice,totalSeats,seatsNumber,foods,phone_number} = JSON.parse(localStorage.getItem('userData'))
 
   const userTicket =`
   <div class="ticket_info">
@@ -255,7 +258,7 @@ const getUserFromLocalStorage = () => {
 
   <span>
     <p>Acc Number</p>
-    <p>${bank_acc_number}</p>
+    <p>${bank_acc_number || phone_number}</p>
   </span>
 
   <span>
@@ -265,18 +268,23 @@ const getUserFromLocalStorage = () => {
 
   <span>
     <p>seat number</p>
-    <p>b2 / b3</p>
+    <p>${seatsNumber}</p>
   </span>
 
   <span>
     <p>food</p>
-    <p>Cola x1 / Hot Dog x2</p>
+    <p>${foods}</p>
   </span>
 
   <span>
     <p>Date/Time</p>
     <p>${showDate} / ${showTime}</p>
   </span>
+
+  <span>
+  <p>cinema</p>
+  <p>${cinema}</p>
+</span>
 
   <span>
     <p>payment</p>
