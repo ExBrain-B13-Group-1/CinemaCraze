@@ -14,6 +14,7 @@ fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
         populateInfo(data); // Call populateInfo inside this then block
     })
     .catch(err => console.error(err));
+    
 
 function populateInfo(data) {
     // Select the main container
