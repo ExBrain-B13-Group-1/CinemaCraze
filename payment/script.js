@@ -36,12 +36,13 @@ const totalPrice = totalFoodPrice + totalSeatPrice;
 const tax = 10;
 const addTaxPrice = parseInt((totalPrice * tax) / 100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
-const userInfo = {};
 const seatsNumber = seats.map((item) => item.seatCode).join(" / ");
 const foods = foodItems
-  .map((item) => `${item.name} x${item.quantity}`)
-  .join(" / ");
+.map((item) => `${item.name} x${item.quantity}`)
+.join(" / ");
 
+let userInfo = {};
+let userData;
 // Getters and Setter for User Information
 (() => {
   $("#movieName").text(movie);
@@ -64,6 +65,25 @@ const foods = foodItems
   userInfo.totalPrice = totalPriceWithTax;
   userInfo.seatsNumber = seatsNumber;
   userInfo.foods = foods;
+  userInfo.stage = 1;
+  userInfo.paymentVerified = false;
+
+   userData = JSON.parse(localStorage.getItem('userData'));
+
+  if(userData.stage === 1) {
+    choossePayment()
+  }else if(userData.stage === 2){
+    getUserFromLocalStorage();
+  }else{
+    $('#line1').attr('line','active');
+    $('#circle2').css({
+      'background-color':'var(--primary-color)'
+    })
+    $("#checkoutContainer").css({
+      'display':'none'
+    })
+    paymentSuccess()
+  }
 })();
 
 $("#paymentCloseBtn").click(() => {
@@ -202,14 +222,7 @@ $("#inputBtn").click(() => {
     return;
   }
 
-  if ($("#number").attr("name").includes("bank")) {
-    $("#bankPay").attr("click", true);
-  } else {
-    $("#mobilePay").attr("click", true);
-  }
-
-  $("#bankPay").attr("choose", true);
-  $("#mobilePay").attr("choose", true);
+  choossePayment();
 
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
@@ -218,12 +231,22 @@ $("#inputBtn").click(() => {
   });
 });
 
+function choossePayment () {
+  if (userData.bank_acc_number) {
+    $("#bankPay").attr("click", true);
+  } else {
+    $("#mobilePay").attr("click", true);
+  }
+
+  $("#bankPay").attr("choose", true);
+  $("#mobilePay").attr("choose", true);
+}
+
 $("#paynowBtn").click(() => {
-  if (userInfo.name && userInfo.payment) {
-    $("#checkoutContainer").fadeOut(200, () => {
-      getUserFromLocalStorage();
-      $("#payoutContainer").fadeIn(205);
-    });
+  if (userData.name && userData.payment) {
+    getUserFromLocalStorage();
+    userInfo.stage = 2;
+    localStorage.setItem("userData", JSON.stringify(userInfo));
   } else {
     $("#alertContainer").append("<h1>Please choose payment!</h1>");
     $("#alertContainer").fadeIn(200, () => {
@@ -236,8 +259,10 @@ $("#paynowBtn").click(() => {
   }
 });
 
-const getUserFromLocalStorage = () => {
-  const {
+function getUserFromLocalStorage () {
+
+  userInfo = JSON.parse(localStorage.getItem("userData"));
+  let {
     name,
     moviename,
     bank_acc_number,
@@ -250,8 +275,7 @@ const getUserFromLocalStorage = () => {
     seatsNumber,
     foods,
     phone_number,
-  } = JSON.parse(localStorage.getItem("userData"));
-
+  } = userInfo;
   const userTicket = `
   <div class="ticket_info">
   <span>
@@ -307,10 +331,31 @@ const getUserFromLocalStorage = () => {
   `;
 
   $("#ticketDetail").append(userTicket);
+  $("#checkoutContainer").fadeOut(200, () => {
+    $("#payoutContainer").fadeIn(205,() => {
+      $('#line1').attr('line','active')
+      $('#circle2').css({
+        'background-color':'var(--primary-color)'
+      })
+    });
+  });
+
 };
 
 $("#orderBtn").click(() => {
-  $("#payoutContainer").fadeOut(200, () => {
-    $("#paymentSuccess").fadeIn(205);
-  });
+  userInfo.paymentVerified = true;
+  userInfo.stage = 'success';
+  paymentSuccess()
+  localStorage.setItem('userData',JSON.stringify(userInfo))
 });
+
+function paymentSuccess () {
+  $("#payoutContainer").fadeOut(200, () => {
+    $("#paymentSuccess").fadeIn(205,() =>{
+      $('#line2').attr('line','active');
+      $('#circle3').css({
+        'background-color':'var(--primary-color)'
+      })
+    });
+  });
+}
