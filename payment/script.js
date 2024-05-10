@@ -37,8 +37,10 @@ const tax = 10;
 const addTaxPrice = parseInt((totalPrice * tax) / 100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
 const userInfo = {};
-const seatsNumber = seats.map(item => item.seatCode).join(' / ');
-const foods = foodItems.map(item => `${item.name} x${item.quantity}`).join(" / ");
+const seatsNumber = seats.map((item) => item.seatCode).join(" / ");
+const foods = foodItems
+  .map((item) => `${item.name} x${item.quantity}`)
+  .join(" / ");
 
 // Getters and Setter for User Information
 (() => {
@@ -56,7 +58,7 @@ const foods = foodItems.map(item => `${item.name} x${item.quantity}`).join(" / "
   userInfo.showDate = showDate;
   userInfo.showTime = showTime;
   userInfo.cinema = cinema;
-  userInfo.totalSeats  = totalSeats
+  userInfo.totalSeats = totalSeats;
   userInfo.totalSeatPrice = totalSeatPrice;
   userInfo.totalFoodPrice = totalFoodPrice;
   userInfo.totalPrice = totalPriceWithTax;
@@ -190,13 +192,13 @@ $("#inputBtn").click(() => {
   ) {
     localStorage.setItem("userData", JSON.stringify(userInfo));
   } else {
-    $('#alertContainer').append('<h1>Please fill all fields!</h1>');
-    $('#alertContainer').fadeIn(200,() =>{
+    $("#alertContainer").append("<h1>Please fill all fields!</h1>");
+    $("#alertContainer").fadeIn(200, () => {
       setTimeout(() => {
-        $('#alertContainer').fadeOut(200)
-        $('#alertContainer').empty();
+        $("#alertContainer").fadeOut(200);
+        $("#alertContainer").empty();
       }, 2000);
-    })
+    });
     return;
   }
 
@@ -216,35 +218,41 @@ $("#inputBtn").click(() => {
   });
 });
 
-
-$('#paynowBtn').click(() => {
-  if (
-    userInfo.name &&
-    userInfo.payment
-  ){
-    $('#checkoutContainer').fadeOut(200,() => {
-      getUserFromLocalStorage()
-      $('#payoutContainer').fadeIn(205)
+$("#paynowBtn").click(() => {
+  if (userInfo.name && userInfo.payment) {
+    $("#checkoutContainer").fadeOut(200, () => {
+      getUserFromLocalStorage();
+      $("#payoutContainer").fadeIn(205);
     });
-  
-  }else{
-    $('#alertContainer').append('<h1>Please choose payment!</h1>');
-    $('#alertContainer').fadeIn(200,() =>{
+  } else {
+    $("#alertContainer").append("<h1>Please choose payment!</h1>");
+    $("#alertContainer").fadeIn(200, () => {
       setTimeout(() => {
-        $('#alertContainer').fadeOut(200)
-        $('#alertContainer').empty();
+        $("#alertContainer").fadeOut(200);
+        $("#alertContainer").empty();
       }, 2000);
-    })
+    });
     return;
   }
-
-
-})
+});
 
 const getUserFromLocalStorage = () => {
-  const {name,moviename,bank_acc_number,cinema,payment,showDate,showTime,totalPrice,totalSeats,seatsNumber,foods,phone_number} = JSON.parse(localStorage.getItem('userData'))
+  const {
+    name,
+    moviename,
+    bank_acc_number,
+    cinema,
+    payment,
+    showDate,
+    showTime,
+    totalPrice,
+    totalSeats,
+    seatsNumber,
+    foods,
+    phone_number,
+  } = JSON.parse(localStorage.getItem("userData"));
 
-  const userTicket =`
+  const userTicket = `
   <div class="ticket_info">
   <span>
     <p>movie name</p>
@@ -296,13 +304,13 @@ const getUserFromLocalStorage = () => {
     <p>${totalPrice} Ks</p>
   </span>
  </div>
-  `
+  `;
 
-  $('#ticketDetail').append(userTicket)
-}
+  $("#ticketDetail").append(userTicket);
+};
 
-$('#orderBtn').click(() => {
-  $('#payoutContainer').fadeOut(200,() => {
-    $('#paymentSuccess').fadeIn(205)
-  })
-})
+$("#orderBtn").click(() => {
+  $("#payoutContainer").fadeOut(200, () => {
+    $("#paymentSuccess").fadeIn(205);
+  });
+});
