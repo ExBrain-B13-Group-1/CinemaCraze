@@ -1,3 +1,4 @@
+// import { jsPDF } from "jspdf";
 const json = {
   cinema: "Cinema Craze",
   movie: "Avengers: Endgame",
@@ -38,8 +39,8 @@ const addTaxPrice = parseInt((totalPrice * tax) / 100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
 const seatsNumber = seats.map((item) => item.seatCode).join(" / ");
 const foods = foodItems
-.map((item) => `${item.name} x${item.quantity}`)
-.join(" / ");
+  .map((item) => `${item.name} x${item.quantity}`)
+  .join(" / ");
 
 let userInfo = {};
 let userData;
@@ -68,22 +69,22 @@ let userData;
   userInfo.stage = 0;
   userInfo.paymentVerified = false;
 
-   userData = JSON.parse(localStorage.getItem('userData')) || userInfo;
+  userData = JSON.parse(localStorage.getItem("userData")) || userInfo;
 
-  if(userData.stage === 1) {
-    choossePayment()
-  }else if(userData.stage === 2){
+  if (userData.stage === 1) {
+    choossePayment();
+  } else if (userData.stage === 2) {
     getUserFromLocalStorage();
-  }else if(userData.stage === 'success'){
-    $('#line1').attr('line','active');
-    $('#circle2').css({
-      'background-color':'var(--primary-color)'
-    })
+  } else if (userData.stage === "success") {
+    $("#line1").attr("line", "active");
+    $("#circle2").css({
+      "background-color": "var(--primary-color)",
+    });
     $("#checkoutContainer").css({
-      'display':'none'
-    })
-    paymentSuccess()
-  }else return;
+      display: "none",
+    });
+    paymentSuccess();
+  } else return;
 })();
 
 $("#paymentCloseBtn").click(() => {
@@ -210,9 +211,9 @@ $("#inputBtn").click(() => {
     userInfo.payment &&
     userInfo[$("#number").attr("name")]
   ) {
-    console.log('success');
-  choossePayment();
-  userInfo.stage = 1;
+    console.log("success");
+    choossePayment();
+    userInfo.stage = 1;
 
     localStorage.setItem("userData", JSON.stringify(userInfo));
   } else {
@@ -226,7 +227,6 @@ $("#inputBtn").click(() => {
     return;
   }
 
-
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
     $("#number").remove();
@@ -234,7 +234,7 @@ $("#inputBtn").click(() => {
   });
 });
 
-function choossePayment () {  
+function choossePayment() {
   console.log(userData);
   if (userData.bank_acc_number) {
     $("#bankPay").attr("click", true);
@@ -264,8 +264,7 @@ $("#paynowBtn").click(() => {
   }
 });
 
-function getUserFromLocalStorage () {
-
+function getUserFromLocalStorage() {
   userInfo = JSON.parse(localStorage.getItem("userData"));
   let {
     name,
@@ -337,30 +336,72 @@ function getUserFromLocalStorage () {
 
   $("#ticketDetail").append(userTicket);
   $("#checkoutContainer").fadeOut(200, () => {
-    $("#payoutContainer").fadeIn(205,() => {
-      $('#line1').attr('line','active')
-      $('#circle2').css({
-        'background-color':'var(--primary-color)'
-      })
+    $("#payoutContainer").fadeIn(205, () => {
+      $("#line1").attr("line", "active");
+      $("#circle2").css({
+        "background-color": "var(--primary-color)",
+      });
     });
   });
-
-};
+}
 
 $("#orderBtn").click(() => {
   userInfo.paymentVerified = true;
-  userInfo.stage = 'success';
-  paymentSuccess()
-  localStorage.setItem('userData',JSON.stringify(userInfo))
+  userInfo.stage = "success";
+  paymentSuccess();
+  localStorage.setItem("userData", JSON.stringify(userInfo));
 });
 
-function paymentSuccess () {
+function paymentSuccess() {
   $("#payoutContainer").fadeOut(200, () => {
-    $("#paymentSuccess").fadeIn(205,() =>{
-      $('#line2').attr('line','active');
-      $('#circle3').css({
-        'background-color':'var(--primary-color)'
-      })
+    $("#paymentSuccess").fadeIn(205, () => {
+      $("#line2").attr("line", "active");
+      $("#circle3").css({
+        "background-color": "var(--primary-color)",
+      });
     });
   });
+}
+
+$("#ticketDownload").click(() => {
+  jsonToPdf();
+});
+
+function jsonToPdf() {
+  const { jsPDF } = window.jspdf;
+  const userTicket = JSON.parse(localStorage.getItem("userData"));
+  const number = userTicket.bank_acc_number || userTicket.phone_number;
+  let doc = new jsPDF();
+  // doc.text(
+  //   ,
+  //   "Name: " +
+  //   userTicket.name +
+  //     "Movie Name: " +
+  //     userTicket.moviename +
+  //     "Seat: " +
+  //     userTicket.seatsNumber +
+  //     "Food: " +
+  //     userTicket.foods +
+  //     "Show Date: " +
+  //     userTicket.showDate +
+  //     "Show Time: " +
+  //     userTicket.showTime +
+  //     "Cinema: " +
+  //     userTicket.cinema +
+  //     "Payment: " +
+  //     userTicket.payment +
+  //     "Price: " +
+  //     userTicket.totalPrice
+  // );
+  doc.text(`Name: ${userTicket.name}`,105, 15, null, null, "center")
+  doc.text(`Number: ${number}`,105, 25, null, null, "center")
+  doc.text(`Movie Name: ${userTicket.moviename}`,105, 35, null, null, "center")
+  doc.text(`Seat: ${userTicket.seatsNumber}`,105, 45, null, null, "center")
+  doc.text(`Food: ${userTicket.foods}`,105, 55, null, null, "center")
+  doc.text(`Show Date: ${userTicket.showDate}`,105, 65, null, null, "center")
+  doc.text(`Show Time: ${userTicket.showTime}`,105, 75, null, null, "center")
+  doc.text(`Cinema: ${userTicket.cinema}`,105, 85, null, null, "center")
+  doc.text(`Payment: ${userTicket.payment}`,105, 95, null, null, "center")
+  doc.text(`Price: ${userTicket.totalPrice}`,105, 105, null, null, "center")
+  doc.save("Test.pdf");
 }
