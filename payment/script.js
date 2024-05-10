@@ -15,6 +15,8 @@ const json = {
   ],
 };
 
+// const json = JSON.parse(localStorage.getItem('booking'));
+
 const {
   cinema,
   movie,
@@ -184,7 +186,14 @@ $("#inputBtn").click(() => {
   ) {
     localStorage.setItem("userData", JSON.stringify(userInfo));
   } else {
-    console.log("user error"); //todo throw error
+    $('#alertContainer').append('<h1>Please fill all fields!</h1>');
+    $('#alertContainer').fadeIn(200,() =>{
+      setTimeout(() => {
+        $('#alertContainer').fadeOut(200)
+        $('#alertContainer').empty();
+      }, 2000);
+    })
+    return;
   }
 
   if ($("#number").attr("name").includes("bank")) {
@@ -205,10 +214,26 @@ $("#inputBtn").click(() => {
 
 
 $('#paynowBtn').click(() => {
-  $('#checkoutContainer').fadeOut(200,() => {
-    getUserFromLocalStorage()
-    $('#payoutContainer').fadeIn(205)
-  });
+  if (
+    userInfo.name &&
+    userInfo.payment &&
+    userInfo[$("#number").attr("name")]
+  ){
+    $('#checkoutContainer').fadeOut(200,() => {
+      getUserFromLocalStorage()
+      $('#payoutContainer').fadeIn(205)
+    });
+  
+  }else{
+    $('#alertContainer').append('<h1>Please choose payment!</h1>');
+    $('#alertContainer').fadeIn(200,() =>{
+      setTimeout(() => {
+        $('#alertContainer').fadeOut(200)
+        $('#alertContainer').empty();
+      }, 2000);
+    })
+    return;
+  }
 
 
 })

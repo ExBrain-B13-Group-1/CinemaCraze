@@ -791,4 +791,7 @@ body {
     color: white;
     border-radius: .5vmax;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.295);
+    display: none;
+    z-index: 10;
+    margin: 1%;
 }
