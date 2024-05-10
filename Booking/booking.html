@@ -14,6 +14,7 @@
 </head>
 
 <body>
+  <div id="overlay"></div>
   <!-- Navbar -->
   <div>
     <h3>Navbar</h3>
@@ -63,20 +64,23 @@
     <div class="container mainbody">
       <div>
         <div class="title-container">
+          <!-- Back button svg -->
+          <svg id="book-back" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
+          </svg>
           <h1>Movie Booking</h1>
+          <p></p>
+          <div class="book-history-container">
             <button id="book-history-btn" disabled>Booking History</button>
+          </div>
         </div>
         <div class="booking-form">
-          <div class="book-movie">
-            <!-- Back button svg -->
-            <svg id="book-back" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
-            </svg>
-            <!-- Selected movie name -->
-            <h3>Movie Name</h3>
-            <p></p>
+          <!-- Selected movie name -->
+          <div class="poster-container">
+            <!-- <img id="moviePoster" src="" alt="movie-poster"> -->
+            <h3 id="movieName">Movie Name</h3>
           </div>
           <!-- Select date time section -->
           <div>
@@ -105,7 +109,7 @@
   </div>
 
   <!-- Book Seat Tab -->
-  <div class="tab-content" id="select-seats" style="display: none;">
+  <div class="tab-content" id="select-seats" style="display: none; background-position: center center;">
     <!-- Seat Section -->
     <section class="container mainbody">
       <div>
@@ -384,6 +388,7 @@
 
   <!-- Book Food Tab -->
   <div class="tab-content" id="get-food" style="display: none;">
+    <!-- Food Section -->
     <section class="container mainbody">
       <div>
         <!-- Content for Get Your Food step -->
@@ -471,7 +476,7 @@
         </div>
         <div>
           <!-- Navigate To Payment Page -->
-          <a href="../payment.html">Make Payment</a>
+          <a href="../payment/index.html" target="_blank" id="payment-link">Make Payment</a>
         </div>
         <p id="warning">Note: Please complete your payment within the booking lifetime</p>
       </div>
@@ -525,12 +530,14 @@
   <!-- Booking History -->
   <section>
     <div class="alert-book-history">
-      <h1>Booking History</h1>
+      <div class="alert-content">
+        <h1>Booking History</h1>
       <div id="booking-list"></div>
       <button id="ok-btn">OK</button>
+      </div>
     </div>
   </section>
-
+  </div>
 
 </body>
 
