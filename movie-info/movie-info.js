@@ -45,7 +45,7 @@ fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
                     <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${title}" />
                 </div>
                 <div class="booking-info">
-                    <a href="/booking" class="btn-booking">Book Movie</a>
+                    <a href="/Booking/booking.html" class="btn-booking">Book Movie</a>
                 </div>
             </div>
         </div>
