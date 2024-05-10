@@ -65,16 +65,16 @@ let userData;
   userInfo.totalPrice = totalPriceWithTax;
   userInfo.seatsNumber = seatsNumber;
   userInfo.foods = foods;
-  userInfo.stage = 1;
+  userInfo.stage = 0;
   userInfo.paymentVerified = false;
 
-   userData = JSON.parse(localStorage.getItem('userData'));
+   userData = JSON.parse(localStorage.getItem('userData')) || userInfo;
 
   if(userData.stage === 1) {
     choossePayment()
   }else if(userData.stage === 2){
     getUserFromLocalStorage();
-  }else{
+  }else if(userData.stage === 'success'){
     $('#line1').attr('line','active');
     $('#circle2').css({
       'background-color':'var(--primary-color)'
@@ -83,7 +83,7 @@ let userData;
       'display':'none'
     })
     paymentSuccess()
-  }
+  }else return;
 })();
 
 $("#paymentCloseBtn").click(() => {
@@ -210,6 +210,10 @@ $("#inputBtn").click(() => {
     userInfo.payment &&
     userInfo[$("#number").attr("name")]
   ) {
+    console.log('success');
+  choossePayment();
+  userInfo.stage = 1;
+
     localStorage.setItem("userData", JSON.stringify(userInfo));
   } else {
     $("#alertContainer").append("<h1>Please fill all fields!</h1>");
@@ -222,7 +226,6 @@ $("#inputBtn").click(() => {
     return;
   }
 
-  choossePayment();
 
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
@@ -231,7 +234,8 @@ $("#inputBtn").click(() => {
   });
 });
 
-function choossePayment () {
+function choossePayment () {  
+  console.log(userData);
   if (userData.bank_acc_number) {
     $("#bankPay").attr("click", true);
   } else {
@@ -240,6 +244,7 @@ function choossePayment () {
 
   $("#bankPay").attr("choose", true);
   $("#mobilePay").attr("choose", true);
+  // localStorage.setItem('userData',JSON.stringify(userInfo))
 }
 
 $("#paynowBtn").click(() => {
