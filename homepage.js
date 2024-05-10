@@ -32,7 +32,6 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en-US', options)
 
 function populateNowPlaying(results, genreMap) {
     const posterParent = document.getElementById("posters");
-
     for (let i = 0; i < Math.min(results.length, 5); i++) {
         const movie = results[i];
         const genreNames = movie.genre_ids.map(genreId => genreMap.get(genreId));
