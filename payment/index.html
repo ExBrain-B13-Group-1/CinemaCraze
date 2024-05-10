@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="assets/Logo.svg" type="image/x -icon" sizes="16x16" />
+  <title>CinemaCraze</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="jquery3.6.0.js"></script>
+  <script src="script.js" defer ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+  <!--! body backgound -->
+  <!-- <div class="body_background">
+    <div class="background_img_container">
+      <img src="assets/backgound/backgound1.svg" alt="backgound1" width="50%" />
+      <img src="assets/backgound/backgound2.svg" alt="backgound2" width="35%" />
+      <img src="assets/backgound/bottomcross.svg" alt="bottomcross" width="20%" />
+      <img src="assets/backgound/bottomshapeline.svg" alt="bottomshapeline" width="20%" />
+      <img src="assets/backgound/circlegp.svg" alt="circlegp" width="20%" />
+      <img src="assets/backgound/clircle.svg" alt="clircle" width="5%" />
+      <img src="assets/backgound/squaregp.svg" alt="squaregp" width="10%" />
+      <img src="assets/backgound/topcross.svg" alt="topcross" width="10%" />
+      <img src="assets/backgound/topline1.svg" alt="topline1" width="50%" />
+      <img src="assets/backgound/topline2.svg" alt="topline2" width="50%" />
+      <img src="assets/backgound/topshapeline.svg" alt="topshapeline" width="20%" />
+    </div>
+  </div> -->
+
+  <div class="main_secreen">
+
+    <!--! progress bar -->
+    <div class="progress_bar">
+      <div class="circle circle1"></div>
+      <div class="line line1" id="line1"></div>
+      <div class="circle circle2" id="circle2"></div>
+      <div class="line line2" id="line2"></div>
+      <div class="circle circle3" id="circle3"></div>
+    </div>
+
+    <!--! main section -->
+    <section class="container" id="checkoutContainer">
+      <div class="container_left">
+        <div class="movie_detail_container">
+          <h1>movie details</h1>
+          <div class="movie_detail">
+            <div class="movie_poster" id="moviePoser">
+            </div>
+            <div class="movie_des">
+              <span>
+                <p>movie name -</p>
+                <p id="movieName"></p>
+              </span>
+              <span>
+                <p>show date -</p>
+                <p id="showDate"></p>
+              </span>
+              <span>
+                <p>show time -</p>
+                <p id="showTime"></p>
+              </span>
+              <span>
+                <p>cinema name -</p>
+                <p id="cinema"></p>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="payment_method_container">
+          <h1>payment methods</h1>
+          <div class="payment_methods">
+            <div class="bank_pay" id="bankPay" click=false choose="false">
+              <p>bank payments</p>
+              <svg viewBox="0 0 278 198" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M249.846 189.71H28.1538C17.0188 189.71 8 180.675 8 169.52V28.19C8 17.035 17.0188 8 28.1538 8H249.846C260.981 8 270 17.035 270 28.19V169.52C270 180.675 260.981 189.71 249.846 189.71Z"
+                  stroke="#3D73FF" stroke-width="15" stroke-miterlimit="10" />
+                <path d="M270 58.4746H28.1543" stroke="#3D73FF" stroke-width="15" stroke-miterlimit="10" />
+                <line x1="48.3105" y1="141.829" x2="149.08" y2="141.829" stroke="#3D73FF" stroke-width="15"
+                  stroke-dasharray="20 20" />
+              </svg>
+            </div>
+            <div class="mobile_pay" id="mobilePay" click=false choose="false">
+              <p>mobile payments</p>
+              <svg viewBox="0 0 268 346" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M181.74 228.867V320.469C181.74 323.072 181.226 325.65 180.228 328.054C179.23 330.458 177.767 332.642 175.923 334.479C174.08 336.317 171.891 337.773 169.484 338.763C167.076 339.753 164.497 340.259 161.894 340.25H24.7814C19.5351 340.25 14.5036 338.166 10.7939 334.456C7.08411 330.747 5 325.715 5 320.469V24.7815C5 22.1838 5.51166 19.6115 6.50577 17.2115C7.49988 14.8115 8.95698 12.6308 10.7939 10.794C14.5036 7.08421 19.5351 5.00011 24.7814 5.00011H161.894C164.497 4.9916 167.076 5.49698 169.484 6.48728C171.891 7.47758 174.08 8.93332 175.923 10.771C177.767 12.6088 179.23 14.7923 180.228 17.1966C181.226 19.6008 181.74 22.1784 181.74 24.7815V95.0509"
+                  stroke="#3D73FF" stroke-width="10" />
+                <path d="M61.0469 32.6035H100.416" stroke="#3D73FF" stroke-width="10" stroke-linecap="round" />
+                <path d="M83.5449 311.418H103.197" stroke="#3D73FF" stroke-width="10" stroke-linecap="round" />
+                <path d="M124.852 32.6035H125.627" stroke="#3D73FF" stroke-width="10" stroke-linecap="round" />
+                <path d="M5 284.849H181.74" stroke="#3D73FF" stroke-width="10" />
+                <path d="M5 61.1123H181.74" stroke="#3D73FF" stroke-width="10" />
+                <path
+                  d="M87.4877 95.0507H248.196C251.865 95.0507 255.384 96.5082 257.978 99.1026C260.572 101.697 262.03 105.216 262.03 108.885V215.032C262.03 218.701 260.572 222.22 257.978 224.814C255.384 227.409 251.865 228.866 248.196 228.866H81.7989C78.1299 228.866 74.6111 227.409 72.0167 224.814C69.4224 222.22 67.9648 218.701 67.9648 215.032V114.444C67.9648 111.887 68.4707 109.354 69.4534 106.993C70.4361 104.631 71.8761 102.488 73.6907 100.685C75.5053 98.8825 77.6585 97.4567 80.0264 96.4897C82.3943 95.5227 84.93 95.0337 87.4877 95.0507Z"
+                  stroke="#3D73FF" stroke-width="10" />
+                <path d="M68.0938 123.688H262.029" stroke="#3D73FF" stroke-width="10" />
+                <path d="M68.0938 148.448H262.029" stroke="#3D73FF" stroke-width="10" />
+                <path
+                  d="M224.989 176.957C221.644 176.975 218.398 178.088 215.745 180.124C213.845 178.67 211.627 177.689 209.273 177.263C206.92 176.836 204.498 176.976 202.209 177.672C199.921 178.367 197.83 179.597 196.112 181.261C194.393 182.925 193.095 184.974 192.326 187.239C191.556 189.504 191.338 191.919 191.687 194.285C192.037 196.652 192.945 198.901 194.337 200.846C195.728 202.792 197.563 204.378 199.69 205.474C201.816 206.569 204.173 207.142 206.565 207.146C209.903 207.144 213.141 206.004 215.745 203.914C217.638 205.384 219.855 206.382 222.211 206.824C224.567 207.265 226.995 207.138 229.292 206.452C231.589 205.767 233.69 204.543 235.419 202.882C237.148 201.222 238.455 199.173 239.233 196.905C240.011 194.637 240.236 192.217 239.89 189.844C239.544 187.472 238.636 185.217 237.243 183.266C235.85 181.315 234.011 179.725 231.88 178.627C229.749 177.53 227.386 176.957 224.989 176.957Z"
+                  stroke="#3D73FF" stroke-width="10" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container_right">
+        <div class="payment_detail_container">
+          <h1>payment details</h1>
+          <div class="payment_detail">
+            <span>
+              <p>seat -</p>
+              <p id="totalSeats">2</p>
+            </span>
+            <span>
+              <p>ticket price -</p>
+              <p id="ticketPrice">12000 Ks</p>
+            </span>
+            <span>
+              <p>food -</p>
+              <p id="foodPrice">12000 Ks</p>
+            </span>
+            <span>
+              <p>tax -</p>
+              <p id="tax">10%</p>
+            </span>
+            <span>
+              <p>coupon code -</p>
+              <p id="couponCode">2DADE</p>
+            </span>
+            <span class="total_result">
+              <p>total-</p>
+              <p id="totalPrice">15000 Ks</p>
+            </span>
+          </div>
+          <span class="split_line"></span>
+          <button class="paynow_btn" id="paynowBtn">pay now</button>
+        </div>
+      </div>
+    </section>
+
+    <!--! payment provider -->
+    <div class="payment_provider" id="paymentProvider">
+      <div class="header">
+        <h1>Choose payment methods</h1>
+        <i class="fa-solid fa-square-xmark" id="paymentCloseBtn"></i>
+      </div>
+      <div class="providers_container" id="providersContainer"></div>
+      <div class="user_info_input">
+        <p class="des">paid username and phone number</p>
+        <div class="input_container" id="inputContainer">
+          <input type="text" name="username" id="name" placeholder="Name">
+        </div>
+        <button class="input_btn" id="inputBtn">confirm</button>
+      </div>
+    </div>
+    <div class="payment_provider_overlay" id="overLay"></div>
+
+    <!--! payout section -->
+    <section class="payout_container" id="payoutContainer">
+      <div class="ticket_container">
+        <div class="ticket_icon">
+          <img src="assets/ticket.svg" alt="ticket" width="100%">
+        </div>
+        <div class="ticket_detail" id="ticketDetail">
+          <h1>your ticket</h1>
+        </div>
+      </div>
+      <button class="order_btn" id="orderBtn">order</button>
+    </section>
+
+    <!--! payment success section -->
+    <section class="payment_success_container" id="paymentSuccess">
+      <div class="success_icon_container">
+        <span class="success_circle">
+          <img src="assets/success.svg" alt="success" width="80%">
+        </span>
+      </div>
+      <h1>payment success</h1>
+      <button class="ticket_download" id="ticketDownload">ticket download <i class="fa-solid fa-download"></i></button>
+    </section>
+
+    <!--! alert section -->
+    <div class="alert_container" id="alertContainer"></div>
+  </div>
+
+
+</body>
+
+</html>

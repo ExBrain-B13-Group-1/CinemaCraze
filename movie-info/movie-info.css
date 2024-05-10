@@ -1,275 +1,84 @@
-*{
-    margin: 0;
-    color: white;
-    font-family: monospace;
-}
-body{
-    width: 100%;
-    background-color: black;
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    object-fit: contain;
-    backdrop-filter: blur(10px);
-}
-.header{
-    vertical-align: middle;
-    background: rgb(19,22,23);
-    background: linear-gradient(0deg, rgba(19,22,23,1) 25%, rgba(53,53,79,1) 79%);
-    box-shadow: 0px 2px 18px 0px white;
-    font-size: 2.5vh;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-}
-.header img{
-    margin-left: 50px;
-    height: 70px;
-}
-.right-header{
-    display: flex;
-    justify-content: center;
-}
-.booking,.movie-search,.about-us,.contact{
-    margin-right: 70px;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-}
-ion-icon{
-    margin: auto;
-}
-.menu-icon{
-    display: none;
-}
-.smoke-icon,.exit-icon{
-    display: none;
-}
+const passedId = sessionStorage.getItem('selectedMovieId');
+console.log(passedId);
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODVmNGIzYTlhNWZlODcxZmQxMjg5NGFlMmEzMTVlNSIsInN1YiI6IjY2M2IzOGNiYTFiNzg1YjQwMjhlY2Y2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wblEHHeXdWuVJNysQ7_gMsOxKlSRL3lridI6MAJhtzU'
+    }
+};
 
-.main-container{
-    padding-top: 50px;
-    display: flex;
-    margin: auto;
-    align-items: center;
-    width: 70%;
+fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
+    .then(response => response.json())
+    .then(data => {
+        fetch(`https://api.themoviedb.org/3/movie/${passedId}/credits?language=en-US`, options)
+            .then(response => response.json())
+            .then(creditsData => {
+                data.credits = creditsData;
+                populateInfo(data);
+            })
+            .catch(err => console.error(err));
+    })
+    .catch(err => console.error(err));
+
+    function populateInfo(data) {
+        const mainContainer = document.querySelector('.main-container');
+        const { title, poster_path, overview, genres, vote_average, backdrop_path, credits } = data;
+        const genreString = genres.map(genre => genre.name).join(' / ');
+        const castHTML = credits.cast.slice(0, 2).map(castMember => `
+            <div class="cast-info-container">
+                <div class="cast-img"><img src="https://image.tmdb.org/t/p/w500${castMember.profile_path}" alt="${castMember.name}"></div>
+                <p class="cast-text">${castMember.name}<span class="cast-mid-text">as</span><span class="cast-as">${castMember.character}</span></p>
+            </div>
+        `).join('');
+        const directorHTML = credits.crew.find(crewMember => crewMember.job === 'Director')
+        ? `
+            <div class="director-info">
+                <div class="director-img"><img src="https://image.tmdb.org/t/p/w500${credits.crew.find(crewMember => crewMember.job === 'Director').profile_path}" alt="${credits.crew.find(crewMember => crewMember.job === 'Director').name}"></div>
+                <p class="director-text">${credits.crew.find(crewMember => crewMember.job === 'Director').name}</p>
+            </div>
+        `:'';
+        const movieInfoHTML = `
+        <div class="left-container">
+            <div class="poster-container">
+                <div class="movie-poster">
+                    <img src="https://image.tmdb.org/t/p/w500${poster_path}" alt="${title}" />
+                </div>
+                <div class="booking-info">
+                    <a href="/booking" class="btn-booking">Book Movie</a>
+                </div>
+            </div>
+        </div>
+        <div class="movie-info">
+            <div class="inner-movie-info">
+                <div class="movie-name">${title}</div>
+                <div class="movie-release-date">2024</div>
+                <div class="movie-genre">${genreString}</div>
+                <div class="rating">
+                    <ion-icon name="star" class="full-star"></ion-icon><ion-icon name="star-half"
+                        class="half-star"></ion-icon> ${vote_average}
+                </div>
+                <h1 class="synopsis">Synopsis</h1>
+                <div class="plot-summary">
+                    ${overview}
+                </div>
+                <div class="director">
+                    <span class="name">Director</span>
+                    ${directorHTML}
+                </div>
+                <div class="cast">
+                    <span class="name">Cast</span>
+                    <div class="cast-info">
+                        ${castHTML}
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
     
-}
-.left-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-}
-.poster-container{
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-}
-.booking-info{
-    display: flex;
-    border-radius: 5px;
-    background-color: transparent;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.movie-poster{
-    margin-top: 10px;
-    max-width: 450px;
-    display: flex;
-    justify-content: center;
-}
-.movie-poster img{
-    border-radius: 10px;
-    width: 95%;
-}
-.movie-info{
-    font-size: 1em;
-    width: 50%;
-    position: relative;
-}
-.inner-movie-info{
-    color: black !important;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.2);
-    width: 80%;
-    margin: auto;
-}
-.btn-booking{
-    background-color: green;
-    font-size: 1.7em;
-    text-align: center;
-    font-weight: bold;
-    width: 92%;
-    padding: 5px;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 2px solid green;
-}
-.movie-name{
-    color: black !important;
-    font-size: 3em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
-.movie-release-date{
-    color: black !important;
-    font-size: 2.5em;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-.movie-genre{
-    color: black !important;
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.full-star{
-    color: black !important;
-}
-.half-star{
-    display: none;
-}
-.rating{
-    color: black !important;
-    align-items: center;
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-.synopsis{
-    color: black !important;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 2em;
-}
-.plot-summary{
-    color: black !important;
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    opacity: 0.8;
-}
-.name{
-    font-weight: bold;
-}
-.director,.cast{
-    color: black !important;
-    font-size: 1.7em;
-    margin-bottom: 20px;
-}
-.cast-info{
-    display: flex;
-    flex-direction: column;
-}
-.cast-info-container{
-    display: flex;
-    justify-content: flex-start;
-}
-.director-info,.cast-info{
-    color: black !important;
-    display: flex;
-}
-.director-text,.cast-text{
-    color: black !important;
-    display: flex;
-    margin-left: 20px;
-    margin-top: 30px;
-    font-size: 0.9em;
-    font-weight: bold;
-}
-.cast-as{
-    color: black;
-}
-.name{
-    color: black !important;
-}
-.director-info img,.cast-info img{
-    margin-top: 20px;
-    width: 3vh;
-    border-radius: 50%;
-}
-.cast-mid-text{
-    margin-top: 3px;
-    color: black;
-    font-size: 0.8em;
-    margin-left: 8px;
-    margin-right: 8px;
-    opacity: 0.7;
-}
-@media screen and (max-width:1168px) {
-    .main-container{
-        flex-direction: column;
+        mainContainer.innerHTML = movieInfoHTML;
+        if (backdrop_path) {
+            document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/original${backdrop_path}')`;
+        } 
     }
-    .movie-info{
-        width: 100%;
-    }
-}
-@media screen and (max-width:1080px) {
-    .booking-info{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-    .show-time{
-        padding-bottom: 3px;
-    }
-    .btn-booking{
-        width: 90%;
-        font-size: 1.5em;
-        text-align: center;
-        margin-bottom: 5px;
-    }
-}
-@media screen and (max-width:1300px) {
-    .text{
-        transition: all 2s;
-        display: none;
-    }
-    .icons{
-        font-size: 4vh;
-    }
-}
-@media screen and (max-width:720px) {
-    .icons{
-        display: none;
-    }
-    .menu-icon{
-        display: block;
-        margin-right: 50px;
-        font-size: 5vh;
-    }
-}
-.footer{
-    margin-top: 50px;
-    background: rgb(19,22,23);
-    background: linear-gradient(0deg, rgba(19,22,23,1) 25%, rgba(53,53,79,1) 79%);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0px -2px 12px 0px white;
-}
-.left-footer{
-    margin-left: 20%;
-    display: flex;
-    flex-direction: column;
-}
-.right-footer{
-    margin-right: 20%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    gap: 5px;
-    display: flex;
-    flex-direction: column;
-}
-.footer-text{
-    font-size: 1.5em;
-    text-decoration: none;
-}
+    
