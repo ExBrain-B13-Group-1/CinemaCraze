@@ -11,13 +11,15 @@
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="jquery3.6.0.js"></script>
-  <script src="script.js" defer></script>
+  <script src="script.js" defer ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
   <!--! body backgound -->
-  <div class="body_background">
+  <!-- <div class="body_background">
     <div class="background_img_container">
       <img src="assets/backgound/backgound1.svg" alt="backgound1" width="50%" />
       <img src="assets/backgound/backgound2.svg" alt="backgound2" width="35%" />
@@ -31,17 +33,17 @@
       <img src="assets/backgound/topline2.svg" alt="topline2" width="50%" />
       <img src="assets/backgound/topshapeline.svg" alt="topshapeline" width="20%" />
     </div>
-  </div>
+  </div> -->
 
   <div class="main_secreen">
 
     <!--! progress bar -->
     <div class="progress_bar">
       <div class="circle circle1"></div>
-      <div class="line line1"></div>
-      <div class="circle circle2"></div>
-      <div class="line line2"></div>
-      <div class="circle circle3"></div>
+      <div class="line line1" id="line1"></div>
+      <div class="circle circle2" id="circle2"></div>
+      <div class="line line2" id="line2"></div>
+      <div class="circle circle3" id="circle3"></div>
     </div>
 
     <!--! main section -->
@@ -50,8 +52,7 @@
         <div class="movie_detail_container">
           <h1>movie details</h1>
           <div class="movie_detail">
-            <div class="movie_poster">
-              <img src="assets/movie-poster.jpg" alt="movie-poster" width="100%" id="moviePoster" />
+            <div class="movie_poster" id="moviePoser">
             </div>
             <div class="movie_des">
               <span>
@@ -184,14 +185,13 @@
         </span>
       </div>
       <h1>payment success</h1>
-      <button class="ticket_download">ticket download <i class="fa-solid fa-download"></i></button>
+      <button class="ticket_download" id="ticketDownload">ticket download <i class="fa-solid fa-download"></i></button>
     </section>
 
     <!--! alert section -->
-    <div class="alert_container">
-      <h1>please fill all input</h1>
-    </div>
+    <div class="alert_container" id="alertContainer"></div>
   </div>
+
 
 </body>
 

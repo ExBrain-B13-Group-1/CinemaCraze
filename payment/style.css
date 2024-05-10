@@ -17,7 +17,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    background-color: #272727;
+    /* overflow: hidden; */
 }
 
 .body_background {
@@ -106,6 +107,7 @@ body {
     width: 90%;
     /*todo Change Marge Day */
     /* margin-top: 5%; */ 
+    padding: 2%;
 }
 
 .progress_bar {
@@ -170,24 +172,27 @@ body {
     /* filter: ; */
 }
 
-.progress_bar .line:nth-child(2)::after{
+.progress_bar .line[line='active']::after{
     content: '';
-    width: 0%;
+    /* width: 0%; */
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     background-color: var(--primary-color);
-
+    animation: activeLine .2s linear forwards;
 }
 
-.progress_bar .line.active{
-    animation: activeLine 1s linear forwards;
+@keyframes activeLine {
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
+    }
 }
-
 
 /* Main Section Start */
-
 /* todo change display */
 .container {
     margin-top: 2%;
@@ -327,7 +332,7 @@ body {
     content: '';
     width: 80px;
     height: 80px;
-    background-color: rgb(84, 95, 113);
+    background-color: rgb(80 80 80);
     position: absolute;
     bottom: 20%;
     border-radius: 100%;
@@ -612,7 +617,7 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    background-color: #545f71;
+    background-color: rgb(80 80 80);
     position: absolute;
     bottom: 20%;
     left: -8%;
@@ -623,7 +628,7 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    background-color: #545f71;
+    background-color: rgb(80 80 80);
     position: absolute;
     bottom: 20%;
     right: -8%;
@@ -637,7 +642,7 @@ body {
     height: 110px;
     padding: 1%;
     border-radius: 100%;
-    background-color: #545f71;
+    background-color: rgb(80 80 80);
 
     display: flex;
     justify-content: center;
@@ -791,4 +796,7 @@ body {
     color: white;
     border-radius: .5vmax;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.295);
+    display: none;
+    z-index: 10;
+    margin: 1%;
 }
