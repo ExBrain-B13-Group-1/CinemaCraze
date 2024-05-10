@@ -14,9 +14,12 @@ const json = {
     { seatCode: "B4", seatPrice: 5500 },
     { seatCode: "B5", seatPrice: 5400 },
   ],
+  poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
 };
 
 // const json = JSON.parse(localStorage.getItem('booking'));
+
+
 
 const {
   cinema,
@@ -55,6 +58,8 @@ let userData;
   $("#foodPrice").text(`${totalFoodPrice} Ks`);
   $("#tax").text(`${tax}%`);
   $("#totalPrice").text(`${totalPriceWithTax} Ks`);
+              
+  $("#moviePoser").append(`<img src=https://image.tmdb.org/t/p/w500${poster} width="100%" id="moviePoster" />`);
 
   userInfo.moviename = movie;
   userInfo.showDate = showDate;
@@ -372,27 +377,6 @@ function jsonToPdf() {
   const userTicket = JSON.parse(localStorage.getItem("userData"));
   const number = userTicket.bank_acc_number || userTicket.phone_number;
   let doc = new jsPDF();
-  // doc.text(
-  //   ,
-  //   "Name: " +
-  //   userTicket.name +
-  //     "Movie Name: " +
-  //     userTicket.moviename +
-  //     "Seat: " +
-  //     userTicket.seatsNumber +
-  //     "Food: " +
-  //     userTicket.foods +
-  //     "Show Date: " +
-  //     userTicket.showDate +
-  //     "Show Time: " +
-  //     userTicket.showTime +
-  //     "Cinema: " +
-  //     userTicket.cinema +
-  //     "Payment: " +
-  //     userTicket.payment +
-  //     "Price: " +
-  //     userTicket.totalPrice
-  // );
   doc.text(`Name: ${userTicket.name}`,105, 15, null, null, "center")
   doc.text(`Number: ${number}`,105, 25, null, null, "center")
   doc.text(`Movie Name: ${userTicket.moviename}`,105, 35, null, null, "center")
