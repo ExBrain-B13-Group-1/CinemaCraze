@@ -92,10 +92,10 @@ function populateTrendingNow(results) {
                         <div class="movie-info">
                             <p class="movie-name">${movie.title}</p>
                             <div class="movie-genre">Fantasy</div>
-                            <div class="rating">
-                                <ion-icon name="star" class="full-star"></ion-icon>
-                                <ion-icon name="star-half" class="half-star"></ion-icon>
-                                <span class="rating-number">${movie.vote_average}</span>
+                            <div class="all-info-rating">
+                                <ion-icon name="star" class="all-info-full-star"></ion-icon>
+                                <ion-icon name="star-half" class="all-info-half-star"></ion-icon>
+                                <span class="all-info-rating-number">${movie.vote_average}</span>
                             </div>
                         </div>
                     </div>

@@ -285,7 +285,7 @@ input {
 
 swiper-container {
     display: flex;
-    width: 70%;
+    width: 80%;
     margin: auto;
 }
 .swiper-slide{
@@ -306,20 +306,17 @@ swiper-container {
     margin-top: 50px;
     margin-bottom: 50px;
 }
-.trending-movies{
-    display: flex;
-    justify-content: space-evenly;
-    position: relative;
-    margin-left: 33px;
-    margin-right: 33px;
-    transition: all .5s ease;
-}
 .movies-container{
     display: flex;
     flex-direction: row;
     border-radius: 15px;
+    gap: 10px;
     position: relative;
-    background-color: #323444;
+}
+.movie-container{
+    border-radius: 15px;
+    display: flex;
+    position: relative;
 }
 .movie-container img{
     align-self: center;
@@ -329,8 +326,7 @@ swiper-container {
     transition: all .5s ease;
 }
 .movie-container:hover img{
-    filter:blur(2px) brightness(90%);
-    transform: scale(1.05);
+    filter:blur(3px) brightness(70%);
     transition: all .5s ease;
 }
 .movie-container:hover :not(img){
@@ -360,11 +356,21 @@ swiper-container {
     transition: 1s ease;
     opacity: 0;
 }
+.all-info-rating-number{
+    margin-top: 10px;
+}
+.all-info-full-star,.all-info-half-star{
+    height: 18px;
+    width: 20px;
+}
+.all-info-half-star{
+    display: none;
+}
 .movie-name{
     font-size: 1.5em;
 }
 .movie-genre{
-    color: rgb(172, 170, 170);
+    opacity: 0.5;
 }
 @media screen and (max-width: 1650px) {
     .all-info {
