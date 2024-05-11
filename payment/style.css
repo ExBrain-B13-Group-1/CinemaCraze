@@ -249,9 +249,14 @@ body {
 }
 
 
-.payment_methods .bank_pay[click='true'] path,
+/* .payment_methods .bank_pay[click='true'] path,
 .payment_methods .mobile_pay[click='true'] path {
     fill: white;
+} */
+
+.payment_methods .bank_pay[click='true'] svg,
+.payment_methods .mobile_pay[click='true'] svg {
+    display: none;
 }
 
 .bank_pay svg,
@@ -259,13 +264,39 @@ body {
     width: 7%;
 }
 
-.bank_pay svg {
+.bank_pay .xmark,
+.mobile_pay .xmark{
+    background-color: white;
+    font-size: 1.3rem;
+    padding: 2%;
+    border-radius: .5vmax;
+    color: red;
+    transition: all .2s;
+    display: none;
+}
+
+.payment_methods .bank_pay[click='true'] .xmark,
+.payment_methods .mobile_pay[click='true'] .xmark{
+    display: block;
+} 
+
+.bank_pay .xmark:hover,
+.mobile_pay .xmark:hover{
+    background-color: red;
+    color: white;
+
+}
+
+.bank_pay svg,
+.bank_pay .xmark {
     margin-left: 50%;
 }
 
-.mobile_pay svg {
+.mobile_pay svg ,
+.mobile_pay .xmark{
     margin-left: 47%;
 }
+
 
 .container .container_right {
     padding: 0 2%;

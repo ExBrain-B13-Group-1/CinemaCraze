@@ -1,23 +1,23 @@
 // import { jsPDF } from "jspdf";
-// const json = {
-//   cinema: "Cinema Craze",
-//   movie: "Avengers: Endgame",
-//   poster: "Poster Image",
-//   showDate: "Tue May 07 2024",
-//   showTime: "2:30 PM",
-//   foodItems: [
-//     { name: "Cola", price: 3500, quantity: 1 },
-//     { name: "Hot Dog", price: 14000, quantity: 2 },
-//   ],
-//   totalSeats: 2,
-//   seats: [
-//     { seatCode: "B4", seatPrice: 5500 },
-//     { seatCode: "B5", seatPrice: 5400 },
-//   ],
-//   poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
-// };
+const json = {
+  cinema: "Cinema Craze",
+  movie: "Avengers: Endgame",
+  poster: "Poster Image",
+  showDate: "Tue May 07 2024",
+  showTime: "2:30 PM",
+  foodItems: [
+    { name: "Cola", price: 3500, quantity: 1 },
+    { name: "Hot Dog", price: 14000, quantity: 2 },
+  ],
+  totalSeats: 2,
+  seats: [
+    { seatCode: "B4", seatPrice: 5500 },
+    { seatCode: "B5", seatPrice: 5400 },
+  ],
+  poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
+};
 
-const json = JSON.parse(localStorage.getItem('booking'));
+// const json = JSON.parse(localStorage.getItem('booking'));
 
 
 
@@ -108,7 +108,7 @@ $("#mobilePay").click(() => {
     alt="cbpay"
     width="12.6%"
     class='mobile'
-    value='cbpay'
+    value='CB Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -116,7 +116,7 @@ $("#mobilePay").click(() => {
     alt="kpay"
     width="12.6%"
     class='mobile'
-    value='kbzpay'
+    value='KBZ Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -124,7 +124,7 @@ $("#mobilePay").click(() => {
     alt="okpay"
     width="12.6%"
     class='mobile'
-    value='okpay'
+    value='OK Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -132,7 +132,7 @@ $("#mobilePay").click(() => {
     alt="ayapay"
     width="25%"
     class='mobile'
-    value='ayapay'
+    value='AYA Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -140,7 +140,7 @@ $("#mobilePay").click(() => {
     alt="mytelpay"
     width="25%"
     class='mobile'
-    value='mytelpay'
+    value='Mytel Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -148,7 +148,7 @@ $("#mobilePay").click(() => {
     alt="onepay"
     width="25%"
     class='mobile'
-    value='onepay'
+    value='One Pay'
     onClick='clickEvent(this)'
   />
   <img
@@ -156,7 +156,7 @@ $("#mobilePay").click(() => {
     alt="truepay"
     width="25%"
     class='mobile'
-    value='truemoney'
+    value='TrueMoney'
     onClick='clickEvent(this)'
   />
   <img
@@ -164,7 +164,7 @@ $("#mobilePay").click(() => {
     alt="wavepay"
     width="25%"
     class='mobile'
-    value='wavepay'
+    value='Wave Pay'
     onClick='clickEvent(this)'
   />
     `;
@@ -184,11 +184,11 @@ $("#mobilePay").click(() => {
 $("#bankPay").click(() => {
   if ($("#bankPay").attr("choose") === "true") return;
   const images = `
-    <img src="assets/payment-provider/bank/abank.png" alt="abank" width="25%" class="bank" value='abank' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/kbz.png" alt="kbz" width="25%" class="bank" value='kbzbank' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/mab.png" alt="mab" width="25%" class="bank" value='mabbank' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/uab.png" alt="uab" width="25%" class="bank" value='uabbank' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/cb.png" alt="cb" width="25%" class="bank" value='cbbank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/abank.png" alt="abank" width="25%" class="bank" value='A Bank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/kbz.png" alt="kbz" width="25%" class="bank" value='KBZ Bank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/mab.png" alt="mab" width="25%" class="bank" value='MAB Bank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/uab.png" alt="uab" width="25%" class="bank" value='UAB Bank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/cb.png" alt="cb" width="25%" class="bank" value='CB Bank' onClick='clickEvent(this)'/>
     `;
 
   if ($("#providersContainer").html().length === 0)
@@ -251,6 +251,19 @@ function choossePayment() {
   $("#mobilePay").attr("choose", true);
   // localStorage.setItem('userData',JSON.stringify(userInfo))
 }
+
+$('#xmark').click(() => {
+  console.log(userData);
+  if (userData.bank_acc_number) {
+    $("#bankPay").attr("click", false);
+  } else {
+    $("#mobilePay").attr("click", false);
+  }
+
+  $("#bankPay").attr("choose", false);
+  $("#mobilePay").attr("choose", false);
+  localStorage.removeItem('userData')
+})
 
 $("#paynowBtn").click(() => {
   if (userData.name && userData.payment) {
@@ -370,6 +383,7 @@ function paymentSuccess() {
 
 $("#ticketDownload").click(() => {
   jsonToPdf();
+  localStorage.removeItem('userData')
 });
 
 function jsonToPdf() {
@@ -387,11 +401,11 @@ function jsonToPdf() {
   doc.text(`Cinema: ${userTicket.cinema}`,105, 85, null, null, "center")
   doc.text(`Payment: ${userTicket.payment}`,105, 95, null, null, "center")
   doc.text(`Price: ${userTicket.totalPrice}`,105, 105, null, null, "center")
-  doc.save("Test.pdf");
+  doc.save("ticket.pdf");
 }
 
 
-// Nav and Footer
+//! Nav and Footer
 
 $(document).ready(function () {
 
