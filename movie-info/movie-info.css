@@ -187,6 +187,9 @@ ion-icon{
     color: black !important;
     display: flex;
 }
+.director-info-container{
+    display: flex;
+}
 .director-text,.cast-text{
     color: rgb(32, 32, 32) !important;
     margin-left: 15px;
@@ -314,4 +317,8 @@ ion-icon{
 .footer-text{
     font-size: 1.5em;
     text-decoration: none;
+}
+.director-img img{
+    border-radius: 50%;
+    width: 3vh;
 }

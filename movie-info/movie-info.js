@@ -11,41 +11,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Fetch movie details and populate the page
-    fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
-        .then(response => response.json())
-        .then(data => {
-            // Set the dynamic background image
-            setDynamicBackground(data.backdrop_path);
-            
-            // Fetch "now playing" movies
-            fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
-                .then(response => response.json())
-                .then(nowPlayingData => {
-                    // Slice the results array to include only the first 5 movies
-                    const firstFiveMovies = nowPlayingData.results.slice(0, 5);
-                    // Check if the selected movie is among the first 5 now playing movies
-                    const isNowPlaying = firstFiveMovies.some(movie => movie.id == passedId);
-                    // Generate HTML for movie information based on whether it's now playing or not
-                    const movieInfoHTML = generateMovieInfoHTML(data, isNowPlaying);
-                    // Insert the movie information HTML into the main container
-                    const mainContainer = document.querySelector('.main-container');
-                    mainContainer.innerHTML = movieInfoHTML;
-                })
-                .catch(error => console.error(error));
-
-            // Fetch credits data for the movie
-            fetch(`https://api.themoviedb.org/3/movie/${passedId}/credits?language=en-US`, options)
-                .then(response => response.json())
-                .then(creditsData => {
-                    // Add credits data to movie data
-                    data.credits = creditsData;
-                    // Populate movie information on the page
-                    populateInfo(data);
-                })
-                .catch(err => console.error(err));
-        })
-        .catch(err => console.error(err));
+    // Fetch movie details and credits simultaneously
+    Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options),
+        fetch(`https://api.themoviedb.org/3/movie/${passedId}/credits?language=en-US`, options)
+    ])
+    .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(data => {
+        const movieDetails = data[0];
+        const creditsData = data[1];
+        
+        // Set the dynamic background image
+        setDynamicBackground(movieDetails.backdrop_path);
+        
+        // Fetch "now playing" movies
+        fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+            .then(response => response.json())
+            .then(nowPlayingData => {
+                // Slice the results array to include only the first 5 movies
+                const firstFiveMovies = nowPlayingData.results.slice(0, 5);
+                // Check if the selected movie is among the first 5 now playing movies
+                const isNowPlaying = firstFiveMovies.some(movie => movie.id == passedId);
+                // Generate HTML for movie information based on whether it's now playing or not
+                const movieInfoHTML = generateMovieInfoHTML(movieDetails, isNowPlaying, creditsData);
+                // Insert the movie information HTML into the main container
+                const mainContainer = document.querySelector('.main-container');
+                mainContainer.innerHTML = movieInfoHTML;
+            })
+            .catch(error => console.error(error));
+    })
+    .catch(err => console.error(err));
 
     // Function to set dynamic background image
     function setDynamicBackground(backdropPath) {
@@ -55,24 +50,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to generate movie information HTML
-    function generateMovieInfoHTML(data, isNowPlaying) {
+    function generateMovieInfoHTML(data, isNowPlaying, creditsData) {
         // Destructure movie data
-        const { title, poster_path, overview, genres, vote_average, credits, release_date } = data;
+        const { title, poster_path, overview, genres, vote_average, release_date } = data;
         // Generate genre string
         const genreString = genres.map(genre => genre.name).join(' / ');
         // Generate HTML for cast members
-        const castHTML = credits && credits.cast ? credits.cast.slice(0, 2).map(castMember => `
+        const castHTML = creditsData && creditsData.cast ? creditsData.cast.slice(0, 2).map(castMember => `
             <div class="cast-info-container">
                 <div class="cast-img"><img src="https://image.tmdb.org/t/p/w500${castMember.profile_path}" alt="${castMember.name}"></div>
                 <p class="cast-text">${castMember.name}<span class="cast-mid-text">as</span><span class="cast-as">${castMember.character}</span></p>
             </div>
         `).join('') : '';
         // Generate HTML for director
-        const directorHTML = credits && credits.crew && credits.crew.find(crewMember => crewMember.job === 'Director')
+        const directorHTML = creditsData && creditsData.crew && creditsData.crew.find(crewMember => crewMember.job === 'Director')
             ? `
-                <div class="director-info">
-                    <div class="director-img"><img src="https://image.tmdb.org/t/p/w500${credits.crew.find(crewMember => crewMember.job === 'Director').profile_path}" alt="${credits.crew.find(crewMember => crewMember.job === 'Director').name}"></div>
-                    <p class="director-text">${credits.crew.find(crewMember => crewMember.job === 'Director').name}</p>
+                <div class="director-info-container">
+                    <div class="director-img"><img src="https://image.tmdb.org/t/p/w500${creditsData.crew.find(crewMember => crewMember.job === 'Director').profile_path}" alt="${creditsData.crew.find(crewMember => crewMember.job === 'Director').name}"></div>
+                    <p class="director-text">${creditsData.crew.find(crewMember => crewMember.job === 'Director').name}</p>
                 </div>
             `
             : '';
@@ -124,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return Math.round(rating);
     }
 });
-
 
 // jQuery: Toggle dropdown menu
 $(document).ready(function() {
