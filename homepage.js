@@ -6,36 +6,46 @@ const options = {
     }
 };
 
+// Fetch genre list and then populate "Now Playing" and "Trending Now" sections
 fetch('https://api.themoviedb.org/3/genre/movie/list?language=en-US', options)
     .then(response => response.json())
     .then(genreData => {
+        // Create a map of genre IDs to genre names
         const genreMap = new Map();
         genreData.genres.forEach(genre => {
             genreMap.set(genre.id, genre.name);
         });
 
+        // Fetch "Now Playing" movies
         fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
             .then(response => response.json())
             .then(nowPlayingData => {
+                // Populate the "Now Playing" section with data
                 populateNowPlaying(nowPlayingData.results, genreMap);
             })
             .catch(error => console.error('Error fetching "Now Showing" data:', error));
 
+        // Fetch popular movies
         fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
             .then(response => response.json())
             .then(popularData => {
+                // Populate the "Trending Now" section with data
                 populateTrendingNow(popularData.results.slice(0, 15), genreMap);
             })
             .catch(error => console.error('Error fetching "Trending Now" data:', error));
     })
     .catch(error => console.error('Error fetching genre data:', error));
 
+// Function to populate the "Now Playing" section
 function populateNowPlaying(results, genreMap) {
     const posterParent = document.getElementById("posters");
     for (let i = 0; i < Math.min(results.length, 5); i++) {
+        // Get movie data
         const movie = results[i];
+        // Map genre IDs to genre names
         const genreNames = movie.genre_ids.map(genreId => genreMap.get(genreId));
 
+        // Generate HTML for movie poster
         const posterHTML = `
             <label for="s${i + 1}" id="poster${i + 1}" class="label">
                 <div class="poster">
@@ -57,9 +67,9 @@ function populateNowPlaying(results, genreMap) {
             </label>`;
         posterParent.insertAdjacentHTML('beforeend', posterHTML);
 
+        // Add click event listeners to movie name and image
         const movieName = document.querySelector(`#poster${i + 1} .movie-name`);
         const movieImage = document.querySelector(`#poster${i + 1} .image img`);
-
         if (movieName && movieImage) {
             movieName.addEventListener('click', handleMovieClick);
             movieImage.addEventListener('click', handleMovieClick);
@@ -69,6 +79,7 @@ function populateNowPlaying(results, genreMap) {
     }
 }
 
+// Function to populate the "Trending Now" section
 function populateTrendingNow(results, genreMap) {
     const swiperContainer = document.querySelector('.mySwiper');
 
@@ -81,10 +92,12 @@ function populateTrendingNow(results, genreMap) {
         const moviesContainer = document.createElement('div');
         moviesContainer.classList.add('movies-container');
 
+        // Loop through movies and generate HTML
         for (let j = i * moviesPerSlide; j < Math.min((i + 1) * moviesPerSlide, results.length); j++) {
             const movie = results[j];
             const genreNames = movie.genre_ids.map(genreId => genreMap.get(genreId));
 
+            // Generate HTML for movie poster
             const posterHTML = `
                 <div class="movie-container" data-url="${movie.url}" data-id="${movie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />
@@ -107,20 +120,26 @@ function populateTrendingNow(results, genreMap) {
         swiperContainer.appendChild(swiperSlide);
     }
 
+    // Add click event listeners to movie containers
     const movieContainers = document.querySelectorAll('.movie-container');
     movieContainers.forEach(container => {
         container.addEventListener('click', handleMovieClick);
     });
 }
 
+// Function to handle movie click event
 function handleMovieClick(event) {
     const movieId = event.currentTarget.dataset.id;
     sessionStorage.setItem('selectedMovieId', movieId);
     window.location.href = './movie-info/movie-info.html';
 }
+
+// Function to round movie rating
 function roundRating(rating) {
     return Math.round(rating);
 }
+
+// jQuery: Toggle dropdown menu
 $(document).ready(function() {
     var menuIcon = $('.menu-icon');
     var dropDown = $('#drop-down');
