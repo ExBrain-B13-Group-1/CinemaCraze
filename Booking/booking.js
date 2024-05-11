@@ -149,7 +149,7 @@ $(document).ready(function () {
 
   $(document).on("click", "#now-showing", function () {
     // bro thiha thwin page
-    // window.location.href = ""
+    window.location.href = "../index.html";
   });
   let getFood = () => {
     fetch("food.json")
