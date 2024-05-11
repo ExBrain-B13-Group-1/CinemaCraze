@@ -1,4 +1,4 @@
-// import { jsPDF } from "jspdf";
+// const json = JSON.parse(localStorage.getItem("booking"));
 const json = {
   cinema: "Cinema Craze",
   movie: "Avengers: Endgame",
@@ -14,13 +14,8 @@ const json = {
     { seatCode: "B4", seatPrice: 5500 },
     { seatCode: "B5", seatPrice: 5400 },
   ],
-  poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
+  poster: "/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg",
 };
-
-// const json = JSON.parse(localStorage.getItem('booking'));
-
-
-
 const {
   cinema,
   movie,
@@ -31,10 +26,12 @@ const {
   totalSeats,
   seats,
 } = json;
+
 const totalFoodPrice = foodItems.reduce(
   (acc, item) => acc + item.price * item.quantity,
   0
 );
+
 const totalSeatPrice = seats.reduce((acc, item) => acc + item.seatPrice, 0);
 const totalPrice = totalFoodPrice + totalSeatPrice;
 const tax = 10;
@@ -58,8 +55,10 @@ let userData;
   $("#foodPrice").text(`${totalFoodPrice} Ks`);
   $("#tax").text(`${tax}%`);
   $("#totalPrice").text(`${totalPriceWithTax} Ks`);
-              
-  $("#moviePoser").append(`<img src=https://image.tmdb.org/t/p/w500${poster} width="100%" id="moviePoster" />`);
+
+  $("#moviePoser").append(
+    `<img src=https://image.tmdb.org/t/p/w500${poster} width="100%" id="moviePoster" />`
+  );
 
   userInfo.moviename = movie;
   userInfo.showDate = showDate;
@@ -209,6 +208,7 @@ const clickEvent = (element) => {
 };
 
 $("#inputBtn").click(() => {
+  console.log(userInfo);
   userInfo.name = $("#name").val();
   userInfo[$("#number").attr("name")] = $("#number").val();
   if (
@@ -216,7 +216,6 @@ $("#inputBtn").click(() => {
     userInfo.payment &&
     userInfo[$("#number").attr("name")]
   ) {
-    console.log("success");
     choossePayment();
     userInfo.stage = 1;
 
@@ -252,20 +251,31 @@ function choossePayment() {
   // localStorage.setItem('userData',JSON.stringify(userInfo))
 }
 
-$('#xmark').click(() => {
+$("#xmark").click(() => {
   console.log(userData);
   if (userData.bank_acc_number) {
     $("#bankPay").attr("click", false);
-  } else {
-    $("#mobilePay").attr("click", false);
+    userData.bank_acc_number = false;
   }
 
   $("#bankPay").attr("choose", false);
   $("#mobilePay").attr("choose", false);
-  localStorage.removeItem('userData')
-})
+  localStorage.removeItem("userData");
+});
+
+$("#xmark1").click(() => {
+  if (userData.phone_number) {
+    $("#mobilePay").attr("click", false);
+    userData.phone_number = false;
+  }
+
+  $("#bankPay").attr("choose", false);
+  $("#mobilePay").attr("choose", false);
+  localStorage.removeItem("userData");
+});
 
 $("#paynowBtn").click(() => {
+  console.log(userData);
   if (userData.name && userData.payment) {
     getUserFromLocalStorage();
     userInfo.stage = 2;
@@ -283,7 +293,7 @@ $("#paynowBtn").click(() => {
 });
 
 function getUserFromLocalStorage() {
-  userInfo = JSON.parse(localStorage.getItem("userData"));
+  userInfo = JSON.parse(localStorage.getItem("userData")) || {};
   let {
     name,
     moviename,
@@ -377,13 +387,14 @@ function paymentSuccess() {
       $("#circle3").css({
         "background-color": "var(--primary-color)",
       });
+      $("#succeessIconContainer").attr("success", "active");
     });
   });
 }
 
 $("#ticketDownload").click(() => {
   jsonToPdf();
-  localStorage.removeItem('userData')
+  localStorage.removeItem("userData");
 });
 
 function jsonToPdf() {
@@ -391,79 +402,80 @@ function jsonToPdf() {
   const userTicket = JSON.parse(localStorage.getItem("userData"));
   const number = userTicket.bank_acc_number || userTicket.phone_number;
   let doc = new jsPDF();
-  doc.text(`Name: ${userTicket.name}`,105, 15, null, null, "center")
-  doc.text(`Number: ${number}`,105, 25, null, null, "center")
-  doc.text(`Movie Name: ${userTicket.moviename}`,105, 35, null, null, "center")
-  doc.text(`Seat: ${userTicket.seatsNumber}`,105, 45, null, null, "center")
-  doc.text(`Food: ${userTicket.foods}`,105, 55, null, null, "center")
-  doc.text(`Show Date: ${userTicket.showDate}`,105, 65, null, null, "center")
-  doc.text(`Show Time: ${userTicket.showTime}`,105, 75, null, null, "center")
-  doc.text(`Cinema: ${userTicket.cinema}`,105, 85, null, null, "center")
-  doc.text(`Payment: ${userTicket.payment}`,105, 95, null, null, "center")
-  doc.text(`Price: ${userTicket.totalPrice}`,105, 105, null, null, "center")
+  doc.text(`Name: ${userTicket.name}`, 105, 15, null, null, "center");
+  doc.text(`Number: ${number}`, 105, 25, null, null, "center");
+  doc.text(
+    `Movie Name: ${userTicket.moviename}`,
+    105,
+    35,
+    null,
+    null,
+    "center"
+  );
+  doc.text(`Seat: ${userTicket.seatsNumber}`, 105, 45, null, null, "center");
+  doc.text(`Food: ${userTicket.foods}`, 105, 55, null, null, "center");
+  doc.text(`Show Date: ${userTicket.showDate}`, 105, 65, null, null, "center");
+  doc.text(`Show Time: ${userTicket.showTime}`, 105, 75, null, null, "center");
+  doc.text(`Cinema: ${userTicket.cinema}`, 105, 85, null, null, "center");
+  doc.text(`Payment: ${userTicket.payment}`, 105, 95, null, null, "center");
+  doc.text(`Price: ${userTicket.totalPrice}`, 105, 105, null, null, "center");
   doc.save("ticket.pdf");
 }
 
-
 //! Nav and Footer
 
+$("#brandLogo").click(() => (window.location.href = "./../index.html"));
+
 $(document).ready(function () {
-
-  $(window).scroll(function(){
-      if(window.scrollY > 0){
-          $('.navbar').css("background-color","var(--primary-color")
-          $('.navbar').addClass("sticky");
-      }else{
-          $('.navbar').css("background-color","var(--secondary-color");
-          $('.navbar').removeClass("sticky");
-      }
+  $(window).scroll(function () {
+    if (window.scrollY > 0) {
+      $(".navbar").css("background-color", "var(--primary-color");
+      $(".navbar").addClass("sticky");
+    } else {
+      $(".navbar").css("background-color", "var(--secondary-color");
+      $(".navbar").removeClass("sticky");
+    }
   });
 
-  $('#trending').hover(
-      function() {
-          $(this).find('.down-icon').hide();
-          $(this).find('.up-icon').css({
-              "display":"inline-block",
-          });
-      },
-      function(){
-          $(this).find('.down-icon').show();
-          $(this).find('.up-icon').css({
-              "display":"none",
-          });
-      }
-  );  
-  
-  $('.category').hover(
-      function(){
-          $(this).parent().parent().find('.down-icon').hide();
-          $(this).parent().parent().find('.up-icon').css({
-              "display":"inline-block",
-          });
-      },
-      function(){
-          $(this).parent().parent().find('.down-icon').show();
-          $(this).parent().parent().find('.up-icon').css({
-              "display":"none",
-          });
-      }
-  ); 
+  $("#trending").hover(
+    function () {
+      $(this).find(".down-icon").hide();
+      $(this).find(".up-icon").css({
+        display: "inline-block",
+      });
+    },
+    function () {
+      $(this).find(".down-icon").show();
+      $(this).find(".up-icon").css({
+        display: "none",
+      });
+    }
+  );
 
-  $(document).on('click','#toggle-icon',function(){
-      $('#sidebar').fadeIn();
+  $(".category").hover(
+    function () {
+      $(this).parent().parent().find(".down-icon").hide();
+      $(this).parent().parent().find(".up-icon").css({
+        display: "inline-block",
+      });
+    },
+    function () {
+      $(this).parent().parent().find(".down-icon").show();
+      $(this).parent().parent().find(".up-icon").css({
+        display: "none",
+      });
+    }
+  );
+
+  $(document).on("click", "#toggle-icon", function () {
+    $("#sidebar").fadeIn();
   });
 
-  $(document).on('click','#close-icon',function(){
-      $('#sidebar').fadeOut() ;
+  $(document).on("click", "#close-icon", function () {
+    $("#sidebar").fadeOut();
   });
 
-  $(document).on('click','#now-showing',function(){
-      // bro thiha thwin page
-      // window.location.href = ""
+  $(document).on("click", "#now-showing", function () {
+    window.location.href = "./../index.html";
   });
-
 });
-
-
-
-
