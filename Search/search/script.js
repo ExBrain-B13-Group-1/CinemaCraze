@@ -105,11 +105,6 @@ $(document).ready(function () {
         createGenres();
     });
 
-    if(page == 1){
-        $('#first-btn').hide();
-        $('#previous-btn').hide();
-    }
-
     $(window).scroll(function(){
         if(window.scrollY > 0){
             $('.navbar').css("background-color","var(--primary-color")
@@ -150,6 +145,16 @@ $(document).ready(function () {
         }
     ); 
 
+    $(document).on('click','#toggle-icon',function(){
+        // console.log('hay');
+        $('#sidebar').fadeIn();
+    });
+
+    $(document).on('click','#close-icon',function(){
+        // console.log('hay');
+        $('#sidebar').fadeOut() ;
+    });
+
     function createGenres(){
         for (const key in genresCategoryObj.genres) {
             let category = genresCategoryObj.genres[key].name;
@@ -161,31 +166,6 @@ $(document).ready(function () {
         }
     }
 
-    $(document).on('mouseleave','.dropdown-content',
-        function(){
-            
-        }
-    );
-
-    // stopped temp
-    let ul = document.querySelector('#list-group');
-    let prev = document.querySelector('#previous-btn');
-    let next = document.querySelector('#next-btn');
-    let currentpage = 5;
-    let totalpage = 10;
-    let activepage = "";
-
-    // createPage(currentpage);
-
-    function createPage(currentpage){
-        ul.innerHTML = "";
-        for (let i = currentpage - 2; i <= currentpage + 2; i++) {
-            activepage = (currentpage == i) ? "current-page" : "";
-            ul.innerHTML +=  `<li class="list-group-item"><a href="#" class="list-item ${activepage}">${i}</a></li>`;          
-        }
-    }
-    // stopped temp
-
     $(document).on('click','#now-showing',function(){
         // bro thiha thwin page
         // window.location.href = ""
@@ -193,8 +173,10 @@ $(document).ready(function () {
 
     $(document).on('click', '#close-btn', function(){
         $('#display').css('display','none');
+        $('#details-show').remove();
         $(".pagination-container").show();
         $('.movie-container').show();
+        $('#footer').show();
     });
 
     $('#search').focus(function(){
@@ -212,16 +194,19 @@ $(document).ready(function () {
 
     $(document).on('click','.category',function(){
         earlyBirdSetupBeforeFetch();
+        $('#search').val("");
         let type = $(this).text().toLowerCase();
         // console.log(type);
         // console.log($(this).text());
         $('.g-type').removeClass('choosed');
         showTrendingByCategory(type);
+        $('#sidebar').css('display','none');
 
     });
 
     $(document).on('click','.g-type',function(e){
         earlyBirdSetupBeforeFetch();
+        $('#search').val("");
         // console.log($(e.target));
         $('.g-type').removeClass('choosed');
         $(e.target).addClass('choosed');
@@ -245,7 +230,7 @@ $(document).ready(function () {
         const trendingUrl = `${BASE_URL}/trending/${type}/day?api_key=${API_KEY}`;
         dynURL = trendingUrl;
         getmoviedatas(trendingUrl);
-        $('#type').html(`<span id="trending-text">Trending</span> - ${type}`).css('text-transform','capitalize');   
+        $('#type').html(`<span id="trending-text">Trending</span> - ${type} List`).css('text-transform','capitalize');   
     } 
 
     function showAlert(title,message,icon){
@@ -269,7 +254,7 @@ $(document).ready(function () {
         await fetch(url, options)
             .then(response => response.json())
             .then(response => {
-                console.warn(response.results);
+                console.log(response.results);
                 giveDataToLocalStorage(response.results);
             })
             .catch(err => {
@@ -306,7 +291,7 @@ $(document).ready(function () {
     }
 
     function giveDataToLocalStorage(datas){
-        console.error(datas);
+        console.log(datas);
         let dataObj = {};
         let randomKey = [];
         for(let x = 0; x < 10; x++){
@@ -324,10 +309,11 @@ $(document).ready(function () {
     }
 
     function showMovieCards(datas) {
-        console.log(datas);
+        console.log(datas.results);
         $('#page-number').text(`Page ${page}`);
         $(".movie-container").empty(); // Clear existing movie cards
         datas.forEach((movie) => {
+            console.log(movie);
             let src = IMG_URL + movie.poster_path;
             let title = (movie.title) ? movie.title : movie.original_name;
             let movieId = movie.id;
@@ -357,6 +343,7 @@ $(document).ready(function () {
 
 
     function firstPage(){
+        // earlyBirdSetupBeforeFetch();
         page = 1;
         let getinputval = $('#search').val().trim();
         if(getinputval){
@@ -365,11 +352,6 @@ $(document).ready(function () {
             urlChange(false,page);
         }
         $('#page-number').text(`Page ${page}`);
-        $('#first-btn').hide();
-        $('#previous-btn').hide();
-        $('#next-btn').show();
-        $('#last-btn').show();
-        // updatePageNumbers();
     }
 
     function nextPage(){
@@ -382,18 +364,18 @@ $(document).ready(function () {
                     urlChange(false,page,dynURL);
                 }
             $('#page-number').text(`Page ${page}`);
-            if(page > 3) $('#first-btn').show();
-            if(page > 1) $('#previous-btn').show();
-            if(page == totalPageCount) {
-                $('#next-btn').hide();
-                $('#last-btn').hide();
-            };
+            // if(page > 3) $('#first-btn').show();
+            // if(page > 1) $('#previous-btn').show();
+            // if(page == totalPageCount) {
+            //     $('#next-btn').hide();
+            //     $('#last-btn').hide();  
+            // };
         }
     }
 
     function lastPage(){
         if(page < totalPageCount)  {
-            page = totalPageCount;
+            page = (totalPageCount > 500) ? "500" : totalPageCount;
             let getinputval = $('#search').val().trim();
             if(getinputval){
                 urlChange(true,getinputval);
@@ -401,12 +383,12 @@ $(document).ready(function () {
                 urlChange(false,page,dynURL);
             }
         $('#page-number').text(`Page ${page}`);
-        if(page > 3) $('#first-btn').show();
-        if(page > 1) $('#previous-btn').show();
-        if(page == totalPageCount){
-            $('#next-btn').hide();
-            $('#last-btn').hide();
-        };
+        // if(page > 3) $('#first-btn').show();
+        // if(page > 1) $('#previous-btn').show();
+        // if(page == totalPageCount){
+        //     $('#next-btn').hide();
+        //     $('#last-btn').hide();
+        // };
     }
 }
 
@@ -420,12 +402,12 @@ $(document).ready(function () {
                 urlChange(false,page,dynURL);
             }
             $('#page-number').text(`Page ${page}`);
-            if(page == 1) $('#previous-btn').hide();
-            if(page == 1) $('#first-btn').hide();
-            if(page < totalPageCount) {
-                $('#next-btn').show();
-                $('#last-btn').show();
-            };
+            // if(page == 1) $('#previous-btn').hide();
+            // if(page == 1) $('#first-btn').hide();
+            // if(page < totalPageCount) {
+            //     $('#next-btn').show();
+            //     $('#last-btn').show();
+            // };
         }
     }
 
@@ -447,8 +429,8 @@ $(document).ready(function () {
     $('form').submit(function(e){
         earlyBirdSetupBeforeFetch();
         let getinputval = $('#search').val();
-        console.error(getinputval);
-        console.error(getinputval.length);
+        console.log(getinputval);
+        console.log(getinputval.length);
         page = 1;
         if(getinputval){
             $('#type').text(getinputval).css("text-transform","capitalize");
@@ -500,13 +482,15 @@ $(document).ready(function () {
     }
 
     function showMovieDetails(datas){
-        console.error(datas);
+        console.log(datas);
+        let defaultBackdropPath = "https://img.freepik.com/free-photo/movie-background-collage_23-2149876028.jpg";
         let poster_path = datas.poster_path;
         let title = datas.title;
         let releasedate = datas.release_date;
         let rating = parseFloat(datas.vote_average).toFixed(1);
         let overview = datas.overview;
-        let backdrop_path = datas.backdrop_path;
+        let backdrop_path = IMG_URL + datas.backdrop_path;
+        if(!(datas.backdrop_path)) backdrop_path = defaultBackdropPath;
         let genres = "";
         // console.log(datas.genres.length);
         if(datas.genres.length > 0){
@@ -522,24 +506,14 @@ $(document).ready(function () {
         $('#display').css('display','block');
         $(".pagination-container").hide();
         $('.movie-container').hide();
+        $('#footer').hide();
         $('#display').append(`
-            <div class="details-show"
+            <div class="details-show" id="details-show"
                 style="
-                    width: 100%;
-                    height: 100%;
-                    background: url(${IMG_URL}${backdrop_path});
+                    background: url(${backdrop_path});
                     background-repeat: no-repeat;
                     background-size: cover;
                     background-position: center;
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    align-items: center;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    z-index: 10000;
-                    padding: 0 4rem;
                 "
             >  
                 <div class="card">
@@ -553,7 +527,7 @@ $(document).ready(function () {
                         <p>Released Date : <span id="movie-releasedate">${releasedate}</span></p>
                         <br/>
                         <p>Rating : <span id="movie-rating">${rating}</span></p>
-                        <p>Overview : <span id="movie-overview">${overview}</span></p>
+                        <p>Overview : <p id="over-view-text"> <span id="movie-overview">${overview}</span> </p></p>
                     </div>
                 </div>
             </div>
@@ -562,14 +536,11 @@ $(document).ready(function () {
 
     function earlyBirdSetupBeforeFetch(){
         page = 1;
-        $('#first-btn').hide();
-        $('#previous-btn').hide();
+        $('#first-btn').show();
+        $('#previous-btn').show();
         $('#next-btn').show();
         $('#last-btn').show();
-    }
-
-
-
+    }  
 
 
 });

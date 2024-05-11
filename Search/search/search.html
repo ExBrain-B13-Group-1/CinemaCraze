@@ -17,7 +17,7 @@
         <!-- start navbar -->
         <nav class="navbar"> 
           <!-- logo -->
-          <img src="./../logo/logo.svg" class="cmc-logo" alt="cinemacraze-logo">
+          <a href="javascript:void(0);" id="cinemacraze-logo"><img src="./../logo/logo.svg" class="cmc-logo" alt="cinemacraze-logo"></a>
           <!-- nav-menu -->
           <ul class="nav-menu">
             <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="now-showing">Now showing</a></li>
@@ -37,20 +37,19 @@
           </ul>
 
           <div id="dropdown-toggle-box">
-            <label for="dropdown">
-                <ion-icon name="menu-outline" class="toggle-icon"></ion-icon>
-            </label>
+            <ion-icon name="menu-outline" class="toggle-icon" id="toggle-icon"></ion-icon>
           </div>
         </nav>
 
         <!-- sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
           <ul class="dropdown-menu">
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="now-showing">Now showing</a></li>
+            <li class="nav-item" id="close-icon"><ion-icon name="close-outline"></ion-icon></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="now-showing">Now showing</a></li>
             <div class="dropdown">
-              <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="trending">Trending 
-                <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
-                <ion-icon name="chevron-forward-outline" class="forward-icon"></ion-icon>  
+              <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="trending">Trending 
+                <!-- <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon> -->
+                <!-- <ion-icon name="chevron-forward-outline" class="forward-icon"></ion-icon>   -->
               </a></li>
               <div class="dropdown-content">
                 <a href="javascript:void(0);" class="category" id="all-type">All</a>
@@ -58,16 +57,13 @@
                 <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
               </div>
             </div>
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link">About us</a></li>
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">About us</a></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">Contact</a></li>
           </ul>
         </div>
         <!-- end navbar -->
         
     </header>
-    
-
-    
     <!-- End Header -->
 
     <!-- Start Search Section -->
@@ -114,13 +110,27 @@
 
     </section>
 
-      <div class="display" id="display">
+      <div class="display" id="display" style="display:block">
         <!-- movies card details -->
       </div>
     <!-- End Movie Card Display Section -->
     
     <!-- Start Footer Section -->
-    <footer>
+    <footer id="footer">
+      <div class="footer">
+        <div class="left-footer">
+            <a href="" class="footer-text"><ion-icon name="home"></ion-icon> Home Page Author</a>
+            <a href="" class="footer-text"><ion-icon name="search-sharp" class="icons"></ion-icon> Search Page Author</a>
+            <a href="" class="footer-text"><ion-icon name="book-sharp" class="icons"></ion-icon> Booking Page Author</a>
+            <a href="" class="footer-text"><ion-icon name="wallet"></ion-icon> Payment Info Page Author</a>
+        </div>
+        <div class="right-footer">
+            <a href="homepage.html" class="footer-text">Home <ion-icon name="home"></ion-icon></a>
+            <a href="/Search/search/search.html" class="footer-text">Search <ion-icon name="search-sharp" class="icons"></ion-icon></a>
+            <a href="/aboutus.html" class="footer-text">About Us <ion-icon name="accessibility-sharp" class="icons"></ion-icon></a>
+            <a href="https://developer.themoviedb.org/reference/intro/getting-started" class="footer-text">Api Documentation</a>
+        </div>
+    </div>
 
     </footer>
     <!-- End Footer Section -->
