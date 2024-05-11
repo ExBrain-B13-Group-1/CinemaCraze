@@ -1,5 +1,4 @@
 const passedId = sessionStorage.getItem('selectedMovieId');
-console.log(passedId);
 const options = {
     method: 'GET',
     headers: {
@@ -23,7 +22,7 @@ fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
 
     function populateInfo(data) {
         const mainContainer = document.querySelector('.main-container');
-        const { title, poster_path, overview, genres, vote_average, backdrop_path, credits } = data;
+        const { title, poster_path, overview, genres, vote_average, backdrop_path, credits, release_date } = data;
         const genreString = genres.map(genre => genre.name).join(' / ');
         const castHTML = credits.cast.slice(0, 2).map(castMember => `
             <div class="cast-info-container">
@@ -52,11 +51,11 @@ fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
         <div class="movie-info">
             <div class="inner-movie-info">
                 <div class="movie-name">${title}</div>
-                <div class="movie-release-date">2024</div>
+                <div class="movie-release-date">${release_date}</div>
                 <div class="movie-genre">${genreString}</div>
                 <div class="rating">
                     <ion-icon name="star" class="full-star"></ion-icon><ion-icon name="star-half"
-                        class="half-star"></ion-icon> ${vote_average}
+                        class="half-star"></ion-icon> ${roundRating(vote_average)}
                 </div>
                 <h1 class="synopsis">Synopsis</h1>
                 <div class="plot-summary">
@@ -81,4 +80,25 @@ fetch(`https://api.themoviedb.org/3/movie/${passedId}?language=en-US`, options)
             document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/original${backdrop_path}')`;
         } 
     }
+    function roundRating(rating) {
+        return Math.round(rating);
+    }
+    $(document).ready(function() {
+        var menuIcon = $('.menu-icon');
+        var dropDown = $('#drop-down');
+        function hideDropDown() {
+            dropDown.hide();
+        }
     
+        menuIcon.on('click', function() {
+            if (dropDown.css('display') === 'none') {
+                dropDown.css('display', 'flex');
+            } else {
+                dropDown.hide();
+            }
+        });
+    
+        $(window).on('resize', function() {
+            hideDropDown();
+        });
+    });

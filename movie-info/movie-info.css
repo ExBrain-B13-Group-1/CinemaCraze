@@ -17,7 +17,7 @@ body{
     vertical-align: middle;
     background: rgb(19,22,23);
     background: linear-gradient(0deg, rgba(19,22,23,1) 25%, rgba(53,53,79,1) 79%);
-    box-shadow: 0px 2px 18px 0px white;
+    box-shadow: 0px 0px 20px 14px black;
     font-size: 2.5vh;
     display: flex;
     justify-content: space-between;
@@ -47,6 +47,9 @@ ion-icon{
 }
 .menu-icon{
     display: none;
+}
+.menu-icon:hover{
+    cursor: pointer;
 }
 .smoke-icon,.exit-icon{
     display: none;
@@ -90,7 +93,7 @@ ion-icon{
     width: 95%;
 }
 .movie-info{
-    font-size: 1em;
+    font-size: 1.2em;
     width: 50%;
     position: relative;
 }
@@ -102,7 +105,10 @@ ion-icon{
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     width: 80%;
-    margin: auto;
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .btn-booking{
     background-color: green;
@@ -119,20 +125,23 @@ ion-icon{
     color: black !important;
     font-size: 3em;
     font-weight: bold;
+    font-style: italic;
     margin-bottom: 20px;
     overflow: hidden;
 }
 .movie-release-date{
     color: black !important;
-    font-size: 2.5em;
+    font-size: 1.7em;
     margin-bottom: 5px;
     font-weight: bold;
+    opacity: 0.7;
 }
 .movie-genre{
     color: black !important;
     font-size: 2em;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    opacity: 0.7;
 }
 .full-star{
     color: black !important;
@@ -171,18 +180,19 @@ ion-icon{
     flex-direction: column;
 }
 .cast-info-container{
+    margin-top: 10px;
     display: flex;
-    justify-content: flex-start;
 }
 .director-info,.cast-info{
+    padding-top: 10px;
     color: black !important;
     display: flex;
 }
 .director-text,.cast-text{
-    color: black !important;
-    display: flex;
-    margin-left: 20px;
-    margin-top: 30px;
+    color: rgb(32, 32, 32) !important;
+    margin-left: 15px;
+    text-align: center;
+    line-height: 3vh;
     font-size: 0.9em;
     font-weight: bold;
 }
@@ -192,8 +202,7 @@ ion-icon{
 .name{
     color: black !important;
 }
-.director-info img,.cast-info img{
-    margin-top: 20px;
+.director-info img,.cast img{
     width: 3vh;
     border-radius: 50%;
 }
@@ -219,9 +228,6 @@ ion-icon{
         flex-direction: column;
         justify-content: flex-start;
     }
-    .show-time{
-        padding-bottom: 3px;
-    }
     .btn-booking{
         width: 90%;
         font-size: 1.5em;
@@ -238,15 +244,51 @@ ion-icon{
         font-size: 4vh;
     }
 }
-@media screen and (max-width:720px) {
-    .icons{
+.movie-search-drop-down,.about-us-drop-down{
+    position: relative;
+    text-decoration: none;
+    font-size: 1.5em;
+    line-height: 1.7em;
+}
+.about-us-drop-down::after{
+    content: "";
+    width: 100%;
+    height: .1em;
+    background: white;
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+}
+.movie-search-drop-down::after{
+     content: "";
+     width: 100%;
+     height: .1em;
+     background: white;
+     position: absolute;
+     bottom: 3px;
+     left: 0;
+}
+@media screen and (max-width:900px) {
+    .icons {
         display: none;
     }
-    .menu-icon{
+    .menu-icon {
         display: block;
         margin-right: 50px;
         font-size: 5vh;
     }
+}
+#drop-down{
+    background: rgb(19,22,23);
+    background: linear-gradient(0deg, rgba(19,22,23,1) 25%, rgba(53,53,79,1) 79%);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    display: none;
+    align-items: end;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding-right: 50px;
 }
 .footer{
     margin-top: 50px;
@@ -255,7 +297,7 @@ ion-icon{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px -2px 12px 0px white;
+    box-shadow: inset 0px 5px 14px 0px black;
 }
 .left-footer{
     margin-left: 20%;

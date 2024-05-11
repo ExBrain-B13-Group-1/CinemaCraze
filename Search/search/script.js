@@ -186,11 +186,6 @@ $(document).ready(function () {
     }
     // stopped temp
 
-    $(document).on('click','#now-showing',function(){
-        // bro thiha thwin page
-        // window.location.href = ""
-    });
-
     $(document).on('click', '#close-btn', function(){
         $('#display').css('display','none');
         $(".pagination-container").show();
@@ -461,14 +456,13 @@ $(document).ready(function () {
         e.preventDefault(); 
     })
 
-    $(document).on('click', '.movie-card' , function(e) {
-        // console.log(e.target);
-        let movieId = $(e.target).closest('.movie-card').find('.poster-img').data('movieid');
-        let mediaType = $(e.target).closest('.movie-card').find('.poster-img').data('mediatype');
-        console.log(movieId);
-        console.log(mediaType);
-        showDetails(movieId,mediaType);
+    $(document).on('click', '.movie-card', function(event) {
+        const movieId = $(event.currentTarget).find('.poster-img').data('movieid');
+        sessionStorage.setItem('selectedMovieId', movieId);
+        window.location.href = '/movie-info/movie-info.html';
     });
+    
+    
 
     async function showDetails(movieId,mediaType){
         let page = 1;
