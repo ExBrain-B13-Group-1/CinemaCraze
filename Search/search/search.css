@@ -1,3 +1,4 @@
+
 :root{
     --primary-color : #1F2041;
     --secondary-color : #4B3F72;
@@ -19,6 +20,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 body{
@@ -63,6 +65,7 @@ body{
 .nav-item{
     list-style-type: none;
     margin-top: 8px;
+    position: relative;
 }
 
 .nav-item:last-child{
@@ -243,15 +246,34 @@ body{
     height: 100vh;
     width: 250px;
     z-index: 1500;
-    padding-left: 5rem;
-    padding-top: 1rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    padding-left: 4.5rem;
+    padding-top: 3.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     box-shadow: -10px 0 10px rgba(0,0,0,0.1);
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+}
+
+.sidebar li{
+    margin-bottom: 1rem;
+}
+
+.sidebar a{
+    color: #000;
+}
+
+.nav-link.black{
+    color: #000;
+}
+
+#close-icon{
+    font-size: 2.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 0;
 }
 
 .back-icon,.forward-icon{
@@ -262,6 +284,16 @@ body{
 
 .back-icon{
     display: none;
+}
+
+@media screen and (max-width: 1263px) {
+    
+}
+
+@media screen and (max-width: 420px) {
+    .sidebar{
+        width: 100%;
+    }
 }
 
 /* End Header */
@@ -374,6 +406,7 @@ body{
     /* pagination */
 .pagination-container{
     height: 100px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -382,11 +415,11 @@ body{
 }
 
 .pagination-container > h2{
-    font-size: 1.37rem;
+    font-size: 1.2rem;
 }
 
 #page-number{
-    font-size: 1.37rem;
+    font-size: 1.2rem;
     color: var(--hover-color);
 }
 
@@ -413,6 +446,7 @@ body{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: 0.7rem 0;
 }
 
 .first-btn,.previous-btn,.next-btn,.last-btn{

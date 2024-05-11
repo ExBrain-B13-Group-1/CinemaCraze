@@ -150,6 +150,16 @@ $(document).ready(function () {
         }
     ); 
 
+    $(document).on('click','#toggle-icon',function(){
+        // console.log('hay');
+        $('#sidebar').fadeIn();
+    });
+
+    $(document).on('click','#close-icon',function(){
+        // console.log('hay');
+        $('#sidebar').fadeOut() ;
+    });
+
     function createGenres(){
         for (const key in genresCategoryObj.genres) {
             let category = genresCategoryObj.genres[key].name;
@@ -161,11 +171,11 @@ $(document).ready(function () {
         }
     }
 
-    $(document).on('mouseleave','.dropdown-content',
-        function(){
+    // $(document).on('mouseleave','.dropdown-content',
+    //     function(){
             
-        }
-    );
+    //     }
+    // );
 
     // stopped temp
     let ul = document.querySelector('#list-group');
@@ -193,6 +203,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#close-btn', function(){
         $('#display').css('display','none');
+        $('#details-show').remove();
         $(".pagination-container").show();
         $('.movie-container').show();
     });
@@ -393,7 +404,7 @@ $(document).ready(function () {
 
     function lastPage(){
         if(page < totalPageCount)  {
-            page = totalPageCount;
+            page = (totalPageCount > 500) ? "500" : totalPageCount;
             let getinputval = $('#search').val().trim();
             if(getinputval){
                 urlChange(true,getinputval);
@@ -501,12 +512,14 @@ $(document).ready(function () {
 
     function showMovieDetails(datas){
         console.error(datas);
+        let defaultBackdropPath = "https://img.freepik.com/free-photo/movie-background-collage_23-2149876028.jpg";
         let poster_path = datas.poster_path;
         let title = datas.title;
         let releasedate = datas.release_date;
         let rating = parseFloat(datas.vote_average).toFixed(1);
         let overview = datas.overview;
-        let backdrop_path = datas.backdrop_path;
+        let backdrop_path = IMG_URL + datas.backdrop_path;
+        if(!(datas.backdrop_path)) backdrop_path = defaultBackdropPath;
         let genres = "";
         // console.log(datas.genres.length);
         if(datas.genres.length > 0){
@@ -523,23 +536,12 @@ $(document).ready(function () {
         $(".pagination-container").hide();
         $('.movie-container').hide();
         $('#display').append(`
-            <div class="details-show"
+            <div class="details-show" id="details-show"
                 style="
-                    width: 100%;
-                    height: 100%;
-                    background: url(${IMG_URL}${backdrop_path});
+                    background: url(${backdrop_path});
                     background-repeat: no-repeat;
                     background-size: cover;
                     background-position: center;
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    align-items: center;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    z-index: 10000;
-                    padding: 0 4rem;
                 "
             >  
                 <div class="card">

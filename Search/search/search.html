@@ -37,20 +37,19 @@
           </ul>
 
           <div id="dropdown-toggle-box">
-            <label for="dropdown">
-                <ion-icon name="menu-outline" class="toggle-icon"></ion-icon>
-            </label>
+            <ion-icon name="menu-outline" class="toggle-icon" id="toggle-icon"></ion-icon>
           </div>
         </nav>
 
         <!-- sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
           <ul class="dropdown-menu">
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="now-showing">Now showing</a></li>
+            <li class="nav-item" id="close-icon"><ion-icon name="close-outline"></ion-icon></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="now-showing">Now showing</a></li>
             <div class="dropdown">
-              <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="trending">Trending 
-                <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
-                <ion-icon name="chevron-forward-outline" class="forward-icon"></ion-icon>  
+              <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="trending">Trending 
+                <!-- <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon> -->
+                <!-- <ion-icon name="chevron-forward-outline" class="forward-icon"></ion-icon>   -->
               </a></li>
               <div class="dropdown-content">
                 <a href="javascript:void(0);" class="category" id="all-type">All</a>
@@ -58,8 +57,8 @@
                 <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
               </div>
             </div>
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link">About us</a></li>
-            <li class="nav-item"><a href="javascript:void(0);" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">About us</a></li>
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">Contact</a></li>
           </ul>
         </div>
         <!-- end navbar -->
@@ -114,7 +113,7 @@
 
     </section>
 
-      <div class="display" id="display">
+      <div class="display" id="display" style="display:block">
         <!-- movies card details -->
       </div>
     <!-- End Movie Card Display Section -->
