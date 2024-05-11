@@ -389,3 +389,67 @@ function jsonToPdf() {
   doc.text(`Price: ${userTicket.totalPrice}`,105, 105, null, null, "center")
   doc.save("Test.pdf");
 }
+
+
+// Nav and Footer
+
+$(document).ready(function () {
+
+  $(window).scroll(function(){
+      if(window.scrollY > 0){
+          $('.navbar').css("background-color","var(--primary-color")
+          $('.navbar').addClass("sticky");
+      }else{
+          $('.navbar').css("background-color","var(--secondary-color");
+          $('.navbar').removeClass("sticky");
+      }
+  });
+
+  $('#trending').hover(
+      function() {
+          $(this).find('.down-icon').hide();
+          $(this).find('.up-icon').css({
+              "display":"inline-block",
+          });
+      },
+      function(){
+          $(this).find('.down-icon').show();
+          $(this).find('.up-icon').css({
+              "display":"none",
+          });
+      }
+  );  
+  
+  $('.category').hover(
+      function(){
+          $(this).parent().parent().find('.down-icon').hide();
+          $(this).parent().parent().find('.up-icon').css({
+              "display":"inline-block",
+          });
+      },
+      function(){
+          $(this).parent().parent().find('.down-icon').show();
+          $(this).parent().parent().find('.up-icon').css({
+              "display":"none",
+          });
+      }
+  ); 
+
+  $(document).on('click','#toggle-icon',function(){
+      $('#sidebar').fadeIn();
+  });
+
+  $(document).on('click','#close-icon',function(){
+      $('#sidebar').fadeOut() ;
+  });
+
+  $(document).on('click','#now-showing',function(){
+      // bro thiha thwin page
+      // window.location.href = ""
+  });
+
+});
+
+
+
+
