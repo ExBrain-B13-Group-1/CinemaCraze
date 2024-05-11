@@ -727,7 +727,7 @@ $(document).ready(function () {
   // Function to start countdown timer
   function startCountdownTimer() {
     // Set the initial countdown time to 30 minutes
-    let countdownTime = 30; // change time in seconds
+    let countdownTime = 1800; // change time in seconds
     updateCountdownDisplay(countdownTime);
     countdownInterval = setInterval(function () {
       countdownTime--;
