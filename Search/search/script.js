@@ -168,7 +168,7 @@ $(document).ready(function () {
 
     $(document).on('click','#now-showing',function(){
         // bro thiha thwin page
-        window.location.href = "./../../homepage.html";
+        window.location.href = "./../../index.html";
     });
 
     $(document).on('click', '#close-btn', function(){

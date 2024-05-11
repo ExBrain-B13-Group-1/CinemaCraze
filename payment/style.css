@@ -862,6 +862,7 @@ body {
     width: 10%;
     margin: 20px 0;
     margin-left: 3rem;
+    cursor: pointer;
 }
 
 .navbar {
