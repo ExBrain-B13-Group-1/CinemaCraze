@@ -6,36 +6,44 @@ const options = {
     }
 };
 
+// Fetch genre list
 fetch('https://api.themoviedb.org/3/genre/movie/list?language=en-US', options)
     .then(response => response.json())
     .then(genreData => {
+        // Create a map of genre IDs to genre names
         const genreMap = new Map();
         genreData.genres.forEach(genre => {
             genreMap.set(genre.id, genre.name);
         });
 
+        // Fetch data for "Now Playing" movies
         fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
             .then(response => response.json())
             .then(nowPlayingData => {
+                // Populate the "Now Playing" section
                 populateNowPlaying(nowPlayingData.results, genreMap);
             })
             .catch(error => console.error('Error fetching "Now Showing" data:', error));
 
+        // Fetch data for "Popular" movies
         fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
             .then(response => response.json())
             .then(popularData => {
+                // Populate the "Trending Now" section
                 populateTrendingNow(popularData.results.slice(0, 15), genreMap);
             })
             .catch(error => console.error('Error fetching "Trending Now" data:', error));
     })
     .catch(error => console.error('Error fetching genre data:', error));
 
+// Function to populate the "Now Playing" section
 function populateNowPlaying(results, genreMap) {
     const posterParent = document.getElementById("posters");
     for (let i = 0; i < Math.min(results.length, 5); i++) {
         const movie = results[i];
         const genreNames = movie.genre_ids.map(genreId => genreMap.get(genreId));
 
+        // Generate HTML for movie poster
         const posterHTML = `
             <label for="s${i + 1}" id="poster${i + 1}" class="label">
                 <div class="poster">
@@ -57,9 +65,9 @@ function populateNowPlaying(results, genreMap) {
             </label>`;
         posterParent.insertAdjacentHTML('beforeend', posterHTML);
 
+        // Add click event listeners to movie name and image
         const movieName = document.querySelector(`#poster${i + 1} .movie-name`);
         const movieImage = document.querySelector(`#poster${i + 1} .image img`);
-
         if (movieName && movieImage) {
             movieName.addEventListener('click', handleMovieClick);
             movieImage.addEventListener('click', handleMovieClick);
@@ -69,9 +77,9 @@ function populateNowPlaying(results, genreMap) {
     }
 }
 
+// Function to populate the "Trending Now" section
 function populateTrendingNow(results, genreMap) {
     const swiperContainer = document.querySelector('.mySwiper');
-
     const moviesPerSlide = 5;
 
     for (let i = 0; i < 3; i++) {
@@ -85,6 +93,7 @@ function populateTrendingNow(results, genreMap) {
             const movie = results[j];
             const genreNames = movie.genre_ids.map(genreId => genreMap.get(genreId));
 
+            // Generate HTML for movie container
             const posterHTML = `
                 <div class="movie-container" data-url="${movie.url}" data-id="${movie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" />
@@ -107,20 +116,26 @@ function populateTrendingNow(results, genreMap) {
         swiperContainer.appendChild(swiperSlide);
     }
 
+    // Add click event listeners to movie containers
     const movieContainers = document.querySelectorAll('.movie-container');
     movieContainers.forEach(container => {
         container.addEventListener('click', handleMovieClick);
     });
 }
 
+// Function to handle movie click event
 function handleMovieClick(event) {
     const movieId = event.currentTarget.dataset.id;
     sessionStorage.setItem('selectedMovieId', movieId);
     window.location.href = './movie-info/movie-info.html';
 }
+
+// Function to round movie rating
 function roundRating(rating) {
     return Math.round(rating);
 }
+
+// jQuery: Toggle dropdown menu
 $(document).ready(function() {
     var menuIcon = $('.menu-icon');
     var dropDown = $('#drop-down');

@@ -280,6 +280,7 @@ body{
 }
 
 .genres-box{
+    font-size: 1.5em;
     display: flex;
     flex-wrap: wrap;
     padding-left: 2rem;
