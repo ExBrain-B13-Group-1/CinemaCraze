@@ -1,23 +1,23 @@
 // import { jsPDF } from "jspdf";
-const json = {
-  cinema: "Cinema Craze",
-  movie: "Avengers: Endgame",
-  poster: "Poster Image",
-  showDate: "Tue May 07 2024",
-  showTime: "2:30 PM",
-  foodItems: [
-    { name: "Cola", price: 3500, quantity: 1 },
-    { name: "Hot Dog", price: 14000, quantity: 2 },
-  ],
-  totalSeats: 2,
-  seats: [
-    { seatCode: "B4", seatPrice: 5500 },
-    { seatCode: "B5", seatPrice: 5400 },
-  ],
-  poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
-};
+// const json = {
+//   cinema: "Cinema Craze",
+//   movie: "Avengers: Endgame",
+//   poster: "Poster Image",
+//   showDate: "Tue May 07 2024",
+//   showTime: "2:30 PM",
+//   foodItems: [
+//     { name: "Cola", price: 3500, quantity: 1 },
+//     { name: "Hot Dog", price: 14000, quantity: 2 },
+//   ],
+//   totalSeats: 2,
+//   seats: [
+//     { seatCode: "B4", seatPrice: 5500 },
+//     { seatCode: "B5", seatPrice: 5400 },
+//   ],
+//   poster:'/lhyEUeOihbKf7ll8RCIE5CHTie3.jpg'
+// };
 
-// const json = JSON.parse(localStorage.getItem('booking'));
+const json = JSON.parse(localStorage.getItem('booking'));
 
 
 
