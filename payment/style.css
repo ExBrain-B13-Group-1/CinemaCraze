@@ -5,6 +5,17 @@
     --secondary-color: #0E8BFF;
     --tertiary-color: #B4C9FF;
     --quaternary-color: #2C3A50;
+
+    --font-color-black: #000;
+    --font-color-white: #fff;
+
+    --hover-color: #eea00f;
+
+    --font-size-large: 30px;
+    --font-size-medium: 25px;
+    --font-size-regular: 18px;
+    --font-size-small: 18px;
+    --font-size-tiny-small: 14px;
 }
 
 * {
@@ -16,25 +27,11 @@ body {
     padding: 0;
     width: 100%;
     height: 100vh;
-
     background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
+    overflow-y: scroll;
 
 }
 
-body nav {
-    background-color: red;
-    width: 100%;
-    height: 80px;
-}
-
-nav h1 {
-    margin: 0;
-}
-
-body footer {
-    background-color: red;
-    padding: 40px;
-}
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -60,16 +57,20 @@ body footer {
     width: 90%;
     /*todo Change Marge Day */
     padding: 2%;
-    margin: 2% auto;
+    margin: 7% auto 2% auto;
+    overflow: hidden;
 }
 
 .progress_bar {
     width: 100%;
     height: 10px;
-    margin-top: 2%;
+    /* margin-top: 2%; */
+    margin: 2% 0;
     display: flex;
     align-items: center;
     padding: 0 10%;
+    /* overflow: hidden; */
+
 }
 
 .progress_bar .circle {
@@ -77,6 +78,8 @@ body footer {
     height: 20px;
     border-radius: 100%;
     position: relative;
+    /* overflow: hidden; */
+
 }
 
 .circle::after {
@@ -90,6 +93,7 @@ body footer {
 
 .circle1 {
     background-color: var(--primary-color);
+    margin: 0 0 0 2%;
 }
 
 .circle1::after {
@@ -288,7 +292,7 @@ body footer {
     position: absolute;
     bottom: 20%;
     border-radius: 100%;
-    z-index: 5;
+    z-index: 1;
 }
 
 .payment_detail_container::before {
@@ -307,6 +311,7 @@ body footer {
     left: 0;
     width: 100%;
     border: 3px dotted white;
+    z-index: 0;
 }
 
 .payment_detail_container h1 {
@@ -397,9 +402,10 @@ body footer {
     height: 100%;
     background-color: gray;
     border-radius: 1vmax;
-    background: rgba(0, 0, 0, 0.582);
-    backdrop-filter: blur(1px);
+    background: rgba(0, 0, 0, 0.774);
+    backdrop-filter: blur(30px);
     display: none;
+    z-index: 9;
 }
 
 .payment_provider .header {
@@ -573,7 +579,7 @@ body footer {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    background-color: rgb(80 80 80);
+    background-color: rgb(19 105 159);
     position: absolute;
     bottom: 20%;
     left: -8%;
@@ -584,7 +590,7 @@ body footer {
     width: 100px;
     height: 100px;
     border-radius: 100%;
-    background-color: rgb(80 80 80);
+    background-color: rgb(21 105 158);
     position: absolute;
     bottom: 20%;
     right: -8%;
@@ -598,8 +604,7 @@ body footer {
     height: 110px;
     padding: 1%;
     border-radius: 100%;
-    background-color: rgb(80 80 80);
-
+    background-color: rgb(0 106 162);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -741,9 +746,9 @@ body footer {
     border: 1px solid var(--secondary-color);
 }
 
-.main_secreen .alert_container {
-    position: absolute;
-    top: 3%;
+ .alert_container {
+    position: fixed;
+    top: 13%;
     left: 35%;
     width: 30%;
     background: rgb(252, 50, 50);
@@ -752,17 +757,432 @@ body footer {
     font-size: .8rem;
     text-align: center;
     color: white;
-    border-radius: .5vmax;
+    border-radius: 1vmax;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.295);
     display: none;
     z-index: 10;
     margin: 1%;
 }
 
+/*! start nav bar */
+.cmc-logo {
+    width: 10%;
+    margin: 20px 0;
+    margin-left: 3rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    transition: all .3s ease;
+}
+
+.navbar.sticky {
+    height: 70px;
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+}
+
+.nav-item {
+    list-style-type: none;
+    margin-top: 8px;
+    position: relative;
+}
+
+.nav-item:last-child {
+    margin-right: 3rem;
+}
+
+.nav-item .nav-link {
+    text-decoration: none;
+    font-size: var(--font-size-regular);
+    color: var(--font-color-white);
+    transition: all .2s ease;
+    position: relative;
+}
+
+.nav-item .nav-link:hover {
+    color: var(--hover-color)
+}
+
+.nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--hover-color);
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.nav-item .nav-link:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.down-icon,
+.up-icon {
+    position: relative;
+    top: 2px;
+    margin-left: 5px;
+}
+
+.up-icon {
+    display: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+    color: var(--hover-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: myani-bounceIn 1s ease 0s 1 normal none;
+    /* animation: myAnimExit 2s ease 0s 1 normal forwards; */
+}
+
+#dropdown-toggle-box {
+    display: none;
+}
+
+.toggle-icon {
+    font-size: 35px;
+    color: var(--font-color-white);
+    position: relative;
+    top: 0.3rem;
+    margin-right: 30px;
+}
+
+@media screen and (max-width: 800px) {
+    #dropdown-toggle-box {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+}
+
+@keyframes myani-slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(300);
+    }
+}
+
+@keyframes myani-bounceIn {
+    0% {
+        animation-timing-function: ease-in;
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+
+    38% {
+        animation-timing-function: ease-out;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    55% {
+        animation-timing-function: ease-in;
+        transform: translateY(-65px);
+    }
+
+    72% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+    }
+
+    81% {
+        animation-timing-function: ease-in;
+        transform: translateY(-28px);
+    }
+
+    90% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+    }
+
+    95% {
+        animation-timing-function: ease-in;
+        transform: translateY(-8px);
+    }
+
+    100% {
+        animation-timing-function: ease-out;
+        transform: translateY(0);
+    }
+}
+
+/* sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 1500;
+    padding-left: 4.5rem;
+    padding-top: 3.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.sidebar li {
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    color: #000;
+}
+
+.nav-link.black {
+    color: #000;
+}
+
+#close-icon {
+    font-size: 2.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+}
+
+.back-icon,
+.forward-icon {
+    position: relative;
+    top: 3px;
+    right: 120px;
+}
+
+.back-icon {
+    display: none;
+}
+
+@media screen and (max-width: 420px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        flex-direction: column;
+    }
+
+    .card img {
+        width: 200px;
+        margin-right: 3rem;
+    }
+
+    .card .img-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .card h1,
+    .card p {
+        color: red;
+        font-weight: bold;
+        color: 16px;
+    }
+
+    .card h1 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .card #movie-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--primary-color)
+    }
+
+    .card span {
+        color: rgb(8, 44, 58);
+        font-size: 16px;
+    }
+
+    #close-btn {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* CSS rules for mobile devices */
+    .card h1,
+    .card p {
+        color: red;
+        font-weight: bold;
+        color: 16px;
+    }
+
+    .card h1 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .card #movie-title {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--primary-color)
+    }
+
+    .card span {
+        color: rgb(8, 44, 58);
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    /* CSS rules for tablets */
+    .card {
+        flex-direction: column;
+    }
+
+    .card img {
+        width: 200px;
+        margin-right: 3rem;
+    }
+
+    .card .img-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Start Footer Section */
+
+.footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: var(--primary-color);
+}
+
+.left-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-footer {
+    display: flex;
+}
+
+.footer-text {
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer-text:hover {
+    color: var(--hover-color);
+}
+
+.left-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* CSS rules for mobile devices */
+    .footer-text {
+        font-size: 1rem;
+    }
+}
+
+/* Styles for tablets */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    /* CSS rules for tablets */
+    .footer-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* Styles for laptops and desktops */
+@media only screen and (min-width: 992px) {
+
+    /* CSS rules for laptops and desktops */
+    .footer-text {
+        font-size: 1.3rem;
+    }
+}
+
+/* End Footer Section */
+/*! end nav bar and footer */
+
 @media screen and (max-width:1025px) {
 
     .main_secreen {
         width: 95%;
+        margin: 10% auto 2% auto;
+
     }
 
     .container {
@@ -798,10 +1218,65 @@ body footer {
     .mobile_pay p {
         font-size: 1.1rem;
     }
+
+    .payment_provider h1 {
+        font-size: 1.4rem;
+    }
+
+    .providers_container {
+        margin: 10% 0;
+    }
+
+    .user_info_input .des {
+        font-size: 1rem;
+    }
+
+    .alert_container {
+        width: 40%;
+        left: 30%;
+    }
+
+     .alert_container h1 {
+        font-size: 1.3rem;
+    }
+
+    .payout_container .ticket_icon {
+        top: -11%;
+    }
+
+    .payout_container .ticket_container {
+        width: 65%;
+    }
+
+    .payment_success_container .success_icon_container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .payment_success_container .success_icon_container::after {
+        width: 180px;
+        height: 180px;
+        top: calc(285px - 250px);
+        left: calc(285px - 250px);
+    }
+
+    .payment_success_container {
+        margin: 5% 0;
+    }
 }
 
 
 @media screen and (max-width:769px) {
+    .main_secreen {
+        margin: 13% auto 2% auto;
+
+    }
+
+    .cmc-logo {
+        width: 15%;
+
+    }
+
 
     .container {
         margin-top: 7%;
@@ -812,7 +1287,7 @@ body footer {
         font-size: 1.2rem;
     }
 
-    .movie_detail .movie_des span p{
+    .movie_detail .movie_des span p {
         font-size: .9rem;
     }
 
@@ -827,10 +1302,10 @@ body footer {
     }
 
     .payment_detail_container::before,
-.payment_detail_container::after {
-    width: 60px;
-    height: 60px;
-}
+    .payment_detail_container::after {
+        width: 60px;
+        height: 60px;
+    }
 
     .payment_detail_container::before {
         left: -15%;
@@ -840,11 +1315,11 @@ body footer {
         right: -15%;
     }
 
-    .payment_detail_container .paynow_btn{
+    .payment_detail_container .paynow_btn {
         font-size: 1.3rem;
     }
 
-    .payment_detail span p{
+    .payment_detail span p {
         font-size: .7rem;
     }
 
@@ -852,31 +1327,87 @@ body footer {
         font-size: .8rem;
     }
 
-    .payment_detail_container h1{
+    .payment_detail_container h1 {
         font-size: 1.3rem;
     }
 
-    
+
     .payment_detail_container::before {
         background-color: #006aa2;
     }
-    
+
     .payment_detail_container::after {
-        background-color:#496695;
+        background-color: #496695;
+    }
+
+    .main_secreen .payment_provider {
+        width: 95%;
+        height: 55%;
+    }
+
+    .payment_provider h1 {
+        font-size: 1.1rem;
+    }
+
+
+    .user_info_input .des {
+        font-size: .8rem;
+    }
+
+    .user_info_input input {
+        margin: 2% 0;
+    }
+
+     .alert_container {
+        width: 40%;
+        left: 30%;
+    }
+
+     .alert_container h1 {
+        font-size: 1.3rem;
+    }
+
+
+    .payout_container .ticket_icon {
+        top: -10%;
+        width: 95px;
+        height: 95px;
+    }
+
+    .payout_container .ticket_container {
+        width: 90%;
+        margin: 13% auto 2% auto;
+    }
+
+    .ticket_detail h1 {
+        font-size: 1.3rem;
+    }
+
+    .payout_container .ticket_container::after,
+    .payout_container .ticket_container::before {
+        background-color: rgb(70 102 150);
     }
 }
 
 @media screen and (max-width:426px) {
+
     .main_secreen {
-        backdrop-filter: blur(4px);
-    }
-    .container {
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
+        backdrop-filter: blur(0px);
+        margin: 25% auto 2% auto;
     }
 
-    .container_left .movie_detail_container{
+    .cmc-logo {
+        width: 25%;
+
+    }
+
+    .container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container_left .movie_detail_container {
         margin-top: 5%;
     }
 
@@ -887,29 +1418,32 @@ body footer {
         flex-direction: column;
     }
 
-     .movie_detail span{
+    .movie_detail span {
         padding-left: 10%;
-     }
+    }
 
-     .payment_methods .bank_pay, .payment_methods .mobile_pay {
+    .payment_methods .bank_pay,
+    .payment_methods .mobile_pay {
         width: 100%;
-     }
+    }
 
-     .bank_pay p,
-     .mobile_pay p {
-         font-size: 1rem;
-     }
-     .container .container_right{
+    .bank_pay p,
+    .mobile_pay p {
+        font-size: 1rem;
+    }
+
+    .container .container_right {
         margin-top: 5%;
         width: 72%;
-     }
-     .container_right .payment_detail_container {
+    }
+
+    .container_right .payment_detail_container {
         width: 100%;
         height: 20rem;
         margin-right: 2%;
     }
 
-    .payment_detail span p{
+    .payment_detail span p {
         font-size: .8rem;
     }
 
@@ -917,7 +1451,7 @@ body footer {
         font-size: .9rem;
     }
 
-    .circle::after{
+    .circle::after {
         font-size: .8rem;
     }
 
@@ -928,8 +1462,97 @@ body footer {
     .payment_detail_container::before {
         background-color: #346799;
     }
-    
+
     .payment_detail_container::after {
         background-color: #336799;
+    }
+
+     .alert_container {
+        width: 60%;
+        left: 20%;
+    }
+
+     .alert_container h1 {
+        font-size: 1rem;
+    }
+
+    .payout_container .ticket_icon {
+        top: -9%;
+        width: 85px;
+        height: 85px;
+    }
+
+    .payout_container .ticket_container {
+        width: 90%;
+        margin: 20% auto 2% auto;
+    }
+
+    .ticket_detail h1 {
+        font-size: 1.3rem;
+        margin-top: 20%;
+    }
+
+    .payout_container .ticket_detail {
+        width: 80%;
+        padding: 2%;
+    }
+
+    .payout_container .ticket_container::after,
+    .payout_container .ticket_container::before {
+        background-color: rgb(70 102 150);
+    }
+
+    .payout_container .ticket_container::after {
+        width: 65px;
+        height: 65px;
+    }
+
+    .payout_container .ticket_container::before {
+        width: 65px;
+        height: 65px;
+    }
+
+    .ticket_info span p {
+        font-size: .8rem;
+    }
+
+    .ticket_info span p:first-child {
+        width: 100%;
+        text-align: start;
+        padding-left: 0%;
+    }
+
+    .payout_container .order_btn {
+        font-size: 1.5rem;
+    }
+
+    .payment_success_container {
+        /* height: 70%; */
+        padding-top: 10%;
+    }
+
+    .payment_success_container .success_icon_container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .payment_success_container .success_icon_container::after {
+        width: 130px;
+        height: 130px;
+        top: calc(285px - 250px);
+        left: calc(285px - 250px);
+    }
+
+    .payment_success_container {
+        margin: 15% 0 0 0;
+    }
+
+    .payment_success_container h1 {
+        font-size: 1.5rem;
+    }
+
+    .payment_success_container .ticket_download {
+        font-size: 1.2rem;
+        padding: 2% 5%;
     }
 }

@@ -12,15 +12,68 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="jquery3.6.0.js"></script>
   <script src="script.js" defer ></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- sweetalet2 js1 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 
 <body>
 
-<nav>
-  <h1>nav bar</h1>
-</nav>
+    <!-- Start Header -->
+    <header>
+      <!-- start navbar -->
+      <nav class="navbar"> 
+        <!-- logo -->
+        <img src="assets/brand-logo.svg" class="cmc-logo" alt="cinemacraze-logo"> 
+        <!-- nav-menu -->
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="now-showing">Now showing</a></li>
+          <div class="dropdown">
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="trending">Trending 
+              <ion-icon name="chevron-down" class="down-icon"></ion-icon>
+              <ion-icon name="chevron-up-outline" class="up-icon"></ion-icon>  
+            </a></li>
+            <div class="dropdown-content">
+              <a href="javascript:void(0);" class="category" id="all-type">All</a>
+              <a href="javascript:void(0);" class="category" id="movie-type">Movie</a> 
+              <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
+            </div>
+          </div>
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link">About us</a></li>
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div id="dropdown-toggle-box">
+          <ion-icon name="menu-outline" class="toggle-icon" id="toggle-icon"></ion-icon>
+        </div>
+      </nav>
+
+      <!-- sidebar -->
+      <div class="sidebar" id="sidebar">
+        <ul class="dropdown-menu">
+          <li class="nav-item" id="close-icon"><ion-icon name="close-outline"></ion-icon></li>
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="now-showing">Now showing</a></li>
+          <div class="dropdown">
+            <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="trending">Trending 
+              <!-- <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon> -->
+              <!-- <ion-icon name="chevron-forward-outline" class="forward-icon"></ion-icon>   -->
+            </a></li>
+            <div class="dropdown-content">
+              <a href="javascript:void(0);" class="category" id="all-type">All</a>
+              <a href="javascript:void(0);" class="category" id="movie-type">Movie</a> 
+              <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
+            </div>
+          </div>
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">About us</a></li>
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">Contact</a></li>
+        </ul>
+      </div>
+      <!-- end navbar -->
+      
+  </header>
+  <!-- End Header -->
 
   <div class="main_secreen">
 
@@ -176,11 +229,25 @@
     </section>
 
     <!--! alert section -->
-    <div class="alert_container" id="alertContainer"></div>
+  </div>
+  <div class="alert_container" id="alertContainer"></div>
+
+  <footer id="footer">
+    <div class="footer">
+      <div class="left-footer">
+          <a href="" class="footer-text"><ion-icon name="home"></ion-icon> Home Page Author</a>
+          <a href="" class="footer-text"><ion-icon name="search-sharp" class="icons"></ion-icon> Search Page Author</a>
+          <a href="" class="footer-text"><ion-icon name="book-sharp" class="icons"></ion-icon> Booking Page Author</a>
+          <a href="" class="footer-text"><ion-icon name="wallet"></ion-icon> Payment Info Page Author</a>
+      </div>
+      <div class="right-footer">
+          <a href="homepage.html" class="footer-text">Home <ion-icon name="home"></ion-icon></a>
+          <a href="/Search/search/search.html" class="footer-text">Search <ion-icon name="search-sharp" class="icons"></ion-icon></a>
+          <a href="/aboutus.html" class="footer-text">About Us <ion-icon name="accessibility-sharp" class="icons"></ion-icon></a>
+          <a href="https://developer.themoviedb.org/reference/intro/getting-started" class="footer-text">Api Documentation</a>
+      </div>
   </div>
 
-  <footer>
-    <h1>footer</h1>
   </footer>
 </body>
 
