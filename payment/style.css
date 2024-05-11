@@ -265,7 +265,7 @@ body {
 }
 
 .bank_pay .xmark,
-.mobile_pay .xmark{
+.mobile_pay .xmark {
     background-color: white;
     font-size: 1.3rem;
     padding: 2%;
@@ -276,12 +276,12 @@ body {
 }
 
 .payment_methods .bank_pay[click='true'] .xmark,
-.payment_methods .mobile_pay[click='true'] .xmark{
+.payment_methods .mobile_pay[click='true'] .xmark {
     display: block;
-} 
+}
 
 .bank_pay .xmark:hover,
-.mobile_pay .xmark:hover{
+.mobile_pay .xmark:hover {
     background-color: red;
     color: white;
 
@@ -292,8 +292,8 @@ body {
     margin-left: 50%;
 }
 
-.mobile_pay svg ,
-.mobile_pay .xmark{
+.mobile_pay svg,
+.mobile_pay .xmark {
     margin-left: 47%;
 }
 
@@ -726,6 +726,11 @@ body {
     height: 300px;
     border-radius: 100%;
     position: relative;
+    transform: scale(0);
+}
+
+.payment_success_container .success_icon_container[success='active'] {
+    animation: successCicleAni ease-in .2s forwards;
 }
 
 .payment_success_container .success_icon_container::after {
@@ -739,6 +744,11 @@ body {
     border-radius: 100%;
 }
 
+.payment_success_container .success_icon_container[success='active']::after {
+    animation: successCicleAni ease-in .5s forwards;
+}
+
+
 .success_icon_container .success_circle {
     width: 40%;
     height: 40%;
@@ -749,6 +759,58 @@ body {
     background-color: var(--secondary-color);
     z-index: 10;
 }
+
+.payment_success_container .success_icon_container[success='active'] .success_circle {
+    animation: successCicleAni ease-in .7s forwards;
+}
+
+
+@keyframes successCicleAni {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.success_icon_container .succes_icon {
+    position: absolute;
+    top: 48%;
+    left: 45%;
+    transform: translate(0);
+    transition: all 1s;
+}
+
+.success_icon_container[success='active'] .rode_icon:nth-child(2) {
+    transform: translate(86px, 92px);
+}
+
+.success_icon_container[success='active'] .rode_icon:nth-child(3) {
+    transform: translate(-134px, -94px);
+}
+
+.success_icon_container[success='active'] .rode_icon:nth-child(4) {
+    transform: translate(129px, -99px) rotate(292deg);
+}
+
+.success_icon_container[success='active'] .star_icon:nth-child(5) {
+    transform: translate(-145px, 79px);
+}
+
+.success_icon_container[success='active'] .star_icon:nth-child(6) {
+    transform: translate(-92px, -122px);
+}
+
+.success_icon_container[success='active'] .star_icon:nth-child(7) {
+    transform: translate(115px, -70px);
+}
+
+.success_icon_container[success='active'] .star_icon:nth-child(8) {
+    transform: translate(144px, 44px);
+}
+
 
 .payment_success_container h1 {
     font-size: 2rem;
@@ -777,7 +839,7 @@ body {
     border: 1px solid var(--secondary-color);
 }
 
- .alert_container {
+.alert_container {
     position: fixed;
     top: 13%;
     left: 35%;
@@ -1267,7 +1329,7 @@ body {
         left: 30%;
     }
 
-     .alert_container h1 {
+    .alert_container h1 {
         font-size: 1.3rem;
     }
 
@@ -1389,12 +1451,12 @@ body {
         margin: 2% 0;
     }
 
-     .alert_container {
+    .alert_container {
         width: 40%;
         left: 30%;
     }
 
-     .alert_container h1 {
+    .alert_container h1 {
         font-size: 1.3rem;
     }
 
@@ -1498,12 +1560,12 @@ body {
         background-color: #336799;
     }
 
-     .alert_container {
+    .alert_container {
         width: 60%;
         left: 20%;
     }
 
-     .alert_container h1 {
+    .alert_container h1 {
         font-size: 1rem;
     }
 
