@@ -16,9 +16,60 @@
 <body>
   <div id="overlay"></div>
   <!-- Navbar -->
-  <div>
-    <h3>Navbar</h3>
-  </div>
+  <!-- Start Header -->
+  <header>
+    <!-- start navbar -->
+    <nav class="navbar">
+      <!-- logo -->
+      <a href="../homepage.html"><img src="././img/logo1.svg" class="cmc-logo" alt="cinemacraze-logo"></a>
+      <!-- nav-menu -->
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="now-showing">Now showing</a></li>
+        <div class="dropdown">
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link" id="trending">Trending
+              <ion-icon name="chevron-down" class="down-icon"></ion-icon>
+              <ion-icon name="chevron-up-outline" class="up-icon"></ion-icon>
+            </a></li>
+          <div class="dropdown-content">
+            <a href="javascript:void(0);" class="category" id="all-type">All</a>
+            <a href="javascript:void(0);" class="category" id="movie-type">Movie</a>
+            <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
+          </div>
+        </div>
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link">About us</a></li>
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div id="dropdown-toggle-box">
+        <ion-icon name="menu-outline" class="toggle-icon" id="toggle-icon"></ion-icon>
+      </div>
+    </nav>
+
+    <!-- sidebar -->
+    <div class="sidebar" id="sidebar">
+      <ul class="dropdown-menu">
+        <li class="nav-item" id="close-icon"><ion-icon name="close-outline"></ion-icon></li>
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="now-showing">Now showing</a></li>
+        <div class="dropdown">
+          <li class="nav-item"><a href="javascript:void(0);" class="nav-link black" id="trending">Trending
+              <!-- <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon> -->
+              <!-- <ion-icon name="chevron-forward-outline" class="forward-nav-icon"></ion-icon>   -->
+            </a></li>
+          <div class="dropdown-content">
+            <a href="javascript:void(0);" class="category" id="all-type">All</a>
+            <a href="javascript:void(0);" class="category" id="movie-type">Movie</a>
+            <a href="javascript:void(0);" class="category" id="tv-type">TV</a>
+          </div>
+        </div>
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">About us</a></li>
+        <li class="nav-item"><a href="javascript:void(0);" class="nav-link black">Contact</a></li>
+      </ul>
+    </div>
+    <!-- end navbar -->
+
+  </header>
+  <br>
+  <!-- End Header -->
 
   <!-- 5 Tabs -->
   <div class="tabs">
@@ -72,9 +123,9 @@
           </svg>
           <h1>Movie Booking</h1>
           <p></p>
-          <div class="book-history-container">
-            <button id="book-history-btn" disabled>Booking History</button>
-          </div>
+          <!-- <div class="book-history-container">
+            <button id="book-history-btn">Booking History</button>
+          </div> -->
         </div>
         <div class="booking-form">
           <!-- Selected movie name -->
@@ -111,7 +162,7 @@
   <!-- Book Seat Tab -->
   <div class="tab-content" id="select-seats" style="display: none; background-position: center center;">
     <!-- Seat Section -->
-    <section class="container mainbody">
+    <section class="container mainbody seat-container">
       <div>
         <h3>Select Seats</h3>
         <div class="seats-sample">
@@ -476,7 +527,7 @@
         </div>
         <div>
           <!-- Navigate To Payment Page -->
-          <a href="../payment/index.html" target="_blank" id="payment-link">Make Payment</a>
+          <a href="../payment/index.html" id="payment-link">Make Payment</a>
         </div>
         <p id="warning">Note: Please complete your payment within the booking lifetime</p>
       </div>
@@ -509,10 +560,10 @@
   <!-- Alert box For Confirmation -->
   <section class="alert-box" style="display: none;">
     <div class="alert-content">
-      <h2>Confirmation</h2>
-      <p>Are you sure you want to proceed?</p>
+      <h2>Proceed with Booking?</h2>
+      <p>Confirm your booking to finalize the reservation.</p>
       <div class="buttons">
-        <button class="continue-btn">Continue (You can also book food)</button>
+        <button class="continue-btn">Proceed (You can also book food)</button>
         <button class="cancel-btn">Cancel</button>
       </div>
     </div>
@@ -532,11 +583,41 @@
     <div class="alert-book-history">
       <div class="alert-content">
         <h1>Booking History</h1>
-      <div id="booking-list"></div>
-      <button id="ok-btn">OK</button>
+        <div id="booking-list"></div>
+        <button id="ok-btn">OK</button>
       </div>
     </div>
   </section>
+
+  <!-- Start Footer Section -->
+  <footer id="footer">
+    <div class="footer">
+      <div class="left-footer">
+        <a href="" class="footer-text"><ion-icon name="home"></ion-icon> Home Page Author</a>
+        <a href="" class="footer-text"><ion-icon name="search-sharp" class="icons"></ion-icon> Search Page Author</a>
+        <a href="" class="footer-text"><ion-icon name="book-sharp" class="icons"></ion-icon> Booking Page Author</a>
+        <a href="" class="footer-text"><ion-icon name="wallet"></ion-icon> Payment Info Page Author</a>
+      </div>
+      <div class="right-footer">
+        <a href="homepage.html" class="footer-text">Home <ion-icon name="home"></ion-icon></a>
+        <a href="/Search/search/search.html" class="footer-text">Search <ion-icon name="search-sharp"
+            class="icons"></ion-icon></a>
+        <a href="/aboutus.html" class="footer-text">About Us <ion-icon name="accessibility-sharp"
+            class="icons"></ion-icon></a>
+        <a href="https://developer.themoviedb.org/reference/intro/getting-started" class="footer-text">Api
+          Documentation</a>
+      </div>
+    </div>
+
+  </footer>
+  <!-- End Footer Section -->
+
+
+  <!-- iomicons js2 -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- sweetalet2 js1 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </div>
 
 </body>

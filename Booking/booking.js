@@ -24,17 +24,12 @@ async function fetchMovieData(passedId) {
     const data = await response.json();
     movieName = data.original_title;
     document.getElementById("movieName").innerHTML = `Movie Name: ${movieName}`;
-
     posterImage = data.poster_path;
-
     document.querySelector(".poster-container").style.display = "flex";
-   
   } catch (error) {
     console.error(error);
   }
 }
-
-// Fetch movie data
 fetchMovieData(passedId);
 
 // Function to create booking json
@@ -42,7 +37,6 @@ function createBookingJSON() {
   let totalSeats = selectedSeats.length;
   let showTime = convertToAmPm(selectedTime);
   let countdownTime = document.getElementById("countdown-timer").innerText;
-
   let bookingData = {
     cinema: "Cinema Craze",
     movie: movieName,
@@ -62,9 +56,7 @@ function createBookingJSON() {
 
 // Function to enable or disable tabs based on the current step
 function updateTabs(step) {
-  // disable all tabs first
   $(".tab").addClass("disabled");
-
   switch (step) {
     case 0:
       $("#tab-book-dateTime").removeClass("disabled");
@@ -93,7 +85,6 @@ function updateTabs(step) {
 // Event listener for tab
 $(".tab").click(function () {
   if (!$(this).hasClass("disabled")) {
-    // Get tab ID
     let tabId = $(this).attr("id").replace("tab-", "");
     showTab(tabId);
   }
@@ -108,12 +99,63 @@ function showTab(tabId) {
 }
 
 $(document).ready(function () {
+  $(window).scroll(function () {
+    if (window.scrollY > 0) {
+      $(".navbar").css("background-color", "var(--primary-color");
+      $(".navbar").addClass("sticky");
+    } else {
+      $(".navbar").css("background-color", "var(--secondary-color");
+      $(".navbar").removeClass("sticky");
+    }
+  });
+
+  $("#trending").hover(
+    function () {
+      $(this).find(".down-icon").hide();
+      $(this).find(".up-icon").css({
+        display: "inline-block",
+      });
+    },
+    function () {
+      $(this).find(".down-icon").show();
+      $(this).find(".up-icon").css({
+        display: "none",
+      });
+    }
+  );
+
+  $(".category").hover(
+    function () {
+      $(this).parent().parent().find(".down-icon").hide();
+      $(this).parent().parent().find(".up-icon").css({
+        display: "inline-block",
+      });
+    },
+    function () {
+      $(this).parent().parent().find(".down-icon").show();
+      $(this).parent().parent().find(".up-icon").css({
+        display: "none",
+      });
+    }
+  );
+
+  $(document).on("click", "#toggle-icon", function () {
+    $("#sidebar").fadeIn();
+  });
+
+  $(document).on("click", "#close-icon", function () {
+    $("#sidebar").fadeOut();
+  });
+
+  $(document).on("click", "#now-showing", function () {
+    // bro thiha thwin page
+    // window.location.href = ""
+  });
   let getFood = () => {
     fetch("food.json")
       .then((res) => res.json())
       .then((data) => {
         data.forEach((food) => {
-          // Crate Food Card HTML
           const foodCardHTML = `
             <div class="food-card">
             <div class="food-image">
@@ -135,7 +177,6 @@ $(document).ready(function () {
               </div>
             </div>
           `;
-
           $(".foods").append(foodCardHTML);
         });
 
@@ -174,10 +215,7 @@ $(document).ready(function () {
       })
       .catch((error) => console.log(error));
   };
-
   getFood();
-
-  // Initial State of tab
   showTab("book-dateTime");
 
   // Define seat prices
@@ -192,16 +230,13 @@ $(document).ready(function () {
     H: 9500,
     L: 20500,
   };
-
   dayDateHandler();
   showTimeHandler();
-
   $(".seats-selected").hide();
   $(".container").removeClass("mainbody");
 
   // Event listener for back button
   $("#book-back").click(function () {
-    // Navigate back to homepage.html
     window.location.href = "../movie-info/movie-info.html";
   });
 
@@ -228,25 +263,13 @@ $(document).ready(function () {
 
   // Handling delete icon of seat
   $(document).on("click", ".delete-icon-seat", function () {
-    // Get seat code from the corresponding row
     let seatCode = $(this).closest("tr").find("td:nth-child(2)").text();
-
-    // Remove seat from selectedSeats array
     selectedSeats = selectedSeats.filter((seat) => seat.seatCode !== seatCode);
-
-    // Remove row
     $(this).closest("tr").remove();
-
-    // Update back UI
     updateSelectedSeatsTable("selected-seats");
     updateSelectedSeatsTable("seats-selected");
-
-    // Remove active class from the corresponding seat that got deleted
     $("#" + seatCode).removeClass("active");
-
-    // Check if there are no more selected seats
     if (selectedSeats.length === 0) {
-      // Navigate back to the select seats tab
       $(".next-select-food-btn").addClass("disabled-button");
       showTab("book-dateTime");
     }
@@ -256,27 +279,27 @@ $(document).ready(function () {
 
   // Handling delete icon of food
   $(document).on("click", ".delete-icon-food", function () {
-    // Retrieve the name of the food item being deleted
     let itemName = $(this).closest("tr").find("td:nth-child(2)").text();
-
-    // Remove the row from the table
+    let selectedItem = selectedFoodItems.find((item) => item.name === itemName);
+    if (selectedItem) {
+      let quantityInput = $(".quantity-input").filter(function () {
+        return (
+          $(this).closest(".food-card").find(".food-name").text() === itemName
+        );
+      });
+      quantityInput.val(0);
+    }
     $(this).closest("tr").remove();
-
-    // Remove the corresponding item from selectedFoodItems array
     selectedFoodItems = selectedFoodItems.filter(
       (item) => item.name !== itemName
     );
     checkSelectFoodTable();
-    console.log(selectedFoodItems);
-
-    // Update item numbers for the remaining rows
     updateItemNumbers();
   });
 
   // Seat got clicked
   $(document).on("click", ".seat", function () {
     handleSeatClick(this);
-    // After selecting a seat, allow access to Tab 3
     updateTabs(2);
     if (selectedSeats.length == 0) {
       updateTabs(1);
@@ -287,44 +310,30 @@ $(document).ready(function () {
   function handleSeatClick(seat) {
     let seatId = $(seat).attr("id");
     let seatPrice = prices[seatId[0]];
-
-    // Check if the seat is already booked for the selected show time
     if ($(seat).hasClass("booked")) {
-      // Optionally, you can display a message or take some other action to notify the user.
-      console.log("This seat is already booked for the selected show time.");
       return;
     }
-
     $(seat).toggleClass("active");
 
-    // Check if the seat is already selected
     let index = selectedSeats.findIndex((s) => s.seatCode === seatId);
     if (index !== -1) {
-      // If selected, remove from selected seats array
       selectedSeats.splice(index, 1);
     } else {
-      // If not selected and not at limit, add to selected seats array
       if (selectedSeats.length < 10) {
         selectedSeats.push({ seatCode: seatId, seatPrice: seatPrice });
       } else {
-        // If at limit, allow deselecting latest seat clicked
         let latestSelectedSeat = selectedSeats.pop();
         $("#" + latestSelectedSeat.seatCode).removeClass("active");
         selectedSeats.push({ seatCode: seatId, seatPrice: seatPrice });
       }
     }
 
-    // Check if the seat is already at the limit
     if (selectedSeats.length >= 10) {
       $(".alert-seats").show();
     } else {
       $(".alert-seats").hide();
     }
-
-    // Update selected seats table
     updateSelectedSeatsTable("seats-selected");
-
-    // Check if there are any selected seats
     if (selectedSeats.length > 0) {
       $(".next-select-food-btn").removeClass("disabled-button");
     } else {
@@ -339,18 +348,17 @@ $(document).ready(function () {
 
   // Event listener for Booking History button
   $("#book-history-btn").click(function () {
-    localStorage.setItem("bookings", JSON.stringify(bookings));
+    // localStorage.setItem("bookings", JSON.stringify(bookings));
     showBookingHistoryModal();
   });
 
   // Function to display the booking history in a modal
   function showBookingHistoryModal() {
-    // Retrieve bookings from local storage
     const bookings = JSON.parse(localStorage.getItem("bookings"));
+    console.log(bookings);
     $("#booking-list").empty();
     if (bookings && bookings.length > 0) {
       bookings.forEach(function (booking, index) {
-        // Create booking item html
         const bookingItemHTML = `
               <div class="booking-item">
                   <p>${index + 1}.</span> Movie: <span>${
@@ -368,9 +376,12 @@ $(document).ready(function () {
           `;
         $("#booking-list").append(bookingItemHTML);
       });
-      $(".alert-book-history").show();
-      $("#overlay").show();
+    } else {
+      const noHistoryHTML = `<p class="no-history-message">No booking history was found.</p>`;
+      $("#booking-list").append(noHistoryHTML);
     }
+    $(".alert-book-history").show();
+    $("#overlay").show();
   }
 
   // Event listener for the OK button in no-booking section
@@ -380,15 +391,13 @@ $(document).ready(function () {
   });
 
   // Add click event handler to the payment link
-  $('#payment-link').click(function() {
-    // Disable the payment link after it's clicked
-    $(this).css({'pointer-events': 'none', 'opacity' : '0.5'});
+  $("#payment-link").click(function () {
+    $(this).css({ "pointer-events": "none", opacity: "0.5" });
   });
 
   // Event listener for Book Continue button
   $(".continue-btn, #selected-verify-button").click(function () {
-    $(".seats-selected").slideUp();
-    $(".container").removeClass("mainbody");
+    slideUpAndRemoveClass();
     hideAlert();
     checkSelectFoodTable();
     if (selectedTimeClicked !== null) {
@@ -415,13 +424,11 @@ $(document).ready(function () {
     hideAlert();
   });
 
+  // Function to update back  two selected seats table, in seat tab and confirm tab
   function updateSelectedSeatsTable(selected) {
     let table = $(`.${selected} table`);
-    // Clear table body
     table.find("tbody").empty();
     totalPrice = 0;
-
-    // Add category row for each selected seat
     let category;
     selectedSeats.forEach(function (seat, index) {
       if (seat.seatCode[0] === "A" || seat.seatCode[0] === "B") {
@@ -432,8 +439,6 @@ $(document).ready(function () {
         category = "Back Row";
       }
       let price = seat.seatPrice;
-
-      // Create table row html
       let rowHTML = `
             <tr>
                 <td>${index + 1}</td>
@@ -441,8 +446,6 @@ $(document).ready(function () {
                 <td>${category}</td>
                 <td>${price} Ks</td>
             `;
-
-      // Create Delete Icon on confirmation tab including food
       if (selected == "selected-seats" || selected == "selected-food") {
         rowHTML += `
                 <td class="delete-icon-cell">
@@ -456,17 +459,12 @@ $(document).ready(function () {
       } else {
         rowHTML += "<td></td>";
       }
-
       rowHTML += "</tr>";
-
       table.find("tbody").append(rowHTML);
     });
-
-    // Hide .seats-selected on small and medium screens
     if ($(window).width() <= 1200) {
       $(".seats-selected").hide();
     } else {
-      // Show/hide .seats-selected based on selectedSeats
       if (selected === "seats-selected") {
         if (selectedSeats.length > 0) {
           $(".seats-selected").slideDown();
@@ -504,18 +502,15 @@ $(document).ready(function () {
   }
 
   // Define an array to hold all bookings
-  let bookings = [];
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
 
   // Event listener for 3 Select Seats button in corresponding tab
   $("#select-seats-button, #select-seats-back-button, #tab-select-seats").click(
     function () {
-      // Check if there are selected seats
       if (selectedSeats.length > 0) {
-        // If there are selected seats, slide down the seats selected table
         $(".seats-selected").slideDown();
         $(".container").addClass("mainbody");
       }
-      // Hide seats-selected on small and medium screens
       if ($(window).width() <= 1200) {
         $(".seats-selected").hide();
       }
@@ -538,6 +533,7 @@ $(document).ready(function () {
   // Function to check match booking for selected day and show time
   function matchBooking() {
     let isBooked = false;
+    const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
     bookings.forEach((booking) => {
       if (
         booking.movie === movieName &&
@@ -549,23 +545,22 @@ $(document).ready(function () {
           $("#" + seat.seatCode).addClass("active booked");
         });
         isBooked = true;
-
-        const lastBooking = bookings[bookings.length - 1];
-        if (!lastBooking.isPaid) {
-          lastBooking.seats.forEach(function (seat) {
-            // Get the seat element by ID
-            $(`#${seat.seatCode}`).removeClass("active booked");
-          });
-        }
       }
     });
-
+    // for selected seat is active, but change date time which is already booked that seat
+    selectedSeats = selectedSeats.filter((seat) => {
+      if ($("#" + seat.seatCode).hasClass("active booked")) {
+        return false;
+      }
+      updateSelectedSeatsTable("seats-selected");
+      return true;
+    });
     return isBooked;
   }
 
+  // Event Listener for book date-time tab
   $("#tab-book-dateTime").click(function () {
-    $(".seats-selected").slideUp();
-    $(".container").removeClass("mainbody");
+    slideUpAndRemoveClass();
   });
 
   // Event listener for 3 Select Food button in corresponding tab
@@ -583,46 +578,34 @@ $(document).ready(function () {
 
   // Event listener for Verify button
   $("#selected-verify-button, #tab-confirm, #confirm-btn").click(function () {
-    $(".seats-selected").slideUp();
-    $(".container").removeClass("mainbody");
+    slideUpAndRemoveClass();
     updateSelectedSeatsTable("selected-seats");
     let selectedFoodItems = getSelectedFoodItems();
     checkSelectFoodTable();
-    // Update the selected food table
     updateSelectedFoodTable(selectedFoodItems);
     showTab("confirm");
   });
 
   // Event listener for Confirmation button
   $("#confirm-btn").click(function () {
-    // Reset Quantity Back
     $(".quantity-input").val(0);
     let bookingJSON = createBookingJSON();
     bookings.push(bookingJSON);
-    console.log(bookings);
-    console.log(bookingJSON);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
     updateTabs(4);
+    $("#footer").hide();
     showTab("booking-successful");
-    // Enable the booking history button
-    $("#book-history-btn").prop("disabled", false);
-    // Start countdown timer
     startCountdownTimer();
-
-    // Mark selected seats as booked
     markSelectedSeatsAsBooked();
-
     clearAll();
   });
 
   // Event listener for Cancel All Booking button
   $("#cancel-all-btn").click(function () {
     showTab("book-dateTime");
-
-    // Remove active class
     selectedSeats.forEach(function (seat) {
       $("#" + seat.seatCode).removeClass("active");
     });
-
     updateTabs(1);
     clearAll();
   });
@@ -645,6 +628,7 @@ $(document).ready(function () {
       $(".no-food").hide();
     }
   }
+
   // Function to get the selected food items
   function getSelectedFoodItems() {
     selectedFoodItems = [];
@@ -676,9 +660,7 @@ $(document).ready(function () {
   // Function to update the selected food table in the confirmation tab
   function updateSelectedFoodTable(selectedFoodItems) {
     let tableBody = $(".selected-food table tbody");
-    // Clear table body
     tableBody.empty();
-
     selectedFoodItems.forEach(function (item, index) {
       let row = `
         <tr>
@@ -698,8 +680,6 @@ $(document).ready(function () {
       tableBody.append(row);
     });
     updateItemNumbers();
-
-    // Update the selectedFoodItems
     selectedFoodItems = getSelectedFoodItems();
   }
 
@@ -711,17 +691,20 @@ $(document).ready(function () {
         .off("click");
     });
     const lastBooking = bookings[bookings.length - 1];
+    console.log("reach");
     if (!lastBooking.isPaid) {
       lastBooking.seats.forEach(function (seat) {
-        // Get the seat element by ID
         $(`#${seat.seatCode}`).removeClass("active booked");
       });
+      console.log("is not paid");
+    } else {
+      console.log("is paid");
     }
   }
 
+  // Event Listener for Back date time Btn
   $("#back-to-dateTime").click(function () {
-    $(".seats-selected").slideUp();
-    $(".container").removeClass("mainbody");
+    slideUpAndRemoveClass();
     showTab("book-dateTime");
   });
 
@@ -733,15 +716,19 @@ $(document).ready(function () {
     showTab("select-seats");
   });
 
+  // Function to refactor
+  function slideUpAndRemoveClass() {
+    $(".seats-selected").slideUp();
+    $(".container").removeClass("mainbody");
+  }
+
   // CountDown Section
   let countdownInterval;
   // Function to start countdown timer
   function startCountdownTimer() {
     // Set the initial countdown time to 30 minutes
-    let countdownTime = 30;
-    // Update the countdown
+    let countdownTime = 30; // change time in seconds
     updateCountdownDisplay(countdownTime);
-    // Start the countdown interval
     countdownInterval = setInterval(function () {
       countdownTime--;
       updateCountdownDisplay(countdownTime);
@@ -749,21 +736,28 @@ $(document).ready(function () {
       if (countdownTime <= 0) {
         clearInterval(countdownInterval);
         updateTabs(1);
-        $("#payment-link").css({'pointer-events': '', 'opacity': ''});
+        $("#footer").show();
+        console.log("work");
+        $("#tab-book-dateTime").addClass("active");
+        $("#payment-link").css({ "pointer-events": "", opacity: "" });
         document.querySelector(".finish-book").style.display = "none";
         const booking = JSON.parse(localStorage.getItem("booking"));
-        isPaid = booking.isPaid;
+        const bookingUserData = JSON.parse(localStorage.getItem("userData"));
+        isPaid = bookingUserData.paymentVerified;
         console.log("expired " + isPaid);
-        // booking.isPaid = false; // main
-        // isPaid = booking.isPaid;
-        // console.log("expired " + isPaid);
+        booking.isPaid = isPaid; // main
+        isPaid = booking.isPaid;
+        localStorage.setItem("booking", JSON.stringify(booking));
+        localStorage.setItem("bookings", JSON.stringify(bookings));
         if (isPaid) {
           let lastIndex = bookings.length - 1;
           bookings[lastIndex].isPaid = true;
+          console.log(bookings[lastIndex].isPaid);
         } else {
           markSelectedSeatsAsBooked();
         }
         localStorage.setItem("booking", JSON.stringify(booking));
+        localStorage.setItem("bookings", JSON.stringify(bookings));
         document.querySelector(".tab-content").style.display = "block";
         console.log("Countdown timer expired!");
       }
@@ -783,33 +777,25 @@ $(document).ready(function () {
 
 // Pure JS Code
 let today = new Date();
-// Array of available show times
 let times = ["11:30", "14:30", "17:30", "19:00"];
+let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 
 // Handling Date and Day for booking
 function dayDateHandler() {
-  // Array to store day names
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-
   // Default selected date be today
   selectedDate = today.toDateString();
-
-  // Array to store date for next 4 days and storing them
   let dates = [];
   for (let i = 0; i < 4; i++) {
     let date = new Date();
     date.setDate(today.getDate() + i);
     dates.push(date);
   }
-
-  // Update HTML with resulted dates
   let datesHTML = "";
   for (let i = 0; i < dates.length; i++) {
     let dayName = days[dates[i].getDay()];
     let dateString = dates[i].getDate();
     let isSelected = dates[i].toDateString() === selectedDate;
     let activeClass = isSelected ? "active" : "";
-
     datesHTML += `
     <div class="select-date ${activeClass}" data-date="${dates[
       i
@@ -821,28 +807,20 @@ function dayDateHandler() {
   }
   document.getElementById("dates").innerHTML = datesHTML;
 
-  // Add event listeners to each day
   let dayElements = document.querySelectorAll(".select-date");
   dayElements.forEach(function (dayElement) {
     dayElement.addEventListener("click", function () {
       dayElements.forEach(function (dayEl) {
         dayEl.classList.remove("active");
       });
-      // Add active class to clicked day
       this.classList.add("active");
-
-      // Get clicked date
       selectedDate = this.dataset.date;
-
-      console.log("Clicked Date:", selectedDate);
-      console.log(selectedDate === today.toDateString());
       if (selectedDate !== today.toDateString()) {
         updateTabs(1);
       }
       updateTimesHTML(this);
     });
   });
-  // Return selected date
   return selectedDate;
 }
 
@@ -858,7 +836,6 @@ function updateTimesHTML(selectedDate) {
   if (isTodaySelected) {
     nearestTime = getNearestTime(today, times);
   } else {
-    // Remove disabled class for other days
     document.querySelectorAll(".select-time").forEach((time) => {
       time.classList.remove("disabled");
     });
@@ -878,7 +855,6 @@ function updateTimesHTML(selectedDate) {
       `;
   });
 
-  // Append the generated HTML to the .select-time container
   document.querySelector(".select-time-container").innerHTML = timesHTML;
 
   let disabledCount = handleDisabledTimes();
@@ -886,16 +862,12 @@ function updateTimesHTML(selectedDate) {
     timesHTML = "";
     timesHTML += `<div class="no-show-time">No More Show Time For Today</div>`;
     updateTabs(0);
-    // Hide the button
     document.querySelector("#select-seats-button").style.visibility = "hidden";
   } else {
     updateTabs(1);
     document.querySelector("#select-seats-button").style.visibility = "visible";
   }
-
-  // Append the generated HTML to the .select-time container
   document.querySelector(".select-time-container").innerHTML = timesHTML;
-
   showTimeHandler();
 }
 
@@ -916,8 +888,6 @@ function handleDisabledTimes() {
 // Handling Show Time for booking
 function showTimeHandler() {
   attachTimeListeners();
-
-  // Set default selectedTime to nearest available time
   selectedTime = getNearestTime(today, times);
   return selectedTime;
 }
@@ -933,7 +903,6 @@ function attachTimeListeners() {
       timeElements.forEach(function (timeEl) {
         timeEl.classList.remove("active");
       });
-      // Add active class to the clicked time
       this.classList.add("active");
       selectedTime = this.dataset.time;
       selectedTimeClicked = selectedTime;
